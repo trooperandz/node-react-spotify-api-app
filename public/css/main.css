@@ -1,0 +1,31 @@
+html, body {
+  font-family: 'Helvetica Neue';
+  margin: 0 10px; }
+
+.navbar {
+  display: flex;
+  margin: 1.5rem 2rem; }
+  .navbar__link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: .8rem;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none; }
+    .navbar__link:after {
+      content: "";
+      display: block;
+      margin-top: 10px;
+      right: 0;
+      width: 0;
+      height: 3px;
+      background: #ccc;
+      transition: width .3s; }
+    .navbar__link:hover:after {
+      width: 50%; }
+    .navbar__link.active:after {
+      width: 50%; }

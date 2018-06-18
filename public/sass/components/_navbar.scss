@@ -1,0 +1,38 @@
+// Main application navbar
+
+.navbar {
+  display: flex;
+  margin: 1.5rem 2rem;
+
+  &__link {
+    position: relative;
+    display: flex;
+    flex-direction: column; // for link and underline pseudo element stacking
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: .8rem;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none;
+
+    &:after {
+      content: "";
+      display: block;
+      margin-top: 10px;
+      right: 0;
+      width: 0;
+      height: 3px;
+      background: #ccc;
+      transition: width .3s;
+    }
+
+    &:hover:after {
+      width: 50%; // TODO: for small screens, do width: 115%
+    }
+
+    &.active:after {
+      width: 50%;
+    }
+  }
+}
