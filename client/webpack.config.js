@@ -36,7 +36,7 @@ module.exports = {
         target: 'http://localhost:8080/api/',
         secure: false
       }
-    }
+    },
     contentBase: path.join(__dirname, "public/"),
     publicPath: "http://localhost:3000/dist/",
     // hotOnly: true

@@ -1,10 +1,14 @@
 html, body {
   font-family: 'Helvetica Neue';
-  margin: 0 10px; }
+  margin: 0 3rem; }
+
+.card-wrapper {
+  display: flex;
+  flex-wrap: wrap; }
 
 .navbar {
   display: flex;
-  margin: 1.5rem 2rem; }
+  margin: 1.5rem 2rem 3rem; }
   .navbar__link {
     position: relative;
     display: flex;
@@ -29,3 +33,14 @@ html, body {
       width: 50%; }
     .navbar__link.active:after {
       width: 50%; }
+
+.card {
+  display: flex;
+  flex: 1 0 15%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  margin: 0 .7rem 1.5rem;
+  min-height: 10rem;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }

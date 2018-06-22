@@ -1,4 +1,9 @@
 html, body {
   font-family: 'Helvetica Neue';
-  margin: 0 10px;
+  margin: 0 3rem;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
 }
