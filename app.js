@@ -8,6 +8,7 @@ var exphbs  = require('express-handlebars');
 const uuidv4 = require('uuid/v4');
 
 const indexRouter = require('./routes/index');
+const spotifyRouter = require('./routes/spotify');
 
 const app = express();
 app.use(session({ secret: uuidv4(), cookie: { maxAge: 60000 }}));
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client')));
 
 app.use('/', indexRouter);
+app.use('/spotify', spotifyRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

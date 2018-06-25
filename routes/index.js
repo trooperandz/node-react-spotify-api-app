@@ -1,6 +1,6 @@
 const express = require('express');
-const request = require('request')
-const querystring = require('querystring')
+const request = require('request');
+const querystring = require('querystring');
 const {
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
