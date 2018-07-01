@@ -1,35 +1,28 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+
+import newReleaseActions from '../actions/newReleaseActions';
 import CardContainer from './CardContainer';
 
 class NewReleaseContainer extends Component {
   constructor(props) {
     super(props);
-
-    this.state= {
-      albumArr: [],
-    };
   }
 
   componentDidMount() {
-    const { albumArr } = this.state;
-
+    const { newReleaseActions, albumArr } = this.props;
+    console.log('componentDidMount ran; props = ', this.props);
     if (!albumArr.length) {
-      axios.get('/spotify/new-releases')
-        .then((response) => {
-          console.log('response: ', response);
-          this.setState({ albumArr: response.data.albumArr });
-        })
-        .catch((error) =>  {
-          console.log(error);
-        });
+      newReleaseActions.fetchNewReleases();
     }
   }
   
   render() {
-    const { albumArr } = this.state;
-
-    if (albumArr.length) {
+    const { albumArr } = this.props;
+    console.log('render ran; props = ', this.props);
+    if (albumArr && albumArr.length) {
       return (
         <div>
           <CardContainer albumArr={albumArr} />
@@ -41,4 +34,23 @@ class NewReleaseContainer extends Component {
   }
 }
 
-export default NewReleaseContainer;
+NewReleaseContainer.propTypes = {
+  albumArr: PropTypes.array.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    albumArr: state.albumArr,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    newReleaseActions: bindActionCreators(newReleaseActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewReleaseContainer);
