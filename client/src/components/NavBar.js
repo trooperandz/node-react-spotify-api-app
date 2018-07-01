@@ -8,7 +8,7 @@ class NavBar extends Component {
         <NavLink exact className="navbar__link" to="/">New Releases</NavLink>
         <NavLink className="navbar__link" to="/my-playlists">My Playlists</NavLink>
         <NavLink className="navbar__link" to="/saved-music">Saved Music</NavLink>
-        <NavLink className="navbar__link" to="/genres">Genres</NavLink>
+        <NavLink className="navbar__link" to="/categories">Categories</NavLink>
       </div>
     );
   }

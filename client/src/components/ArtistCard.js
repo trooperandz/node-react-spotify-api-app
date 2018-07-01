@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = (props) => {
+const ArtistCard = (props) => {
   const { cardArr } = props;
   
   const cards = cardArr.map((card, i) => {
@@ -11,7 +11,7 @@ const Card = (props) => {
     };
 
     return (
-      <div key={albumId} className="card" style={styles}>
+      <div key={albumId} className="card card--artist" style={styles}>
         <div>{artist}</div>
         <div>{albumName}</div>
         <div>{releaseDate}</div>
@@ -22,4 +22,4 @@ const Card = (props) => {
   return cards;
 }
 
-export default Card;
+export default ArtistCard;

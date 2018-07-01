@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/new-releases', (req, res) => {
   const accessToken = req.session.accessToken; console.log('accessToken: ', accessToken);
   const countryCodeParam = 'country=SE';
-  var options = {
+  const options = {
     url: `https://api.spotify.com/v1/browse/new-releases?${countryCodeParam}`,
     headers: {
       'Authorization': `Bearer ${accessToken}`,
@@ -24,8 +24,31 @@ router.get('/new-releases', (req, res) => {
     }
 
     const parsedResponse = JSON.parse(body);
-    const { albums: { items: albumArr } } = parsedResponse;
+    const { albums: { items: albumArr = {} } } = parsedResponse;
     return res.json({ success: true, albumArr });
+  });
+});
+
+router.get('/categories', (req, res) => {
+  console.log('hit categories endpoint...');
+  const accessToken = req.session.accessToken;
+  const options = {
+    url: 'https://api.spotify.com/v1/browse/categories',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    }
+  }
+
+  request.get(options, (err, response, body) => {
+    if (err) {
+      console.log('error: ', err);
+      return res.json({ success: false, error: err });
+    }
+
+    const parsedResponse = JSON.parse(body);
+    console.log('parsedResponse: ', parsedResponse);
+    const { categories: { items: categoriesArr = {} } } = parsedResponse;
+    return res.json({ success: true, categoriesArr });
   });
 });
 

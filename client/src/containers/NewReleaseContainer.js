@@ -1,3 +1,7 @@
+/**
+ * Fetch and display spotify new releases
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,16 +16,14 @@ class NewReleaseContainer extends Component {
   }
 
   componentDidMount() {
-    const { newReleaseActions, albumArr } = this.props;
-    console.log('componentDidMount ran; props = ', this.props);
-    if (!albumArr.length) {
-      newReleaseActions.fetchNewReleases();
-    }
+    const { newReleaseActions: { fetchNewReleases }, albumArr } = this.props;
+
+    if (!albumArr.length) fetchNewReleases();
   }
   
   render() {
     const { albumArr } = this.props;
-    console.log('render ran; props = ', this.props);
+
     if (albumArr && albumArr.length) {
       return (
         <div>

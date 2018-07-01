@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
-import Card from '../components/Card';
+/**
+ * Main wrapper for all content cards
+ */
 
-// State container for all music cards
+import React, { Component } from 'react';
+import ArtistCard from '../components/ArtistCard';
+import CategoryCard from '../components/CategoryCard';
+
 class CardContainer extends Component {
   constructor(props) {
     super(props);
@@ -39,13 +43,56 @@ class CardContainer extends Component {
       return arr;
     }, []);
 
-    return formattedAlbumArr;
+    return (
+      <ArtistCard cardArr={formattedAlbumArr} />
+    );
+  }
+
+  /**
+   * Format the categories array into usable objects.
+   * Desired format: { categoryId, categoryName, imgUrl, categoryHref }
+   */
+  formatCategoryCards() {
+    const { categoriesArr } = this.props;
+
+    const formattedCategoryArr = categoriesArr.reduce((arr, category) => {
+      const {
+        id: categoryId,
+        name: categoryName,
+        icons,
+        href: categoryHref,
+      } = category;
+
+      const categoryObj = {
+        categoryId,
+        categoryName,
+        imgUrl: icons[0].url,
+        categoryHref,
+      };
+
+      arr.push(categoryObj);
+
+      return arr;
+    }, []);
+
+    return <CategoryCard cardArr={formattedCategoryArr} />;
+  }
+
+  // TODO: tap into redux for card arrays
+  getFormattedCards() {
+    const { albumArr, categoriesArr } = this.props;
+
+    if (albumArr && albumArr.length) {
+      return this.formatAlbumCards();
+    } else if (categoriesArr && categoriesArr.length) {
+      return this.formatCategoryCards();
+    }
   }
 
   render() {
     return (
       <div className="card-wrapper">
-        <Card cardArr={this.formatAlbumCards()} />
+        {this.getFormattedCards()}
       </div>
     );
   }
