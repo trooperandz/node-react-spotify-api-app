@@ -1,23 +1,69 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-const CategoryCard = (props) => {
-  const { cardArr } = props;
-  
-  const cards = cardArr.map((card, i) => {
-    const { categoryId, categoryName, imgUrl, categoryHref } = card;
+import playlistActions from '../actions/playlistActions';
 
-    const styles = {
-      backgroundImage: `url(${imgUrl})`,
+class CategoryCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirectToDetailView: false,
     };
 
-    return (
-      <div key={categoryId} className="card card--category" style={styles}>
-        <div>{categoryName}</div>
-      </div>
-    );
-  });
+    this.handleCardClick = this.handleCardClick.bind(this);
+  }
 
-  return cards;
+  handleCardClick(ownerId, playlistId) {
+    const { playlistActions: { fetchPlaylist } } = this.props;
+    console.log({ownerId});
+    console.log({playlistId});
+    fetchPlaylist(ownerId, playlistId);
+    this.setState({ redirectToDetailView: true });
+  }
+
+  renderCards() {
+    const { cardArr } = this.props;
+
+    const cards = cardArr.map((card, i) => {
+      const { playlistId, playlistName, ownerId, imgUrl, categoryHref } = card;
+
+      const styles = {
+        backgroundImage: `url(${imgUrl})`,
+      };
+
+      return (
+        <div key={playlistId} className="card card--category" style={styles} onClick={() => this.handleCardClick(ownerId, playlistId)}>
+          <div className="card__category-title">{playlistName}</div>
+        </div>
+      );
+    });
+
+    return cards;
+  }
+
+  render() {
+    const { redirectToDetailView } = this.state;
+
+    if (redirectToDetailView) return <Redirect to="/detail"/>;
+
+    return this.renderCards();
+  }
 }
 
-export default CategoryCard;
+function mapStateToProps(state) {
+  return state;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    playlistActions: bindActionCreators(playlistActions, dispatch),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CategoryCard);

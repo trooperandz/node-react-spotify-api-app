@@ -1,10 +1,21 @@
 html, body {
-  font-family: 'Helvetica Neue';
-  margin: 0 3rem;
+  font-family: 'Nunito', 'Helvetica Neue';
+  margin: 0;
+  color: #3e454c;
+  background-color: #fafafa;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.content-wrapper {
+
 }
 
 .card-wrapper {
   display: flex;
+  flex: 10;
   flex-wrap: wrap;
   justify-content: space-around;
 }

@@ -13,13 +13,15 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        <Switch>
-          <Route exact path="/" component={NewReleaseContainer}></Route>
-          <Route path="/my-playlists" component={MyPlaylistsContainer}></Route>
-          <Route path="/saved-music" component={SavedMusicContainer}></Route>
-          <Route path="/categories" component={CategoriesContainer}></Route>
-          <Route path="/detail" component={DetailContainer}></Route>
-        </Switch>
+        <div className="content-wrapper">
+          <Switch>
+            <Route exact path="/" component={NewReleaseContainer}></Route>
+            <Route path="/my-playlists" component={MyPlaylistsContainer}></Route>
+            <Route path="/saved-music" component={SavedMusicContainer}></Route>
+            <Route path="/categories" component={CategoriesContainer}></Route>
+            <Route path="/detail" component={DetailContainer}></Route>
+          </Switch>
+        </div>
       </div>
     );
   }

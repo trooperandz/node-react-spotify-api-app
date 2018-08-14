@@ -1,0 +1,34 @@
+// playlist detail page
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+
+  &__info-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  &__img {
+    width: 230px;
+    height: 230px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 3px;
+  }
+
+  &__title {
+    font-size: 33px;
+    color: gray;
+  }
+
+  &__description {
+    font-size: 18px;
+  }
+}

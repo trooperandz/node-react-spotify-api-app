@@ -3,6 +3,8 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import ArtistCard from '../components/ArtistCard';
 import CategoryCard from '../components/CategoryCard';
 
@@ -17,9 +19,9 @@ class CardContainer extends Component {
    * Desired format: { albumId, artist, albumName, imgUrl, releaseDate, albumHref }
    */
   formatAlbumCards() {
-    const { albumArr } = this.props;
+    const { newReleaseArr } = this.props;
 
-    const formattedAlbumArr = albumArr.reduce((arr, album) => {
+    const formattedAlbumArr = newReleaseArr.reduce((arr, newRelease) => {
       const {
         id: albumId,
         artists,
@@ -27,7 +29,7 @@ class CardContainer extends Component {
         images,
         release_date: releaseDate,
         href: albumHref,
-      } = album;
+      } = newRelease;
 
       const albumObj = {
         albumId,
@@ -50,23 +52,24 @@ class CardContainer extends Component {
 
   /**
    * Format the categories array into usable objects.
-   * Desired format: { categoryId, categoryName, imgUrl, categoryHref }
    */
   formatCategoryCards() {
     const { categoriesArr } = this.props;
 
-    const formattedCategoryArr = categoriesArr.reduce((arr, category) => {
+    const formattedCardArr = categoriesArr.reduce((arr, category) => {
       const {
-        id: categoryId,
-        name: categoryName,
-        icons,
+        id: playlistId,
+        name: playlistName,
+        owner: { id: ownerId },
+        images,
         href: categoryHref,
       } = category;
 
       const categoryObj = {
-        categoryId,
-        categoryName,
-        imgUrl: icons[0].url,
+        playlistId,
+        playlistName,
+        ownerId,
+        imgUrl: images[0].url,
         categoryHref,
       };
 
@@ -75,14 +78,14 @@ class CardContainer extends Component {
       return arr;
     }, []);
 
-    return <CategoryCard cardArr={formattedCategoryArr} />;
+    return <CategoryCard cardArr={formattedCardArr} />;
   }
 
   // TODO: tap into redux for card arrays
   getFormattedCards() {
-    const { albumArr, categoriesArr } = this.props;
+    const { newReleaseArr, categoriesArr } = this.props;
 
-    if (albumArr && albumArr.length) {
+    if (newReleaseArr && newReleaseArr.length) {
       return this.formatAlbumCards();
     } else if (categoriesArr && categoriesArr.length) {
       return this.formatCategoryCards();

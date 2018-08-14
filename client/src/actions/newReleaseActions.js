@@ -7,11 +7,11 @@ import {
   REQUEST_NEW_RELEASES,
 } from './actionTypes';
 
-function fetchNewReleases() {
+function fetchNewReleases(countryCode) {
   return (dispatch) => {
     dispatch(requestNewReleases());
 
-    axios.get('/spotify/new-releases')
+    axios.get(`/spotify/new-releases?countryCode=${countryCode}`)
       .then((response) => {
         console.log('response: ', response);
         dispatch(receiveNewReleases(response.data.albumArr));

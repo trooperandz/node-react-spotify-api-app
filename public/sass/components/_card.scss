@@ -1,6 +1,7 @@
 // Cards for displaying album/playlist image & info
 
 .card {
+  position: relative;
   display: flex;
   flex-basis: 230px;
   width: 230px;
@@ -12,7 +13,24 @@
   margin: 0 .7rem 1.5rem;
   min-height: 10rem;
   border-radius: 3px;
-  backgroundSize: contain;
-  backgroundRepeat: no-repeat;
+  background-size: contain;
+  background-repeat: no-repeat;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+
+  &--category {
+    opacity: .8;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  &__category-title {
+    position: absolute;
+    bottom: 1rem;
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
+    color: #fff;
+  }
 }

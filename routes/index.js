@@ -14,7 +14,7 @@ const redirect_uri = REDIRECT_URI;
 // If access token is present, proceed to React app; otherwise go to login page
 router.get('/', (req, res) => {
   if (req.session.accessToken) {
-    res.render('app');
+    res.redirect('/new-releases');
   } else {
     res.render('login');
   }

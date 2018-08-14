@@ -1,0 +1,29 @@
+.track-table {
+  width: 100%;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+  outline: none;
+  color: #3e454c;
+  border-collapse: collapse;
+  background-color: #fff;
+
+  &__header {
+    color: #3e454c;
+  }
+
+  &__th {
+    padding: 20px;
+    color: #3e454c;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  &__row {
+    
+  }
+
+  &__td {
+    padding: 16px;
+    color: #3e454c;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+}

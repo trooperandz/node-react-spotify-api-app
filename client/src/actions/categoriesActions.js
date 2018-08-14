@@ -7,11 +7,11 @@ import {
   RECEIVE_CATEGORIES,
 } from './actionTypes';
 
-function fetchCategories() {
+function fetchCategories(categoryId) {
   return (dispatch) => {
     dispatch(requestCategories());
 
-    axios.get('/spotify/categories')
+    axios.get(`/spotify/categories?categoryId=${categoryId}`)
       .then((response) => {
         console.log('response: ', response);
         dispatch(receiveCategories(response.data.categoriesArr));
