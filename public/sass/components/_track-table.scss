@@ -5,6 +5,7 @@
   color: #3e454c;
   border-collapse: collapse;
   background-color: #fff;
+  border-radius: 3px;
 
   &__header {
     color: #3e454c;
@@ -25,5 +26,16 @@
     padding: 16px;
     color: #3e454c;
     border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  &__control-icon {
+    display: flex;
+    margin-left: 6px;
+    fill: #599bf1;
+
+    &:hover {
+      cursor: pointer;
+      fill: darken(#599bf1, 12%);
+    }
   }
 }

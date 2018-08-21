@@ -23,6 +23,10 @@ router.get('/', (req, res) => {
   );
 });
 
+router.get('/', (req, res) => {
+  return res.render('app');
+});
+
 /* GET spotify Oauth login authorization response */
 router.get('/callback', (req, res) => {
   let code = req.query.code || null

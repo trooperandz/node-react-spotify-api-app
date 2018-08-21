@@ -32,6 +32,11 @@ router.get('/login', (req, res) => {
   );
 });
 
+// For testing
+// router.get('/', (req, res) => {
+//   return res.render('app');
+// });
+
 // Spotify Oauth login authorization response from redirect_uri
 router.get('/callback', (req, res) => {
   const { code } = req.query;

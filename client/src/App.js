@@ -7,6 +7,7 @@ import MyPlaylistsContainer from './containers/MyPlaylistsContainer';
 import SavedMusicContainer from './containers/SavedMusicContainer';
 import CategoriesContainer from './containers/CategoriesContainer';
 import DetailContainer from './containers/DetailContainer';
+import TestTable from './containers/TestTable';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
         <NavBar />
         <div className="content-wrapper">
           <Switch>
+            {/*<Route exact path="/" component={TestTable}></Route>*/}
             <Route exact path="/" component={NewReleaseContainer}></Route>
             <Route path="/my-playlists" component={MyPlaylistsContainer}></Route>
             <Route path="/saved-music" component={SavedMusicContainer}></Route>

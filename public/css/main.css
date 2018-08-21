@@ -7,6 +7,11 @@ html, body {
 .flex-container {
   display: flex; }
 
+.content-wrapper {
+  margin: 0 auto;
+  max-width: 1500px;
+  padding: 12px; }
+
 .card-wrapper {
   display: flex;
   flex: 10;
@@ -95,9 +100,9 @@ html, body {
   background-size: contain;
   background-repeat: no-repeat;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
-  .card--category {
+  .card--artist, .card--category {
     opacity: .8; }
-    .card--category:hover {
+    .card--artist:hover, .card--category:hover {
       opacity: 1;
       cursor: pointer; }
   .card__category-title {
@@ -135,7 +140,8 @@ html, body {
   outline: none;
   color: #3e454c;
   border-collapse: collapse;
-  background-color: #fff; }
+  background-color: #fff;
+  border-radius: 3px; }
   .track-table__header {
     color: #3e454c; }
   .track-table__th {
@@ -147,3 +153,10 @@ html, body {
     padding: 16px;
     color: #3e454c;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+  .track-table__control-icon {
+    display: flex;
+    margin-left: 6px;
+    fill: #599bf1; }
+    .track-table__control-icon:hover {
+      cursor: pointer;
+      fill: #2179ec; }
