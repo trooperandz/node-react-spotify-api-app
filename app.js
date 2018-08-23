@@ -3,15 +3,30 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const session = require('express-session');
-var exphbs  = require('express-handlebars');
+const exphbs  = require('express-handlebars');
 const uuidv4 = require('uuid/v4');
+const session = require('express-session');
+const redis = require('redis');
+const redisClient = redis.createClient();
+const redisStore = require('connect-redis')(session);
 
 const indexRouter = require('./routes/index');
 const spotifyRouter = require('./routes/spotify');
 
 const app = express();
-app.use(session({ secret: uuidv4(), cookie: { maxAge: 60000 }}));
+
+redisClient.on('error', (err) => {
+  console.log('Error: ', err);
+});
+
+// Start a session; we use Redis for the store
+app.use(session({
+  secret: 'TeslaRocks',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {},
+  store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 260 }),
+}));
 
 // View engine setup
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));

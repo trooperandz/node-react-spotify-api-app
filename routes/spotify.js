@@ -10,10 +10,12 @@ const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
  * Extract the album array from the response and send to the front-end.
  */
 router.get('/new-releases', (req, res) => {
-  const accessToken = req.session.accessToken; console.log('accessToken: ', accessToken);
-  const { countryCode } = req.query; console.log('countryCode in endpoint: ', countryCode);
+  const accessToken = req.session.accessToken;
+  console.log('accessToken in /new-releases: ', accessToken);
+  console.log('req.session in /new-releases: ', req.session);
+  const { countryCode } = req.query;
   let countryCodeParam = '';
-  if (countryCode) countryCodeParam = `country=${countryCode}`; console.log('countryCodeParam: ', countryCodeParam);
+  if (countryCode) countryCodeParam = `country=${countryCode}`;
   const options = {
     url: `${SPOTIFY_BASE_URL}/browse/new-releases?${countryCodeParam}`,
     headers: {
@@ -21,7 +23,7 @@ router.get('/new-releases', (req, res) => {
     },
   };
 
-  request.get(options, (err, response, body) => { console.log('response: ', response);
+  request.get(options, (err, response, body) => {
     if (err) {
       console.log('error: ', err);
       return res.json({ success: false, error: err});
@@ -39,9 +41,9 @@ router.get('/new-releases', (req, res) => {
 
 // Get a playlist from a provided category
 router.get('/categories', (req, res) => {
-  console.log('hit categories endpoint...');
   const { categoryId } = req.query;
   const accessToken = req.session.accessToken;
+  console.log('accessToken in /categories: ', accessToken);
   const options = {
     url: `${SPOTIFY_BASE_URL}/browse/categories/${categoryId}/playlists`,
     headers: {
@@ -54,10 +56,10 @@ router.get('/categories', (req, res) => {
       console.log('error: ', err);
       return res.json({ success: false, error: err });
     }
-    console.log('body response for category fetch: ', body);
+
     const parsedResponse = JSON.parse(body);
-    console.log('parsedResponse: ', parsedResponse);
     const { playlists: { items: categoriesArr = {} } } = parsedResponse;
+
     return res.json({ success: true, categoriesArr });
   });
 });
@@ -67,6 +69,7 @@ router.get('/categories', (req, res) => {
 router.get('/playlist', (req, res) => {
   const { userId, playlistId } = req.query;
   const accessToken = req.session.accessToken;
+  console.log('accessToken in /playlist: ', accessToken);
   const options = {
     url: `${SPOTIFY_BASE_URL}/users/${userId}/playlists/${playlistId}`,
     headers: {
@@ -80,7 +83,7 @@ router.get('/playlist', (req, res) => {
       return res.json({ success: false, error: err });
     }
     // console.log('body response for playlist fetch: ', body);
-    const parsedResponse = JSON.parse(body); console.log('parsedResponse body: ', parsedResponse);
+    const parsedResponse = JSON.parse(body);
     const {
       images,
       description: playlistDescription,

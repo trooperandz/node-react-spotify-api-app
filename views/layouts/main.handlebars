@@ -7,5 +7,13 @@
   </head>
   <body>
     {{{ body }}}
+
+    <!-- Load the Spotify playback SDK and then assign the global var -->
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        window.Spotify = Spotify;
+      }
+    </script>
   </body>
 </html>

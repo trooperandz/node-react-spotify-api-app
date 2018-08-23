@@ -20,6 +20,11 @@ router.get('/', (req, res) => {
   }
 });
 
+// For testing
+// router.get('/', (req, res) => {
+//   return res.render('app');
+// });
+
 // Serve the login page, where the user is shown login info before proceeding to Spotify
 router.get('/login', (req, res) => {
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -31,11 +36,6 @@ router.get('/login', (req, res) => {
     }),
   );
 });
-
-// For testing
-// router.get('/', (req, res) => {
-//   return res.render('app');
-// });
 
 // Spotify Oauth login authorization response from redirect_uri
 router.get('/callback', (req, res) => {
@@ -57,13 +57,14 @@ router.get('/callback', (req, res) => {
   };
 
   request.post(authOptions, (err, response, body) => {
-    console.log('entered request post. response = ', response);
     if (err) {
       res.render('error', { err });
     }
 
-    const accessToken = body.access_token; console.log('accessToken: ', accessToken);
+    const accessToken = body.access_token;
+    console.log('accessToken set in /callback: ', accessToken);
     req.session.accessToken = accessToken;
+    req.session.test = 'cool-beans';
     res.render('app');
   });
 });
