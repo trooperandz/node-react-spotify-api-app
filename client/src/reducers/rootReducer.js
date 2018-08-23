@@ -6,7 +6,7 @@ import categoriesReducer from './categoriesReducer';
 import playlistReducer from './playlistReducer';
 
 const rootReducer = combineReducers({
-  albumArr: newReleaseReducer,
+  newReleases: newReleaseReducer,
   categoriesArr: categoriesReducer,
   playlistObj: playlistReducer,
 });

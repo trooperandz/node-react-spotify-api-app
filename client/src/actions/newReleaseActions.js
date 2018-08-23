@@ -1,10 +1,11 @@
 // For new releases container
 import axios from 'axios';
 
-import { 
+import {
   FETCH_NEW_RELEASES,
   RECEIVE_NEW_RELEASES,
   REQUEST_NEW_RELEASES,
+  SET_COUNTRY_ID,
 } from './actionTypes';
 
 function fetchNewReleases(countryCode) {
@@ -32,7 +33,14 @@ function requestNewReleases() {
 function receiveNewReleases(albumArr) {
   return {
     type: RECEIVE_NEW_RELEASES,
-    payload: albumArr,
+    albumArr,
+  };
+}
+
+function setCountryId(selectedCountryId) {
+  return {
+    type: SET_COUNTRY_ID,
+    selectedCountryId,
   };
 }
 
@@ -40,4 +48,5 @@ export default {
   requestNewReleases,
   fetchNewReleases,
   receiveNewReleases,
+  setCountryId,
 };

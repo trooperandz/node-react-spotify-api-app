@@ -15,17 +15,12 @@ class NewReleaseContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedCountryId: 'US',
-    };
-
     this.handleCountrySelect = this.handleCountrySelect.bind(this);
   }
 
   // Fetch the new releases with the default country select state
   componentDidMount() {
-    const { newReleaseActions: { fetchNewReleases }, albumArr } = this.props;
-    const { selectedCountryId } = this.state;
+    const { newReleaseActions: { fetchNewReleases }, selectedCountryId } = this.props;
 
     fetchNewReleases(selectedCountryId);
   }
@@ -46,22 +41,21 @@ class NewReleaseContainer extends Component {
     ];
   }
 
-  // Trigger new release fetch when side nav country selection occurs
+  // Trigger new release fetch when sidenav country selection occurs
   handleCountrySelect(countryId) {
-    const { newReleaseActions: { fetchNewReleases } } = this.props;
-    console.log('code: ', countryId);
-    this.setState({ selectedCountryId: countryId });
+    const { newReleaseActions: { fetchNewReleases, setCountryId } } = this.props;
+
+    setCountryId(countryId);
     fetchNewReleases(countryId);
   }
-  
+
   render() {
-    const { albumArr } = this.props;
-    const { selectedCountryId } = this.state;
+    const { albumArr, selectedCountryId } = this.props;
 
     if (albumArr && albumArr.length) {
       return (
         <div className="flex-container">
-          <SideNav 
+          <SideNav
             title='Markets'
             handleSelect={this.handleCountrySelect}
             selectedId={selectedCountryId}
@@ -78,11 +72,14 @@ class NewReleaseContainer extends Component {
 
 NewReleaseContainer.propTypes = {
   albumArr: PropTypes.array.isRequired,
+  selectedCountryId: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
+  console.log('state in NewReleaseContainer mapStateToProps: ', state);
   return {
-    albumArr: state.albumArr,
+    albumArr: state.newReleases.albumArr,
+    selectedCountryId: state.newReleases.selectedCountryId,
   };
 }
 
