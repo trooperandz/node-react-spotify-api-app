@@ -1,7 +1,7 @@
 // For detail container
 import axios from 'axios';
 
-import { 
+import {
   FETCH_PLAYLIST,
   REQUEST_PLAYLIST,
   RECEIVE_PLAYLIST,
@@ -12,7 +12,7 @@ function fetchPlaylist(ownerId = 'spotify', playlistId = '37i9dQZF1DX7YCknf2jT6s
   return (dispatch) => {
     dispatch(requestPlaylist());
 
-    axios.get(`/spotify/playlist?userId=${ownerId}&playlistId=${playlistId}`)
+    axios.get(`/playlist?userId=${ownerId}&playlistId=${playlistId}`)
       .then((response) => {
         console.log('fetchPlaylist response: ', response);
         dispatch(receivePlaylist(response.data.playlist));
@@ -20,7 +20,7 @@ function fetchPlaylist(ownerId = 'spotify', playlistId = '37i9dQZF1DX7YCknf2jT6s
       .catch((error) =>  {
         console.log(error);
       });
-  }
+  };
 }
 
 // TODO: add a loader here?
@@ -33,7 +33,7 @@ function requestPlaylist() {
 function receivePlaylist(playlistObj) {
   return {
     type: RECEIVE_PLAYLIST,
-    payload: playlistObj,
+    playlistObj,
   };
 }
 

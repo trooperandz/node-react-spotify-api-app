@@ -45,16 +45,19 @@ class CategoryCard extends Component {
   }
 
   render() {
+    const { playlistObj } = this.props;
     const { redirectToDetailView } = this.state;
 
-    if (redirectToDetailView) return <Redirect to="/detail"/>;
+    if (redirectToDetailView && 'tracks' in playlistObj) return <Redirect to="/detail"/>;
 
     return this.renderCards();
   }
 }
 
 function mapStateToProps(state) {
-  return state;
+  return {
+    playlistObj: state.playlist.playlistObj,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

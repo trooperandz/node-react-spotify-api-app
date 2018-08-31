@@ -10,8 +10,9 @@ const redis = require('redis');
 const redisClient = redis.createClient();
 const redisStore = require('connect-redis')(session);
 
-const indexRouter = require('./routes/index');
-const spotifyRouter = require('./routes/spotify');
+// const indexRouter = require('./routes/index');
+// const spotifyRouter = require('./routes/spotify');
+const routes = require('./routes');
 
 const app = express();
 
@@ -39,8 +40,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client')));
 
-app.use('/', indexRouter);
-app.use('/spotify', spotifyRouter);
+// Reference modularized routes
+app.use('/', routes);
+
+// app.use('/', indexRouter);
+// app.use('/spotify', spotifyRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -23,7 +23,14 @@ class DetailContainer extends Component {
     const { playlistObj } = this.props;
 
     if ('tracks' in playlistObj) {
-      const { playlistName, playlistDescription, playlistFollowers, playlistImgUrl, tracks: trackArr } = playlistObj;
+      const {
+        playlistName,
+        playlistDescription,
+        playlistFollowers,
+        playlistImgUrl,
+        artistLink,
+        tracks: trackArr,
+      } = playlistObj;
 
       const imgStyle = { backgroundImage: `url(${playlistImgUrl})`};
 
@@ -42,13 +49,13 @@ class DetailContainer extends Component {
       );
     }
 
-    return null;
+    return <h2>You aren't playing anything!  Go pick something...</h2>;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    playlistObj: state.playlistObj,
+    playlistObj: state.playlist.playlistObj,
   };
 }
 

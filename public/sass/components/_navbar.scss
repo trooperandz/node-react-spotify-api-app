@@ -26,11 +26,12 @@
       display: block;
       right: 50%;
       width: 0;
-      height: 1px;
-      background: #ccc;
+      height: 3px;
+      background: #599bf1;
       transition: width .3s;
       transform: translateX(50%);
       bottom: 14px;
+      border-radius: 2px;
     }
 
     &:hover:after {

@@ -1,25 +1,77 @@
-import React from 'react';
+/**
+ * Display album cards (covers)
+ */
 
-const ArtistCard = (props) => {
-  const { cardArr } = props;
-  
-  const cards = cardArr.map((card, i) => {
-    const { albumId, artist, albumName, imgUrl, releaseDate, albumHref } = card;
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
-    const styles = {
-      backgroundImage: `url(${imgUrl})`,
+import newReleaseActions from '../actions/newReleaseActions';
+
+class ArtistCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirectToDetailView: false,
     };
+  }
 
-    return (
-      <div key={albumId} className="card card--artist" style={styles}>
-        <div>{artist}</div>
-        <div>{albumName}</div>
-        <div>{releaseDate}</div>
-      </div>
-    );
-  });
+  handleCardClick(albumId) {
+    console.log('handleCardClick running...');
+    const { newReleaseActions: { fetchAlbum } } = this.props;
+    console.log({albumId});
 
-  return cards;
+    fetchAlbum(albumId);
+    this.setState({ redirectToDetailView: true });
+  }
+
+  renderCards() {
+    const { cardArr } = this.props;
+
+    const cards = cardArr.map((card, i) => {
+      const { albumId, artist, albumName, imgUrl, releaseDate, albumHref } = card;
+
+      const styles = {
+        backgroundImage: `url(${imgUrl})`,
+      };
+
+      return (
+        <div key={albumId} className="card card--artist" style={styles} onClick={() => this.handleCardClick(albumId)}>
+          <div>{artist}</div>
+          <div>{albumName}</div>
+          <div>{releaseDate}</div>
+        </div>
+      );
+    });
+
+    return cards;
+  }
+
+  render() {
+    const { albumObj } = this.props;
+    const { redirectToDetailView } = this.state;
+
+    if (redirectToDetailView && 'tracks' in albumObj) return <Redirect to="/detail"/>;
+
+    return this.renderCards();
+  }
 }
 
-export default ArtistCard;
+function mapStateToProps(state) {
+  return {
+    albumObj: state.newReleases.albumObj,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    newReleaseActions: bindActionCreators(newReleaseActions, dispatch),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ArtistCard);

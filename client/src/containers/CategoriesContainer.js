@@ -15,16 +15,14 @@ class CategoriesContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedCategoryId: 'jazz',
-    };
-
     this.handleCategorySelect = this.handleCategorySelect.bind(this);
   }
 
   componentDidMount() {
-    const { categoriesActions: { fetchCategories } } = this.props;
-    const { selectedCategoryId } = this.state;
+    const { categoriesActions: { fetchCategories }, selectedCategoryId, categoriesArr } = this.props;
+
+    // Don't send another api call on mount if we already have previous results
+    if (categoriesArr && categoriesArr.length) return null;
 
     fetchCategories(selectedCategoryId);
   }
@@ -48,17 +46,17 @@ class CategoriesContainer extends Component {
     ];
   }
 
-  handleCategorySelect(categoryId) {
-    const { categoriesActions: { fetchCategories } } = this.props;
-    console.log('selected category: ', categoryId);
-    this.setState({ selectedCategoryId: categoryId });
-    fetchCategories(categoryId);
+  handleCategorySelect(selectedCategoryId) {
+    const { categoriesActions: { fetchCategories, setCategoryId } } = this.props;
+    console.log('selected category: ', selectedCategoryId);
+    setCategoryId(selectedCategoryId);
+    fetchCategories(selectedCategoryId);
+
   }
 
   render() {
-    const { categoriesArr } = this.props;
-    const { selectedCategoryId } = this.state;
-
+    const { categoriesArr, selectedCategoryId } = this.props;
+    console.log('props in CategoriesContainer: ', this.props);
     return (
       <div className="flex-container">
         <SideNav
@@ -77,11 +75,13 @@ class CategoriesContainer extends Component {
 
 CategoriesContainer.propTypes = {
   categoriesArr: PropTypes.array.isRequired,
+  selectedCategoryId: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    categoriesArr: state.categoriesArr,
+    categoriesArr: state.categories.categoriesArr,
+    selectedCategoryId: state.categories.selectedCategoryId,
   };
 }
 

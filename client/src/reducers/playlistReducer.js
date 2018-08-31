@@ -1,9 +1,13 @@
 // playlist reducer
 
-import initialState from './initialState';
 import { FETCH_PLAYLIST, RECEIVE_PLAYLIST } from '../actions/actionTypes';
 
-export default function playlistReducer(state = initialState.playlistObj, action) {
+const initialState = {
+  playlistObj: {},
+}
+
+export default function playlistReducer(state = initialState, action) {
+  const { playlistObj } = action;
   let newState;
 
   switch (action.type) {
@@ -11,8 +15,11 @@ export default function playlistReducer(state = initialState.playlistObj, action
       console.log('FETCH_PLAYLIST Action')
       return action;
     case RECEIVE_PLAYLIST:
-      newState = action.payload;
       console.log('RECEIVE_PLAYLIST Action')
+      newState = {
+        ...state,
+        playlistObj,
+      };
       return newState;
     default:
       return state;

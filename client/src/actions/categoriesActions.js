@@ -1,17 +1,18 @@
 // For new releases container
 import axios from 'axios';
 
-import { 
+import {
   FETCH_CATEGORIES,
   REQUEST_CATEGORIES,
   RECEIVE_CATEGORIES,
+  SET_CATEGORY_ID,
 } from './actionTypes';
 
 function fetchCategories(categoryId) {
   return (dispatch) => {
     dispatch(requestCategories());
 
-    axios.get(`/spotify/categories?categoryId=${categoryId}`)
+    axios.get(`/categories?categoryId=${categoryId}`)
       .then((response) => {
         console.log('response: ', response);
         dispatch(receiveCategories(response.data.categoriesArr));
@@ -22,7 +23,14 @@ function fetchCategories(categoryId) {
   }
 }
 
-// TODO: add a loader here?
+function setCategoryId(selectedCategoryId) {
+  return {
+    type: SET_CATEGORY_ID,
+    selectedCategoryId,
+  };
+}
+
+// TODO: add a loader here...
 function requestCategories() {
   console.log('hit requestCategories...');
   return {
@@ -33,7 +41,7 @@ function requestCategories() {
 function receiveCategories(categoriesArr) {
   return {
     type: RECEIVE_CATEGORIES,
-    payload: categoriesArr,
+    categoriesArr,
   };
 }
 
@@ -41,4 +49,5 @@ export default {
   requestCategories,
   fetchCategories,
   receiveCategories,
+  setCategoryId,
 };
