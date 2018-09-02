@@ -6,9 +6,6 @@ import {
   FETCH_NEW_RELEASES,
   RECEIVE_NEW_RELEASES,
   SET_COUNTRY_ID,
-  REQUEST_ALBUM_DETAIL,
-  FETCH_ALBUM,
-  RECEIVE_ALBUM,
 } from './actionTypes';
 
 // Get new releases by country code
@@ -25,37 +22,6 @@ function fetchNewReleases(countryCode) {
         console.log(error);
       });
   }
-}
-
-// Get album data for display in the detail container if an album is clicked
-function fetchAlbum(albumId) {
-  console.log('fetchAlbum running...')
-  return (dispatch) => {
-    dispatch(requestAlbumDetail());
-
-    axios.get(`/album?albumId=${albumId}`)
-      .then((response) => {
-        console.log('\n\n\nfetchAlbum response: ', response, '\n\n\n');
-        dispatch(receiveAlbum(response.data.albumObj));
-      })
-      .catch((error) =>  {
-        console.log(error);
-      });
-  }
-}
-
-function requestAlbumDetail() {
-  return {
-    type: REQUEST_ALBUM_DETAIL,
-  }
-}
-
-// Receive the returned album object from the initial album fetch
-function receiveAlbum(albumObj) {
-  return {
-    type: RECEIVE_ALBUM,
-    albumObj,
-  };
 }
 
 // TODO: add a loader here?
@@ -86,7 +52,4 @@ export default {
   fetchNewReleases,
   receiveNewReleases,
   setCountryId,
-  requestAlbumDetail,
-  fetchAlbum,
-  receiveAlbum,
 };

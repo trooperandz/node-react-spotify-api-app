@@ -22,14 +22,14 @@ class DetailContainer extends Component {
   render() {
     const { playlistObj } = this.props;
 
-    if ('tracks' in playlistObj) {
+    if ('trackArr' in playlistObj) {
       const {
         playlistName,
         playlistDescription,
         playlistFollowers,
         playlistImgUrl,
         artistLink,
-        tracks: trackArr,
+        trackArr,
       } = playlistObj;
 
       const imgStyle = { backgroundImage: `url(${playlistImgUrl})`};
@@ -56,6 +56,7 @@ class DetailContainer extends Component {
 function mapStateToProps(state) {
   return {
     playlistObj: state.playlist.playlistObj,
+    // playlistObj: state.newReleases.playlistObj,
   };
 }
 

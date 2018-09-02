@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   const { accessToken } = req.session;
   console.log('accessToken in /album: ', accessToken);
   const options = {
-    url: `${SPOTIFY_BASE_URL}/album/${albumId}`,
+    url: `${SPOTIFY_BASE_URL}/albums/${albumId}`,
     headers: {
       'Authorization': `Bearer ${accessToken}`,
     }
@@ -25,9 +25,9 @@ router.get('/', (req, res) => {
       console.log('error: ', err);
       return res.json({ success: false, error: err });
     }
-    console.log('body response for album fetch: ', body);
-    const parsedResponse = JSON.parse(body);
 
+    const parsedResponse = JSON.parse(body);
+    // console.log('body response for album fetch: ', body);
     const {
       images,
       artists,
@@ -38,16 +38,46 @@ router.get('/', (req, res) => {
       tracks: { items: tracks },
     } = parsedResponse;
 
-    const albumObj = {
+    const trackArr = tracks.reduce((returnArr, track) => {
+      const {
+        id: trackId,
+        name: trackName,
+        track_number: trackNumber,
+        href: trackHref,
+        // albumName: playlistName, // already stated above
+        // albumHref:
+        duration_ms: duration,
+      } = track;
+
+      let formattedDuration = (duration/100000).toString().substring(0,4).replace('.', ':');
+
+      const trackObj = {
+        trackId,
+        trackName,
+        trackNumber,
+        trackHref,
+        albumName: playlistName, // just for consistency
+        // albumHref,
+        trackDuration: formattedDuration,
+        artistName: artists[0].name,
+        artistHref: artists[0].href,
+      };
+
+      returnArr.push(trackObj);
+
+      return returnArr;
+    }, []);
+
+    const playlistObj = {
       playlistName,
-      tracks,
+      trackArr,
       playlistDescription: `${artists[0].name} - Released in ${releaseDate}`,
       playlistFollowers: `${tracks.length} songs`,
       playlistImgUrl: images[1].url,
-      artistLink: artists[0].href,
+      artistHref: artists[0].href,
     };
 
-    return res.json({ success: true, albumObj });
+    return res.json({ success: true, playlistObj });
   });
 });
 

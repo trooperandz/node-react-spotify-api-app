@@ -30,11 +30,20 @@ class TrackTableRow extends Component {
     const { track, handlePlayControlClick, shouldForcePlayIcons } = this.props;
     const { shouldShowPlayIcon } = this.state;
 
-    const { name: trackName, album: { name: albumName }, artists, duration_ms: duration, href: trackHref  } = track;
-    let formattedDuration = (duration/100000).toString().substring(0,4).replace('.', ':');
+    const {
+      trackId,
+      trackName,
+      trackNumber,
+      trackDuration,
+      trackHref,
+      albumName,
+      albumHref,
+      artistName,
+      artistHref,
+    } = track;
 
     return (
-      <tr key={trackName} className="track-table__row">
+      <tr key={trackId} className="track-table__row">
         <td className="track-table__td">
           <div className="track-table__control-icon">
             <PlayControlContainer
@@ -45,9 +54,9 @@ class TrackTableRow extends Component {
           </div>
         </td>
         <td className="track-table__td">{trackName}</td>
-        <td className="track-table__td">{artists[0].name}</td>
+        <td className="track-table__td">{artistName}</td>
         <td className="track-table__td">{albumName}</td>
-        <td className="track-table__td">{formattedDuration}</td>
+        <td className="track-table__td">{trackDuration}</td>
       </tr>
     );
   }

@@ -4,10 +4,11 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import newReleaseActions from '../actions/newReleaseActions';
+import playlistActions from '../actions/playlistActions';
 
 class ArtistCard extends Component {
   constructor(props) {
@@ -19,11 +20,8 @@ class ArtistCard extends Component {
   }
 
   handleCardClick(albumId) {
-    console.log('handleCardClick running...');
-    const { newReleaseActions: { fetchAlbum } } = this.props;
-    console.log({albumId});
+    const { playlistActions: { fetchAlbum } } = this.props;
 
-    fetchAlbum(albumId);
     this.setState({ redirectToDetailView: true });
   }
 
@@ -50,10 +48,10 @@ class ArtistCard extends Component {
   }
 
   render() {
-    const { albumObj } = this.props;
+    const { playlistObj } = this.props;
     const { redirectToDetailView } = this.state;
 
-    if (redirectToDetailView && 'tracks' in albumObj) return <Redirect to="/detail"/>;
+    if (redirectToDetailView && 'trackArr' in playlistObj) return <Redirect to="/detail"/>;
 
     return this.renderCards();
   }
@@ -61,13 +59,13 @@ class ArtistCard extends Component {
 
 function mapStateToProps(state) {
   return {
-    albumObj: state.newReleases.albumObj,
+    playlistObj: state.playlist.playlistObj,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    newReleaseActions: bindActionCreators(newReleaseActions, dispatch),
+    playlistActions: bindActionCreators(playlistActions, dispatch),
   };
 }
 

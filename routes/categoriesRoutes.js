@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
       console.log('error: ', err);
       return res.json({ success: false, error: err });
     }
-
+    console.log('body response in /categories: ', body);
     const parsedResponse = JSON.parse(body);
     const { playlists: { items: categoriesArr = [] } } = parsedResponse;
     const formattedPlaylistCardArr = formatCategoryCards(categoriesArr);

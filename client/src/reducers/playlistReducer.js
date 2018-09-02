@@ -1,6 +1,11 @@
 // playlist reducer
 
-import { FETCH_PLAYLIST, RECEIVE_PLAYLIST } from '../actions/actionTypes';
+import {
+  FETCH_PLAYLIST,
+  RECEIVE_PLAYLIST,
+  FETCH_ALBUM,
+  RECEIVE_ALBUM
+} from '../actions/actionTypes';
 
 const initialState = {
   playlistObj: {},
@@ -16,6 +21,15 @@ export default function playlistReducer(state = initialState, action) {
       return action;
     case RECEIVE_PLAYLIST:
       console.log('RECEIVE_PLAYLIST Action')
+      newState = {
+        ...state,
+        playlistObj,
+      };
+      return newState;
+    case FETCH_ALBUM:
+      console.log('FETCH_ALBUM action fired')
+      return action;
+    case RECEIVE_ALBUM:
       newState = {
         ...state,
         playlistObj,

@@ -2,9 +2,12 @@
 import axios from 'axios';
 
 import {
-  FETCH_PLAYLIST,
   REQUEST_PLAYLIST,
+  FETCH_PLAYLIST,
   RECEIVE_PLAYLIST,
+  REQUEST_ALBUM_DETAIL,
+  FETCH_ALBUM,
+  RECEIVE_ALBUM,
 } from './actionTypes';
 
 function fetchPlaylist(ownerId = 'spotify', playlistId = '37i9dQZF1DX7YCknf2jT6s') {
@@ -37,8 +40,42 @@ function receivePlaylist(playlistObj) {
   };
 }
 
+// Get album data for display in the detail container if an album is clicked
+function fetchAlbum(albumId) {
+  console.log('fetchAlbum running...')
+  return (dispatch) => {
+    dispatch(requestAlbumDetail());
+
+    axios.get(`/album?albumId=${albumId}`)
+      .then((response) => {
+        console.log('\n\n\nfetchAlbum response: ', response, '\n\n\n');
+        dispatch(receiveAlbum(response.data.playlistObj));
+      })
+      .catch((error) =>  {
+        console.log(error);
+      });
+  }
+}
+
+function requestAlbumDetail() {
+  return {
+    type: REQUEST_ALBUM_DETAIL,
+  }
+}
+
+// Receive the returned album playlist object from the initial album fetch
+function receiveAlbum(playlistObj) {
+  return {
+    type: RECEIVE_ALBUM,
+    playlistObj,
+  };
+}
+
 export default {
   requestPlaylist,
   fetchPlaylist,
   receivePlaylist,
+  requestAlbumDetail,
+  fetchAlbum,
+  receiveAlbum,
 };

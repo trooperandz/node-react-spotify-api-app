@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
       return res.json({ success: false, error: err});
     }
 
-    const parsedResponse = JSON.parse(body);
+    const parsedResponse = JSON.parse(body); console.log('parsedResponse in /new-releases: ', parsedResponse);
     if (parsedResponse) {
       const { albums: { items } = {} } = parsedResponse;
       const albumArr = formatAlbumCards(items);

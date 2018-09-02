@@ -4,7 +4,8 @@
   display: flex;
   margin: 0 0 3rem;
   box-shadow: 0px 2px 3px -1px #ccc;
-  background-color: #fff;
+  background-color: slategray;
+  // background-color: #fff;
 
   &__link {
     position: relative;
@@ -15,10 +16,11 @@
     justify-content: center;
     padding: 1.4rem;
     cursor: pointer;
-    color: #505050;
+    color: #ccc;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1.2px;
+    // color: #505050;
 
     &:after {
       content: "";
@@ -26,12 +28,13 @@
       display: block;
       right: 50%;
       width: 0;
-      height: 3px;
-      background: #599bf1;
+      height: 2px;
+      background: #CEF;
       transition: width .3s;
       transform: translateX(50%);
       bottom: 14px;
       border-radius: 2px;
+      // background: #599bf1;
     }
 
     &:hover:after {

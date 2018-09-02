@@ -48,7 +48,7 @@ class CategoryCard extends Component {
     const { playlistObj } = this.props;
     const { redirectToDetailView } = this.state;
 
-    if (redirectToDetailView && 'tracks' in playlistObj) return <Redirect to="/detail"/>;
+    if (redirectToDetailView && 'trackArr' in playlistObj) return <Redirect to="/detail"/>;
 
     return this.renderCards();
   }
