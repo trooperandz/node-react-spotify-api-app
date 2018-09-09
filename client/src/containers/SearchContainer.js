@@ -1,5 +1,5 @@
 /**
- * Displays all search results (can also go back to view previous results)
+ * Displays all search results
  */
 
 import React, { Component } from 'react';

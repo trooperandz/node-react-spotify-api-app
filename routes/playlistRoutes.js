@@ -6,6 +6,7 @@ const express = require('express');
 const request = require('request');
 
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
+const { formatTrackDuration } = require('../controllers/util');
 const router = express.Router();
 
 // Get a category's playlist tracks for the detail view
@@ -47,7 +48,7 @@ router.get('/', (req, res) => {
         href: trackHref
       } = track;
 
-      let formattedDuration = (duration/100000).toString().substring(0,4).replace('.', ':');
+      const formattedDuration = formatTrackDuration(duration);
 
       const trackObj = {
         trackId,

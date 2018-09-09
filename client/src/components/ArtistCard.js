@@ -22,6 +22,7 @@ class ArtistCard extends Component {
   handleCardClick(albumId) {
     const { playlistActions: { fetchAlbum } } = this.props;
 
+    fetchAlbum(albumId);
     this.setState({ redirectToDetailView: true });
   }
 
