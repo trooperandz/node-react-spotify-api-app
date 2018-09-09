@@ -64,7 +64,19 @@ function formatCategoryCards(categoriesArr) {
   return formattedCategoryCardArr;
 }
 
+/**
+ * Format the given duration (ms) for the track table view.
+ * @param {int} The api duration response, in ms
+ * @return {string} The string to diplay in the track table view.
+ */
+function formatTrackDuration(duration) {
+  let formattedDuration = (duration/100000).toString().substring(0,4).replace('.', ':');
+
+  return formattedDuration;
+}
+
 module.exports = {
   formatAlbumCards,
   formatCategoryCards,
+  formatTrackDuration,
 };

@@ -6,6 +6,7 @@ const express = require('express');
 const request = require('request');
 
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
+const { formatTrackDuration } = require('../controllers/util');
 const router = express.Router();
 
 // Get an albums's tracks etc for the detail view
@@ -49,7 +50,7 @@ router.get('/', (req, res) => {
         duration_ms: duration,
       } = track;
 
-      let formattedDuration = (duration/100000).toString().substring(0,4).replace('.', ':');
+      const formattedDuration = formatTrackDuration(duration);
 
       const trackObj = {
         trackId,
