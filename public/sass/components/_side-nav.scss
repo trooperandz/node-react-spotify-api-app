@@ -6,13 +6,15 @@
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
 
   &__title {
-    background-color: #ededed;
+    background-color: #96C0CE;
     font-weight: bold;
-    text-transform: uppercase;
-    padding: 15px;
+    font-size: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 80px; /* matches grid row  height */
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 2.5px;
   }
 
   &__list {

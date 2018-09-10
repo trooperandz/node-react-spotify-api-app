@@ -29,8 +29,10 @@ class CardContainer extends Component {
 
   render() {
     return (
-      <div className="card-wrapper">
-        {this.getCardsByType()}
+      <div className="content">
+        <div className="card-grid-wrapper">
+          {this.getCardsByType()}
+        </div>
       </div>
     );
   }

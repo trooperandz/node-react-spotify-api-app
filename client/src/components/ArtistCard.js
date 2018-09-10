@@ -32,15 +32,12 @@ class ArtistCard extends Component {
     const cards = cardArr.map((card, i) => {
       const { albumId, artist, albumName, imgUrl, releaseDate, albumHref } = card;
 
-      const styles = {
-        backgroundImage: `url(${imgUrl})`,
-      };
-
       return (
-        <div key={albumId} className="card card--artist" style={styles} onClick={() => this.handleCardClick(albumId)}>
-          <div>{artist}</div>
+        <div key={albumId} className="card card--artist" onClick={() => this.handleCardClick(albumId)}>
+          <img className="card__img" src={imgUrl} />
+          {/*<div>{artist}</div>
           <div>{albumName}</div>
-          <div>{releaseDate}</div>
+          <div>{releaseDate}</div>*/}
         </div>
       );
     });

@@ -2,25 +2,46 @@ html, body {
   font-family: 'Nunito', 'Helvetica Neue';
   margin: 0;
   color: #3e454c;
-  background-color: #fafafa; }
+  background-color: #fafafa;
+  height: 100%; }
 
+/* Entire app layout uses new CSS grid */
+.grid-main {
+  display: grid;
+  grid-template-columns: 275px repeat(11, 1fr);
+  grid-template-rows: 80px auto 80px;
+  grid-template-areas: "sidenav navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar" "sidenav content content content content content content content content content content content" "sidenav footer footer footer footer footer footer footer footer footer footer footer";
+  height: 100%; }
+
+/* Define grid containers/areas */
+.navbar {
+  grid-area: navbar; }
+
+.side-nav {
+  grid-area: sidenav; }
+
+.content {
+  grid-area: content; }
+
+.footer {
+  grid-area: footer; }
+
+/* Holds the album cards; make them fully responsive */
+.card-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-auto-rows: 220px;
+  grid-gap: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 35px; }
+
+/* Flex util class */
 .flex-container {
   display: flex; }
 
-.content-wrapper {
-  margin: 0 auto;
-  max-width: 1500px;
-  padding: 12px; }
-
-.card-wrapper {
-  display: flex;
-  flex: 10;
-  flex-wrap: wrap;
-  justify-content: space-around; }
-
 .navbar {
   display: flex;
-  margin: 0 0 3rem;
   box-shadow: 0px 2px 3px -1px #ccc;
   background-color: slategray; }
   .navbar__link {
@@ -60,13 +81,16 @@ html, body {
   background-color: #fff;
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2); }
   .side-nav__title {
-    background-color: #ededed;
+    background-color: #96C0CE;
     font-weight: bold;
-    text-transform: uppercase;
-    padding: 15px;
+    font-size: 38px;
     display: flex;
     align-items: center;
-    justify-content: center; }
+    justify-content: center;
+    height: 80px;
+    /* matches grid row  height */
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 2.5px; }
   .side-nav__list {
     padding-left: 40px; }
   .side-nav__list-item {
@@ -87,32 +111,26 @@ html, body {
         bottom: 6px; }
 
 .card {
-  position: relative;
-  display: flex;
-  flex-basis: 230px;
-  width: 230px;
-  height: 230px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  margin: 0 .7rem 1.5rem;
-  min-height: 10rem;
-  border-radius: 3px;
-  background-size: contain;
-  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
   .card--artist, .card--category {
     opacity: .8; }
     .card--artist:hover, .card--category:hover {
       opacity: 1;
       cursor: pointer; }
-  .card__category-title {
-    position: absolute;
-    bottom: 1rem;
-    font-size: 1.5rem;
-    letter-spacing: 1.2px;
-    color: #fff; }
+  .card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    border-radius: 2px;
+    opacity: .8;
+    transition: all .3s ease-in-out; }
+    .card__img:hover {
+      transform: scale(1.05);
+      cursor: pointer;
+      opacity: .9; }
 
 .playlist {
   display: flex;
@@ -196,3 +214,10 @@ html, body {
     position: absolute;
     top: 12px;
     right: 16px; }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #96C0CE;
+  color: #fff; }

@@ -27,7 +27,7 @@ const SideNav = (props) => {
 
   return (
     <div className="side-nav">
-      <div className="side-nav__title">{title}</div>
+      <div className="side-nav__title">tuneIn</div>
       <ul className="side-nav__list">
         {renderList()}
       </ul>
