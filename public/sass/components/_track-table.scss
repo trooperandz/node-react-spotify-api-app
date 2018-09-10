@@ -1,6 +1,6 @@
 .track-table {
   width: 100%;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.37);
   outline: none;
   color: #3e454c;
   border-collapse: collapse;
@@ -13,13 +13,18 @@
 
   &__th {
     padding: 20px;
-    color: #3e454c;
+    color: slategray;
     text-align: left;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
 
   &__row {
-    
+    background-color: #fff;
+    transition: background-color .3 ease;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
   }
 
   &__td {

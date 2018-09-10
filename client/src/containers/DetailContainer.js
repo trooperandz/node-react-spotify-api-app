@@ -68,6 +68,7 @@ class DetailContainer extends Component {
     return (
       <Fragment>
         <SideNav
+          title='Recently Played'
           selectionArr={this.getPlaylistHistory()}
         />
         <div className="content">
