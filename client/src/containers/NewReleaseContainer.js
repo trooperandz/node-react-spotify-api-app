@@ -2,7 +2,7 @@
  * Fetch and display new releases
  */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -57,15 +57,17 @@ class NewReleaseContainer extends Component {
 
     if (albumArr && albumArr.length) {
       return (
-        <div className="flex-container">
+        <Fragment>
           <SideNav
             title='Markets'
             handleSelect={this.handleCountrySelect}
             selectedId={selectedCountryId}
             selectionArr = {this.getCountrySelectArr()}
           />
-          <CardContainer newReleaseArr={albumArr} />
-        </div>
+          <div className="content">
+            <CardContainer newReleaseArr={albumArr} />
+          </div>
+        </Fragment>
       );
     }
 

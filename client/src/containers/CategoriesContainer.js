@@ -2,7 +2,7 @@
  * Fetch and display spotify categories
  */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -58,17 +58,19 @@ class CategoriesContainer extends Component {
     const { categoriesArr, selectedCategoryId } = this.props;
     console.log('props in CategoriesContainer: ', this.props);
     return (
-      <div className="flex-container">
+      <Fragment>
         <SideNav
           title='Playlists'
           handleSelect={this.handleCategorySelect}
           selectedId={selectedCategoryId}
           selectionArr={this.getCategorySelectArr()}
         />
-        <CardContainer
-          categoriesArr={categoriesArr}
-        />
-      </div>
+        <div className="content">
+          <CardContainer
+            categoriesArr={categoriesArr}
+          />
+        </div>
+      </Fragment>
     );
   }
 }

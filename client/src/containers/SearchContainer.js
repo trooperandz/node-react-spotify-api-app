@@ -2,7 +2,7 @@
  * Displays all search results
  */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
@@ -11,6 +11,7 @@ import searchActions from '../actions/searchActions';
 import CardContainer from './CardContainer';
 import SearchIcon from '../components/SearchIcon';
 import SearchInput from '../components/SearchInput';
+import SideNav from '../components/SideNav';
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -37,20 +38,34 @@ class SearchContainer extends Component {
     setSearchTerm(searchTerm);
   }
 
+  getSearchHistoryArr() {
+    return [
+      { name: 'Alice In Chains', id: '' },
+      { name: 'MGMT', id: '' },
+      { name: 'The Killers', id: '' },
+      { name: 'Nick Drake', id: '' },
+    ];
+  }
+
   render() {
     const { searchResultsArr, searchTerm } = this.props;
 
     const debounceSearch = _.debounce((term) => { this.onSearchInputChange(term) }, 1500);
 
     return (
-      <div>
-        <SearchInput
-          debounceSearch={debounceSearch}
-          setSearchTerm={this.setSearchTerm}
-          searchTerm={searchTerm}
+      <Fragment>
+        <SideNav
+          selectionArr = {this.getSearchHistoryArr()}
         />
-        <CardContainer searchResultsArr={searchResultsArr} />
-      </div>
+        <div className="content">
+          <SearchInput
+            debounceSearch={debounceSearch}
+            setSearchTerm={this.setSearchTerm}
+            searchTerm={searchTerm}
+          />
+          <CardContainer searchResultsArr={searchResultsArr} />
+        </div>
+      </Fragment>
     );
   }
 }

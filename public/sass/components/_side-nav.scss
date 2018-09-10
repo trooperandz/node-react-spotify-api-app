@@ -1,18 +1,31 @@
 .side-nav {
+  position: relative;
   display: flex;
   flex: 2;
   flex-direction: column;
   background-color: #fff;
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
 
+  &__img {
+    position: absolute;
+    z-index: 5;
+    top: 58px;
+    left: 160px;
+    height: 70px;
+    width: 75px;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Yml0LXNtYWxsPC90aXRsZT48cGF0aCBkPSJNNCA0aDF2MUg0eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+');
+  }
+
   &__title {
-    background-color: #ededed;
+    background-color: #96C0CE;
     font-weight: bold;
-    text-transform: uppercase;
-    padding: 15px;
+    font-size: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 80px; /* matches grid row  height */
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 2.5px;
   }
 
   &__list {

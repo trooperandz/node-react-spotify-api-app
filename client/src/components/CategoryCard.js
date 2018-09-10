@@ -18,8 +18,7 @@ class CategoryCard extends Component {
 
   handleCardClick(ownerId, playlistId) {
     const { playlistActions: { fetchPlaylist } } = this.props;
-    console.log({ownerId});
-    console.log({playlistId});
+
     fetchPlaylist(ownerId, playlistId);
     this.setState({ redirectToDetailView: true });
   }
@@ -30,13 +29,9 @@ class CategoryCard extends Component {
     const cards = cardArr.map((card, i) => {
       const { playlistId, playlistName, ownerId, imgUrl, categoryHref } = card;
 
-      const styles = {
-        backgroundImage: `url(${imgUrl})`,
-      };
-
       return (
-        <div key={playlistId} className="card card--category" style={styles} onClick={() => this.handleCardClick(ownerId, playlistId)}>
-          <div className="card__category-title">{playlistName}</div>
+        <div key={playlistId} className="card card--category" onClick={() => this.handleCardClick(ownerId, playlistId)}>
+          <img className="card__img" src={imgUrl} />
         </div>
       );
     });
