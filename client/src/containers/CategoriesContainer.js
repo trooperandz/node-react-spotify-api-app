@@ -65,9 +65,11 @@ class CategoriesContainer extends Component {
           selectedId={selectedCategoryId}
           selectionArr={this.getCategorySelectArr()}
         />
-        <CardContainer
-          categoriesArr={categoriesArr}
-        />
+        <div className="content">
+          <CardContainer
+            categoriesArr={categoriesArr}
+          />
+        </div>
       </Fragment>
     );
   }

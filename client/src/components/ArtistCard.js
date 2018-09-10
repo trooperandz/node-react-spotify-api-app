@@ -35,9 +35,6 @@ class ArtistCard extends Component {
       return (
         <div key={albumId} className="card card--artist" onClick={() => this.handleCardClick(albumId)}>
           <img className="card__img" src={imgUrl} />
-          {/*<div>{artist}</div>
-          <div>{albumName}</div>
-          <div>{releaseDate}</div>*/}
         </div>
       );
     });

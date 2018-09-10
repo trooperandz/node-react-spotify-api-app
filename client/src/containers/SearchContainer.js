@@ -40,10 +40,10 @@ class SearchContainer extends Component {
 
   getSearchHistoryArr() {
     return [
-      { name: 'Alice In Chains' },
-      { name: 'MGMT' },
-      { name: 'The Killers' },
-      { name: 'Nick Drake' },
+      { name: 'Alice In Chains', id: '' },
+      { name: 'MGMT', id: '' },
+      { name: 'The Killers', id: '' },
+      { name: 'Nick Drake', id: '' },
     ];
   }
 
@@ -57,12 +57,14 @@ class SearchContainer extends Component {
         <SideNav
           selectionArr = {this.getSearchHistoryArr()}
         />
-        <SearchInput
-          debounceSearch={debounceSearch}
-          setSearchTerm={this.setSearchTerm}
-          searchTerm={searchTerm}
-        />
-        <CardContainer searchResultsArr={searchResultsArr} />
+        <div className="content">
+          <SearchInput
+            debounceSearch={debounceSearch}
+            setSearchTerm={this.setSearchTerm}
+            searchTerm={searchTerm}
+          />
+          <CardContainer searchResultsArr={searchResultsArr} />
+        </div>
       </Fragment>
     );
   }

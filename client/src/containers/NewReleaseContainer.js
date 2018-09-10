@@ -64,7 +64,9 @@ class NewReleaseContainer extends Component {
             selectedId={selectedCountryId}
             selectionArr = {this.getCountrySelectArr()}
           />
-          <CardContainer newReleaseArr={albumArr} />
+          <div className="content">
+            <CardContainer newReleaseArr={albumArr} />
+          </div>
         </Fragment>
       );
     }
