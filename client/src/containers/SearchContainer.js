@@ -55,6 +55,7 @@ class SearchContainer extends Component {
     return (
       <Fragment>
         <SideNav
+          title='Recent Searches'
           selectionArr = {this.getSearchHistoryArr()}
         />
         <div className="content">
