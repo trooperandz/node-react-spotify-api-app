@@ -1,5 +1,8 @@
 // Shared utility functions
 
+const catchify = require('catchify');
+const { SearchHistory, PlayHistory } = require('../models');
+
 /**
  * Format the spotify album results for album cards displayed in CardContainer
  * @param {Array} albums An array of album objects
@@ -75,8 +78,32 @@ function formatTrackDuration(duration) {
   return formattedDuration;
 }
 
+/**
+ * Retrieve user search history from the database
+ * @return {Array} An array of { name, id } objects from previous searches
+ */
+async function getUserSearchHistory() {
+  const [err, searchHistoryArr] = await catchify(SearchHistory.findAll());
+
+  if (err) {
+    return { success: false, error: err };
+  } else {
+    const searchArr = searchHistoryArr.reduce((arr, searchItem) => {
+      arr.push({
+        name: searchItem.search_term,
+        id: searchItem.search_type,
+      });
+
+      return arr;
+    }, []);
+
+    return { success: true, searchArr };
+  }
+}
+
 module.exports = {
   formatAlbumCards,
   formatCategoryCards,
   formatTrackDuration,
+  getUserSearchHistory,
 };

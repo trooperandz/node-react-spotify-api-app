@@ -23,7 +23,9 @@ class SearchContainer extends Component {
 
   // TODO: kick off the db search history call here
   componentDidMount() {
+    const { searchActions: { fetchSearchHistory } } = this.props;
 
+    fetchSearchHistory();
   }
 
   onSearchInputChange(searchTerm) {
@@ -44,12 +46,17 @@ class SearchContainer extends Component {
   }
 
   getSearchHistoryArr() {
-    return [
-      { name: 'Alice In Chains', id: '' },
-      { name: 'MGMT', id: '' },
-      { name: 'The Killers', id: '' },
-      { name: 'Nick Drake', id: '' },
-    ];
+    const { searchHistoryArr } = this.props;
+    console.log('searchHistoryArr: ', searchHistoryArr);
+    if (!searchHistoryArr) return [ { name: 'Englebert Humperdink', id: '' } ];
+
+    return searchHistoryArr;
+    // return [
+    //   { name: 'Alice In Chains', id: '' },
+    //   { name: 'MGMT', id: '' },
+    //   { name: 'The Killers', id: '' },
+    //   { name: 'Nick Drake', id: '' },
+    // ];
   }
 
   // Kick off another api search if user clicks a side nav search item
@@ -84,6 +91,7 @@ class SearchContainer extends Component {
 
 function mapStateToProps(state) {
   return {
+    searchHistoryArr: state.search.searchHistoryArr,
     searchTerm: state.search.searchTerm,
     searchResultsArr: state.search.searchResultsArr,
   };

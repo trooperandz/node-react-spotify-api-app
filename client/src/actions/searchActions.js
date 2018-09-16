@@ -2,11 +2,53 @@
 import axios from 'axios';
 
 import {
+  REQUEST_SEARCH_HISTORY,
+  FETCH_SEARCH_HISTORY,
+  RECEIVE_SEARCH_HISTORY,
   FETCH_SEARCH_RESULTS,
   REQUEST_SEARCH_RESULTS,
   RECEIVE_SEARCH_RESULTS,
   SET_SEARCH_TERM,
 } from './actionTypes';
+
+// Can use this for a loader
+function requestSearchHistory() {
+  return {
+    type: REQUEST_SEARCH_HISTORY,
+  };
+}
+
+/**
+ * Get user search history from the database
+ * @return {Array} An array of { name, id } objects user previously searched for
+ */
+function fetchSearchHistory() {
+  return (dispatch) => {
+    dispatch(requestSearchHistory());
+
+    axios.get('/search/history')
+      .then((response) => { console.log('history response: ', response);
+        // const parsedResponse = JSON.parse(response);
+        dispatch(receiveSearchHistory(response.data.searchArr));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+function receiveSearchHistory(searchHistoryArr) {
+  return {
+    type: RECEIVE_SEARCH_HISTORY,
+    searchHistoryArr,
+  };
+}
+
+function requestSearchResults() {
+  return {
+    type: REQUEST_SEARCH_RESULTS,
+  };
+}
 
 function fetchSearchResults(searchTerm) {
   return (dispatch) => {
@@ -20,12 +62,6 @@ function fetchSearchResults(searchTerm) {
       .catch((error) => {
         console.log(error);
       });
-  };
-}
-
-function requestSearchResults() {
-  return {
-    type: REQUEST_SEARCH_RESULTS,
   };
 }
 
@@ -44,6 +80,9 @@ function setSearchTerm(searchTerm) {
 }
 
 export default {
+  requestSearchHistory,
+  fetchSearchHistory,
+  receiveSearchHistory,
   requestSearchResults,
   fetchSearchResults,
   receiveSearchResults,

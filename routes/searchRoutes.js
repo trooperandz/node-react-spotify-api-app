@@ -6,7 +6,7 @@ const express = require('express');
 const request = require('request');
 
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
-const { formatAlbumCards } = require('../controllers/util');
+const { formatAlbumCards, getUserSearchHistory } = require('../controllers/util');
 const router = express.Router();
 
 // Retrieve search results (note:  all type params === album for now)
@@ -33,6 +33,16 @@ router.get('/', (req,res) => {
 
     return res.json({ success: true, searchResultsArr: formattedSearchResultsArr });
   });
+});
+
+/**
+ * Get user search history from the database
+ * @return {Object} Object containing { success, error, searchArr }
+ */
+router.get('/history', async (req, res) => {
+  const searchHistory = await getUserSearchHistory();
+
+  return res.json(searchHistory);
 });
 
 module.exports = router;
