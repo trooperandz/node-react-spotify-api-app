@@ -1,6 +1,6 @@
 {
-  "name": "music-on-fleek",
-  "version": "0.0.0",
+  "name": "tunein",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "watch-css": "node-sass-chokidar ./public/sass -o ./public/css --watch --recursive",
@@ -17,7 +17,10 @@
     "http-errors": "~1.6.2",
     "lodash": "^4.17.10",
     "morgan": "~1.9.0",
+    "mysql2": "^1.6.1",
     "numeral": "^2.0.6",
+    "sequelize": "^4.38.1",
+    "sequelize-cli": "^4.1.1",
     "throttle-debounce": "^2.0.1",
     "uuid": "^3.2.1"
   },

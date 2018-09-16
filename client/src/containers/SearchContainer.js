@@ -21,6 +21,11 @@ class SearchContainer extends Component {
     this.setSearchTerm = this.setSearchTerm.bind(this);
   }
 
+  // TODO: kick off the db search history call here
+  componentDidMount() {
+
+  }
+
   onSearchInputChange(searchTerm) {
     const { searchActions: { fetchSearchResults } } = this.props;
     console.log('onSearchInputChange fired. searchTerm = ', searchTerm);
@@ -47,6 +52,11 @@ class SearchContainer extends Component {
     ];
   }
 
+  // Kick off another api search if user clicks a side nav search item
+  handleSearchHistorySelect(searchTerm) {
+
+  }
+
   render() {
     const { searchResultsArr, searchTerm } = this.props;
 
@@ -57,6 +67,7 @@ class SearchContainer extends Component {
         <SideNav
           title='Recent Searches'
           selectionArr = {this.getSearchHistoryArr()}
+          handleSelect={this.handleSearchHistorySelect}
         />
         <div className="content">
           <SearchInput
