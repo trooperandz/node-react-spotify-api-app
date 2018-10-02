@@ -31,7 +31,7 @@ class ArtistCard extends Component {
     fetchAlbum(albumId);
 
     // If user clicked on a card in the search container, save the current searchTerm active state
-    if (cardType === 'search') saveSearchTerm(searchTerm);
+    if (cardType === 'search' && searchTerm && searchTerm.length) saveSearchTerm(searchTerm.trim());
 
     this.setState({ redirectToDetailView: true });
   }

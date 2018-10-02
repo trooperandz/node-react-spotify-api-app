@@ -19,6 +19,7 @@ class SearchContainer extends Component {
 
     this.onSearchInputChange = this.onSearchInputChange.bind(this);
     this.setSearchTerm = this.setSearchTerm.bind(this);
+    this.handleSearchHistorySelect = this.handleSearchHistorySelect.bind(this);
   }
 
   // TODO: kick off the db search history call here
@@ -53,9 +54,12 @@ class SearchContainer extends Component {
     return searchHistoryArr;
   }
 
-  // Kick off another api search if user clicks a side nav search item
+  // Kick off another api search & save search term state if user clicks a side nav search item
   handleSearchHistorySelect(searchTerm) {
+    const { searchActions: { fetchSearchResults, setSearchTerm } } = this.props;
 
+    fetchSearchResults(searchTerm);
+    setSearchTerm(searchTerm);
   }
 
   render() {
@@ -68,7 +72,8 @@ class SearchContainer extends Component {
       <Fragment>
         <SideNav
           title='Recent Searches'
-          selectionArr = {this.getSearchHistoryArr()}
+          navType='album-search'
+          selectionArr={this.getSearchHistoryArr()}
           handleSelect={this.handleSearchHistorySelect}
         />
         <div className="content">

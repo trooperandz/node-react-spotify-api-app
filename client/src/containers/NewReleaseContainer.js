@@ -60,6 +60,7 @@ class NewReleaseContainer extends Component {
         <Fragment>
           <SideNav
             title='Markets'
+            navType='new-release-market'
             handleSelect={this.handleCountrySelect}
             selectedId={selectedCountryId}
             selectionArr = {this.getCountrySelectArr()}

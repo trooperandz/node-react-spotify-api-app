@@ -48,7 +48,6 @@ function receiveSearchHistory(searchHistoryArr) {
 // Save search term when user clicks on a search result
 function saveSearchTerm(searchTerm) {
   return (dispatch) => {
-    console.log('about to save search term...');
     axios.post(`/search/save?searchTerm=${searchTerm}`)
       .then((response) => {
         // no-op; the side nav search populates itself on component remounting

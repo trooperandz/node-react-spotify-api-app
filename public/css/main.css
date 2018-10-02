@@ -60,7 +60,8 @@ html, body {
     color: whitesmoke;
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 1.2px; }
+    letter-spacing: 1.2px;
+    font-weight: 300; }
     .navbar__link:after {
       content: "";
       position: absolute;
