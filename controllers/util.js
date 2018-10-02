@@ -83,7 +83,10 @@ function formatTrackDuration(duration) {
  * @return {Array} An array of { name, id } objects from previous searches
  */
 async function getUserSearchHistory() {
-  const [err, searchHistoryArr] = await catchify(SearchHistory.findAll());
+  const [err, searchHistoryArr] = await catchify(SearchHistory.findAll({
+    order: [['createdAt', 'DESC']],
+    limit: 15,
+  }));
 
   if (err) {
     return { success: false, error: err };
@@ -101,9 +104,29 @@ async function getUserSearchHistory() {
   }
 }
 
+/**
+ * Save user search term when an album is clicked inside of the search results container.
+ * @param {string} seachTerm The active search term.
+ * @return
+ */
+async function saveSearchTerm(searchTerm) {
+  const [err, saveResult] = await catchify(SearchHistory.findOrCreate({
+    where: { search_term: searchTerm },
+    defaults: { search_term: searchTerm, search_type: 'album' },
+  }));
+
+  if (err) {
+    return { success: false, error: err };
+  } else {
+    return { success: true, result: saveResult };
+  }
+}
+
+
 module.exports = {
   formatAlbumCards,
   formatCategoryCards,
   formatTrackDuration,
   getUserSearchHistory,
+  saveSearchTerm,
 };

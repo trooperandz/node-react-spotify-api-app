@@ -51,12 +51,6 @@ class SearchContainer extends Component {
     if (!searchHistoryArr) return [ { name: 'Englebert Humperdink', id: '' } ];
 
     return searchHistoryArr;
-    // return [
-    //   { name: 'Alice In Chains', id: '' },
-    //   { name: 'MGMT', id: '' },
-    //   { name: 'The Killers', id: '' },
-    //   { name: 'Nick Drake', id: '' },
-    // ];
   }
 
   // Kick off another api search if user clicks a side nav search item
@@ -67,6 +61,7 @@ class SearchContainer extends Component {
   render() {
     const { searchResultsArr, searchTerm } = this.props;
 
+    // TODO: this doesn't seem to work...
     const debounceSearch = _.debounce((term) => { this.onSearchInputChange(term) }, 1500);
 
     return (

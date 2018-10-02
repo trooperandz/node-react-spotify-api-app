@@ -9,6 +9,7 @@ import {
   REQUEST_SEARCH_RESULTS,
   RECEIVE_SEARCH_RESULTS,
   SET_SEARCH_TERM,
+  SAVE_SEARCH_TERM,
 } from './actionTypes';
 
 // Can use this for a loader
@@ -41,6 +42,20 @@ function receiveSearchHistory(searchHistoryArr) {
   return {
     type: RECEIVE_SEARCH_HISTORY,
     searchHistoryArr,
+  };
+}
+
+// Save search term when user clicks on a search result
+function saveSearchTerm(searchTerm) {
+  return (dispatch) => {
+    console.log('about to save search term...');
+    axios.post(`/search/save?searchTerm=${searchTerm}`)
+      .then((response) => {
+        // no-op; the side nav search populates itself on component remounting
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 }
 
@@ -87,4 +102,5 @@ export default {
   fetchSearchResults,
   receiveSearchResults,
   setSearchTerm,
+  saveSearchTerm,
 };

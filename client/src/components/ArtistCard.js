@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import playlistActions from '../actions/playlistActions';
+import searchActions from '../actions/searchActions';
 
 class ArtistCard extends Component {
   constructor(props) {
@@ -20,9 +21,18 @@ class ArtistCard extends Component {
   }
 
   handleCardClick(albumId) {
-    const { playlistActions: { fetchAlbum } } = this.props;
+    const {
+      playlistActions: { fetchAlbum },
+      searchActions: { saveSearchTerm },
+      searchTerm,
+      cardType
+    } = this.props;
 
     fetchAlbum(albumId);
+
+    // If user clicked on a card in the search container, save the current searchTerm active state
+    if (cardType === 'search') saveSearchTerm(searchTerm);
+
     this.setState({ redirectToDetailView: true });
   }
 
@@ -55,12 +65,14 @@ class ArtistCard extends Component {
 function mapStateToProps(state) {
   return {
     playlistObj: state.playlist.playlistObj,
+    searchTerm: state.search.searchTerm,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     playlistActions: bindActionCreators(playlistActions, dispatch),
+    searchActions: bindActionCreators(searchActions, dispatch),
   };
 }
 

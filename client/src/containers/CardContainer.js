@@ -23,7 +23,8 @@ class CardContainer extends Component {
     } else if (categoriesArr && categoriesArr.length) {
       return <CategoryCard cardArr={categoriesArr} />;
     } else if (searchResultsArr && searchResultsArr.length) {
-      return <ArtistCard cardArr={searchResultsArr} />;
+      // Set the card type so we can dictate specific card click actions (like saving search term)
+      return <ArtistCard cardArr={searchResultsArr} cardType='search' />;
     }
   }
 
