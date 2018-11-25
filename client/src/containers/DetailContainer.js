@@ -18,16 +18,29 @@ class DetailContainer extends Component {
     this.state = {
       isTrackPlaying: false,
     }
+
+    this.handlePlayHistorySelect = this.handlePlayHistorySelect.bind(this);
   }
 
-  // Generate history to choose from for side nav
+  componentDidMount() {
+    const { playlistActions: { fetchPlaylistHistory } } = this.props;
+
+    fetchPlaylistHistory();
+  }
+
+  // Generate history to choose from for side nav...will come from the db
   getPlaylistHistory() {
-    return [
-      { name: 'Dirt', id: '' },
-      { name: 'Jazz for relaxing', id: '' },
-      { name: 'Pink Moon', id: '' },
-      { name: 'The Rising Tide', id: '' },
-    ];
+    const { playlistHistoryArr } = this.props;
+
+    if (!playlistHistoryArr.length) return [ { name: 'No history...', id: '' } ];
+
+    // return [
+    //   { name: 'Dirt', id: '' },
+    //   { name: 'Jazz for relaxing', id: '' },
+    //   { name: 'Pink Moon', id: '' },
+    //   { name: 'The Rising Tide', id: '' },
+    // ];
+    return playlistHistoryArr;
   }
 
   // Render image and tracks if playlistObj available; otherwise return default message
@@ -64,12 +77,25 @@ class DetailContainer extends Component {
     return <div className="playlist-default-msg">You aren't playing anything!  Go pick something...</div>;
   }
 
+  // Process side nav click action; determine relevant action by type
+  handlePlayHistorySelect(itemId, itemType) {
+    const { playlistActions: { fetchAlbum, fetchPlaylist } } = this.props;
+    console.log('processing side nav click... itemId = ', itemId, ' itemType = ', itemType);
+    if (itemType === 'playlist') {
+      fetchPlaylist('spotify', itemId); // current version returns only Spotify-procured playlists
+    } else if (itemType === 'album') {
+      fetchAlbum(itemId);
+    }
+  }
+
   render() {
     return (
       <Fragment>
         <SideNav
           title='Recently Played'
           selectionArr={this.getPlaylistHistory()}
+          handleSelect={this.handlePlayHistorySelect}
+          navType='detail-container'
         />
         <div className="content">
           {this.renderPlaylistDetail()}
@@ -82,6 +108,7 @@ class DetailContainer extends Component {
 function mapStateToProps(state) {
   return {
     playlistObj: state.playlist.playlistObj,
+    playlistHistoryArr: state.playlist.playlistHistoryArr,
   };
 }
 

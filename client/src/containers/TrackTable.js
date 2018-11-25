@@ -11,7 +11,7 @@ class TrackTable extends Component {
     const { trackArr } = this.props;
 
     return trackArr.map((track) => {
-      console.log('track in renderTrackRows: ', track);
+      // console.log('track in renderTrackRows: ', track);
       return (
         <TrackTableRow
           key={track.trackHref}

@@ -5,12 +5,13 @@
 const express = require('express');
 const request = require('request');
 
+const { refreshExpiredToken } = require('../middleware');
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
 const { formatAlbumCards } = require('../controllers/util');
 const router = express.Router();
 
 // Get a list of new release albums by country code
-router.get('/', (req, res) => {
+router.get('/', refreshExpiredToken, (req, res) => {
   const { accessToken } = req.session;
   console.log('accessToken in /new-releases: ', accessToken);
   console.log('req.session in /new-releases: ', req.session);

@@ -117,11 +117,58 @@ async function saveSearchTerm(searchTerm) {
 
   if (err) {
     return { success: false, error: err };
-  } else {
-    return { success: true, result: saveResult };
   }
+
+  // We don't use the saveResult, but might need it in the future
+  return { success: true, result: saveResult };
 }
 
+/**
+ * Save play history on any album/category etc. card click, for display in DetailView side nav
+ * @param {string} itemType The type of card clicked (i.e. album, playlist)
+ * @param {string} itemId The Spotify unique id
+ * @param {string} itemName The album/playlist etc title
+ */
+async function savePlaylistSelection(itemType, itemId, itemName) {
+  const [err, saveResult] = await catchify(PlayHistory.findOrCreate({
+    where: { item_id: itemId },
+    defaults: { item_id: itemId, item_type: itemType, item_name: itemName },
+  }));
+
+  if (err) {
+    return { success: false, error: err };
+  }
+
+  // We don't use the saveResult, but might need it in the future
+  return { success: true, result: saveResult };
+}
+
+/**
+ * Get user playlist history from the database for populating the DetailView side nav
+ * @return {Object} Object containing { success, error, playlistHistoryArr }
+ */
+async function getPlaylistHistory() {
+  const [err, playlistArr] = await catchify(PlayHistory.findAll({
+    order: [['createdAt', 'DESC']],
+    limit: 15,
+  }));
+
+  if (err) {
+    return { success: false, error: err };
+  } else {
+    const playlistHistoryArr = playlistArr.reduce((arr, { item_id, item_name, item_type }) => {
+      arr.push({
+        id: item_id,
+        name: item_name,
+        type: item_type, // dictates correct album/playlist fetch action for DetailView side nav click
+      });
+
+      return arr;
+    }, []);
+
+    return { success: true, playlistHistoryArr };
+  }
+}
 
 module.exports = {
   formatAlbumCards,
@@ -129,4 +176,6 @@ module.exports = {
   formatTrackDuration,
   getUserSearchHistory,
   saveSearchTerm,
+  savePlaylistSelection,
+  getPlaylistHistory,
 };

@@ -1,10 +1,14 @@
 // categories reducer
 
-import { FETCH_CATEGORIES, RECEIVE_CATEGORIES, SET_CATEGORY_ID } from '../actions/actionTypes';
+import {
+  FETCH_CATEGORIES,
+  RECEIVE_CATEGORIES,
+  SET_CATEGORY_ID,
+} from '../actions/actionTypes';
 
 const initialState = {
   categoriesArr: [],
-  selectedCategoryId: 'jazz',
+  selectedCategoryId: 'jazz', // show "jazz" category on initial load
 };
 
 export default function categoriesReducer(state = initialState, action) {

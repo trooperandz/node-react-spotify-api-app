@@ -12,8 +12,8 @@ html, body {
 /* Entire app layout uses new CSS grid */
 .grid-main {
   display: grid;
-  grid-template-columns: 275px repeat(11, 1fr);
-  grid-template-rows: 80px auto 80px;
+  grid-template-columns: 240px repeat(11, 1fr);
+  grid-template-rows: 65px auto 65px;
   grid-template-areas: "sidenav navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar" "sidenav content content content content content content content content content content content" "sidenav footer footer footer footer footer footer footer footer footer footer footer";
   height: 100%; }
 
@@ -33,10 +33,10 @@ html, body {
 /* Holds the album cards; make them fully responsive */
 .card-grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  grid-auto-rows: 220px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-auto-rows: 210px;
   grid-gap: 18px;
-  max-width: 1200px;
+  max-width: 1340px;
   margin: 0 auto;
   padding: 35px; }
 
@@ -47,21 +47,22 @@ html, body {
 .navbar {
   display: flex;
   box-shadow: 0px 2px 3px -1px #ccc;
-  background-color: #a9b2bc; }
+  background-color: #fff; }
   .navbar__link {
     position: relative;
     display: flex;
-    flex-direction: column;
     flex: 1;
     align-items: center;
     justify-content: center;
     padding: 1.4rem;
     cursor: pointer;
-    color: whitesmoke;
+    color: #98a6ad;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1.2px;
     font-weight: 300; }
+    .navbar__link .fas {
+      margin: 10px; }
     .navbar__link:after {
       content: "";
       position: absolute;
@@ -69,15 +70,17 @@ html, body {
       right: 50%;
       width: 0;
       height: 2px;
-      background: whitesmoke;
+      background: rgba(119, 125, 131, 0.3);
       transition: width .3s;
       transform: translateX(50%);
       bottom: 14px;
       border-radius: 2px; }
     .navbar__link:hover:after {
       width: 50%; }
-    .navbar__link.active:after {
-      width: 50%; }
+    .navbar__link.active {
+      color: #495259; }
+      .navbar__link.active:after {
+        width: 50%; }
 
 /**
  * Main application nav menu, sits left of all content.
@@ -94,8 +97,8 @@ html, body {
   .side-nav__img {
     position: absolute;
     z-index: 5;
-    top: 58px;
-    left: 160px;
+    top: 46px;
+    left: 140px;
     height: 70px;
     width: 75px;
     background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Yml0LXNtYWxsPC90aXRsZT48cGF0aCBkPSJNNCA0aDF2MUg0eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+"); }
@@ -106,17 +109,20 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
-    /* matches grid row  height */
+    height: 65px;
+    /* matches grid row height */
     color: rgba(255, 255, 255, 0.7);
     letter-spacing: 3.5px;
     font-weight: 200; }
   .side-nav__header {
     margin: 3rem 20px 0;
-    padding: 25px 25px .8rem;
+    padding: 25px 14px .8rem;
     color: #98a6ad;
     font-size: 18px;
-    border-bottom: 1px solid #e7eaf0; }
+    border-bottom: 1px solid #e7eaf0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
   .side-nav__list {
     padding-left: 0; }
   .side-nav__list-item {
@@ -147,6 +153,7 @@ html, body {
         bottom: 3px; }
 
 .card {
+  position: relative;
   overflow: hidden;
   border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
@@ -162,6 +169,17 @@ html, body {
       transform: scale(1.05);
       cursor: pointer;
       opacity: .98; }
+  .card__description {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+    bottom: 0;
+    color: #495259; }
 
 .playlist {
   display: flex;
@@ -207,7 +225,7 @@ html, body {
   .track-table__header {
     color: #3e454c; }
   .track-table__th {
-    padding: 20px;
+    padding: 15px;
     color: slategray;
     text-align: left;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2); }

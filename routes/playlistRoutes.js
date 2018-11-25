@@ -5,12 +5,13 @@
 const express = require('express');
 const request = require('request');
 
+const { refreshExpiredToken } = require('../middleware');
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
-const { formatTrackDuration } = require('../controllers/util');
+const { formatTrackDuration, getPlaylistHistory } = require('../controllers/util');
 const router = express.Router();
 
 // Get a category's playlist tracks for the detail view
-router.get('/', (req, res) => {
+router.get('/', refreshExpiredToken, (req, res) => {
   const { userId, playlistId } = req.query;
   const { accessToken } = req.session;
   console.log('accessToken in /playlist: ', accessToken);
@@ -77,6 +78,16 @@ router.get('/', (req, res) => {
 
     return res.json({ success: true, playlist: playlistObj });
   });
+});
+
+/**
+ * Get user playlist history from the database
+ * @return {Object} Object containing { success, error, playlistHistoryArr }
+ */
+router.get('/history', async (req, res) => {
+  const playlistHistoryArr = await getPlaylistHistory();
+  console.log('playlistHistoryArr: ', playlistHistoryArr);
+  return res.json(playlistHistoryArr || {});
 });
 
 module.exports = router;

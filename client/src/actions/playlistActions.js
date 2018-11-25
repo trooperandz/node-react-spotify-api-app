@@ -8,6 +8,8 @@ import {
   REQUEST_ALBUM_DETAIL,
   FETCH_ALBUM,
   RECEIVE_ALBUM,
+  REQUEST_PLAYLIST_HISTORY,
+  RECEIVE_PLAYLIST_HISTORY,
 } from './actionTypes';
 
 function fetchPlaylist(ownerId = 'spotify', playlistId = '37i9dQZF1DX7YCknf2jT6s') {
@@ -71,6 +73,38 @@ function receiveAlbum(playlistObj) {
   };
 }
 
+// Can use for future spinner etc
+function requestPlaylistHistory() {
+  return {
+    type: REQUEST_PLAYLIST_HISTORY,
+  }
+}
+
+/**
+ * Get user playlist selection history from the database
+ * @return {Array} An array of { name, id } objects user previously selected for playing
+ */
+function fetchPlaylistHistory() {
+  return (dispatch) => {
+    dispatch(requestPlaylistHistory());
+
+    axios.get('/playlist/history')
+      .then((response) => { console.log('playlist history response: ', response);
+        dispatch(receivePlaylistHistory(response.data.playlistHistoryArr));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+function receivePlaylistHistory(playlistHistoryArr) {
+  return {
+    type: RECEIVE_PLAYLIST_HISTORY,
+    playlistHistoryArr,
+  }
+}
+
 export default {
   requestPlaylist,
   fetchPlaylist,
@@ -78,4 +112,7 @@ export default {
   requestAlbumDetail,
   fetchAlbum,
   receiveAlbum,
+  requestPlaylistHistory,
+  fetchPlaylistHistory,
+  receivePlaylistHistory,
 };

@@ -3,22 +3,27 @@
 .navbar {
   display: flex;
   box-shadow: 0px 2px 3px -1px #ccc;
-  background-color: #a9b2bc;
+  background-color: #fff;
 
   &__link {
     position: relative;
     display: flex;
-    flex-direction: column; // for link and underline pseudo element stacking
+    // flex-direction: column; // for link and underline pseudo element stacking
     flex: 1;
     align-items: center;
     justify-content: center;
     padding: 1.4rem;
     cursor: pointer;
-    color: whitesmoke;
+    color: #98a6ad;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1.2px;
     font-weight: 300;
+
+    // Link icons
+    .fas {
+      margin: 10px;
+    }
 
     &:after {
       content: "";
@@ -27,8 +32,7 @@
       right: 50%;
       width: 0;
       height: 2px;
-      // background: #CEF;
-      background: whitesmoke;
+      background: rgba(119, 125, 131, 0.3);
       transition: width .3s;
       transform: translateX(50%);
       bottom: 14px;
@@ -39,8 +43,12 @@
       width: 50%; // TODO: for small screens, do width: 115%
     }
 
-    &.active:after {
-      width: 50%;
+    &.active {
+      color: $color-trout;
+
+      &:after {
+        width: 50%;
+      }
     }
   }
 }

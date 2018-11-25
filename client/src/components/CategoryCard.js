@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import playlistActions from '../actions/playlistActions';
+import appActions from '../actions/appActions';
 
 class CategoryCard extends Component {
   constructor(props) {
@@ -16,10 +17,11 @@ class CategoryCard extends Component {
     this.handleCardClick = this.handleCardClick.bind(this);
   }
 
-  handleCardClick(ownerId, playlistId) {
-    const { playlistActions: { fetchPlaylist } } = this.props;
+  handleCardClick(ownerId, playlistId, playlistName) {
+    const { playlistActions: { fetchPlaylist }, appActions: { savePlaylistSelection } } = this.props;
 
     fetchPlaylist(ownerId, playlistId);
+    savePlaylistSelection('playlist', playlistId, playlistName);
     this.setState({ redirectToDetailView: true });
   }
 
@@ -30,7 +32,7 @@ class CategoryCard extends Component {
       const { playlistId, playlistName, ownerId, imgUrl, categoryHref } = card;
 
       return (
-        <div key={playlistId} className="card card--category" onClick={() => this.handleCardClick(ownerId, playlistId)}>
+        <div key={playlistId} className="card card--category" onClick={() => this.handleCardClick(ownerId, playlistId, playlistName)}>
           <img className="card__img" src={imgUrl} />
         </div>
       );
@@ -58,6 +60,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     playlistActions: bindActionCreators(playlistActions, dispatch),
+    appActions: bindActionCreators(appActions, dispatch),
   };
 }
 

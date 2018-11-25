@@ -5,12 +5,13 @@
 const express = require('express');
 const request = require('request');
 
+const { refreshExpiredToken } = require('../middleware');
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
 const { formatAlbumCards, getUserSearchHistory, saveSearchTerm } = require('../controllers/util');
 const router = express.Router();
 
 // Retrieve search results (note:  all type params === album for now)
-router.get('/', (req,res) => {
+router.get('/', refreshExpiredToken, (req,res) => {
   const { q: query, type } = req.query;
   const { accessToken } = req.session;
   // console.log('\n\n\n hit search endpoint; q = ', query, ' type = ', type, '\n\n\n');

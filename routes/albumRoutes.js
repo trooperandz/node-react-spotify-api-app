@@ -5,12 +5,13 @@
 const express = require('express');
 const request = require('request');
 
+const { refreshExpiredToken } = require('../middleware');
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
 const { formatTrackDuration } = require('../controllers/util');
 const router = express.Router();
 
 // Get an albums's tracks etc for the detail view
-router.get('/', (req, res) => {
+router.get('/', refreshExpiredToken, (req, res) => {
   const { albumId } = req.query;
   const { accessToken } = req.session;
   console.log('accessToken in /album: ', accessToken);
@@ -34,7 +35,7 @@ router.get('/', (req, res) => {
       artists,
       copyrights,
       id: albumId,
-      name: playlistName,
+      name: playlistName, // just for consistency (we use playlistName for playlists too)
       release_date: releaseDate,
       tracks: { items: tracks },
     } = parsedResponse;
@@ -45,8 +46,6 @@ router.get('/', (req, res) => {
         name: trackName,
         track_number: trackNumber,
         href: trackHref,
-        // albumName: playlistName, // already stated above
-        // albumHref:
         duration_ms: duration,
       } = track;
 
@@ -57,8 +56,7 @@ router.get('/', (req, res) => {
         trackName,
         trackNumber,
         trackHref,
-        albumName: playlistName, // just for consistency
-        // albumHref,
+        albumName: playlistName,
         trackDuration: formattedDuration,
         artistName: artists[0].name,
         artistHref: artists[0].href,

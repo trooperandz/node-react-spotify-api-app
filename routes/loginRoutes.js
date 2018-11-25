@@ -10,7 +10,6 @@ const {
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
   REDIRECT_URI,
-  FRONTEND_URI,
 } = require('../lib/constants/login');
 
 const router = express.Router();
@@ -36,7 +35,7 @@ router.get('/callback', (req, res) => { console.log('entered /login/callback rou
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
-      code,
+      code, // The authorization code returned from the initial /authorize endpoint
       redirect_uri,
       grant_type: 'authorization_code',
     },
@@ -53,10 +52,14 @@ router.get('/callback', (req, res) => { console.log('entered /login/callback rou
       res.render('error', { err });
     }
 
-    const accessToken = body.access_token;
+    const { access_token: accessToken, refresh_token: refreshToken, expires_in: expiresIn } = body;
     console.log('accessToken set in /callback: ', accessToken);
+    console.log('refreshToken: ', refreshToken, 'expiresIn: ', expiresIn);
     req.session.accessToken = accessToken;
-    req.session.test = 'cool-beans';
+    req.session.refreshToken = refreshToken;
+    req.session.expiresIn = expiresIn;
+    req.session.originalAuthTimestamp = Date.now();
+    console.log('req.session: ', req.session);
     res.render('app');
   });
 });

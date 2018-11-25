@@ -9,7 +9,6 @@ import {
   REQUEST_SEARCH_RESULTS,
   RECEIVE_SEARCH_RESULTS,
   SET_SEARCH_TERM,
-  SAVE_SEARCH_TERM,
 } from './actionTypes';
 
 // Can use this for a loader

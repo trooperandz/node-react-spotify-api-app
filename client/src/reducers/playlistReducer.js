@@ -4,15 +4,17 @@ import {
   FETCH_PLAYLIST,
   RECEIVE_PLAYLIST,
   FETCH_ALBUM,
-  RECEIVE_ALBUM
+  RECEIVE_ALBUM,
+  RECEIVE_PLAYLIST_HISTORY,
 } from '../actions/actionTypes';
 
 const initialState = {
   playlistObj: {},
+  playlistHistoryArr: [],
 }
 
 export default function playlistReducer(state = initialState, action) {
-  const { playlistObj } = action;
+  const { playlistObj, playlistHistoryArr } = action;
   let newState;
 
   switch (action.type) {
@@ -33,6 +35,12 @@ export default function playlistReducer(state = initialState, action) {
       newState = {
         ...state,
         playlistObj,
+      };
+      return newState;
+    case RECEIVE_PLAYLIST_HISTORY:
+      newState = {
+        ...state,
+        playlistHistoryArr,
       };
       return newState;
     default:

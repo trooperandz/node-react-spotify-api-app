@@ -5,12 +5,13 @@
 const express = require('express');
 const request = require('request');
 
+const { refreshExpiredToken } = require('../middleware');
 const { SPOTIFY_BASE_URL } = require('../lib/constants/login');
 const { formatCategoryCards } = require('../controllers/util');
 const router = express.Router();
 
 // Get a list of spotify playlists within a given category
-router.get('/', (req, res) => {
+router.get('/', refreshExpiredToken, (req, res) => {
   const { categoryId } = req.query;
   const { accessToken } = req.session;
   console.log('accessToken in /categories: ', accessToken);
@@ -26,7 +27,7 @@ router.get('/', (req, res) => {
       console.log('error: ', err);
       return res.json({ success: false, error: err });
     }
-    console.log('body response in /categories: ', body);
+    // console.log('body response in /categories: ', body);
     const parsedResponse = JSON.parse(body);
     const { playlists: { items: categoriesArr = [] } } = parsedResponse;
     const formattedPlaylistCardArr = formatCategoryCards(categoriesArr);

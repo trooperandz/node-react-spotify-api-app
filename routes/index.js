@@ -6,6 +6,7 @@ const categoriesRoutes = require('./categoriesRoutes');
 const playlistRoutes = require('./playlistRoutes');
 const albumRoutes = require('./albumRoutes');
 const searchRoutes = require('./searchRoutes');
+const appRoutes = require('./appRoutes');
 
 const router = express.Router();
 const app = express();
@@ -26,6 +27,7 @@ router.get('/', (req, res) => {
 
 // Establish all routes
 router.use('/login', loginRoutes);
+router.use('/app', appRoutes); // app-wide, container-agnostic routes
 router.use('/new-releases', newReleasesRoutes);
 router.use('/categories', categoriesRoutes);
 router.use('/playlist', playlistRoutes);

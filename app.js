@@ -10,8 +10,6 @@ const redis = require('redis');
 const redisClient = redis.createClient();
 const redisStore = require('connect-redis')(session);
 
-// const indexRouter = require('./routes/index');
-// const spotifyRouter = require('./routes/spotify');
 const routes = require('./routes');
 
 const app = express();
@@ -25,8 +23,7 @@ app.use(session({
   secret: 'TeslaRocks',
   resave: false,
   saveUninitialized: true,
-  cookie: {},
-  store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 260 }),
+  store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
 }));
 
 // View engine setup
@@ -42,9 +39,6 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 // Reference modularized routes
 app.use('/', routes);
-
-// app.use('/', indexRouter);
-// app.use('/spotify', spotifyRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -64,6 +64,7 @@ class CategoriesContainer extends Component {
           handleSelect={this.handleCategorySelect}
           selectedId={selectedCategoryId}
           selectionArr={this.getCategorySelectArr()}
+          navType='playlist'
         />
         <div className="content">
           <CardContainer

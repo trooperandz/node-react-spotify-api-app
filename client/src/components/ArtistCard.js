@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 
 import playlistActions from '../actions/playlistActions';
 import searchActions from '../actions/searchActions';
+import appActions from '../actions/appActions';
 
 class ArtistCard extends Component {
   constructor(props) {
@@ -20,15 +21,17 @@ class ArtistCard extends Component {
     };
   }
 
-  handleCardClick(albumId) {
+  handleCardClick(albumId, albumName) {
     const {
       playlistActions: { fetchAlbum },
       searchActions: { saveSearchTerm },
+      appActions: { savePlaylistSelection },
       searchTerm,
       cardType
     } = this.props;
 
     fetchAlbum(albumId);
+    savePlaylistSelection('album', albumId, albumName);
 
     // If user clicked on a card in the search container, save the current searchTerm active state
     if (cardType === 'search' && searchTerm && searchTerm.length) saveSearchTerm(searchTerm.trim());
@@ -43,8 +46,9 @@ class ArtistCard extends Component {
       const { albumId, artist, albumName, imgUrl, releaseDate, albumHref } = card;
 
       return (
-        <div key={albumId} className="card card--artist" onClick={() => this.handleCardClick(albumId)}>
+        <div key={albumId} className="card card--artist" onClick={() => this.handleCardClick(albumId, albumName)}>
           <img className="card__img" src={imgUrl} />
+          <div className="card__description">{artist}</div>
         </div>
       );
     });
@@ -73,6 +77,7 @@ function mapDispatchToProps(dispatch) {
   return {
     playlistActions: bindActionCreators(playlistActions, dispatch),
     searchActions: bindActionCreators(searchActions, dispatch),
+    appActions: bindActionCreators(appActions, dispatch),
   };
 }
 
