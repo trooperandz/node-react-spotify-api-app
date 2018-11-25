@@ -31,7 +31,6 @@ class SearchContainer extends Component {
 
   onSearchInputChange(searchTerm) {
     const { searchActions: { fetchSearchResults } } = this.props;
-    console.log('onSearchInputChange fired. searchTerm = ', searchTerm);
 
     if (searchTerm) {
       fetchSearchResults(searchTerm);
@@ -48,7 +47,7 @@ class SearchContainer extends Component {
 
   getSearchHistoryArr() {
     const { searchHistoryArr } = this.props;
-    console.log('searchHistoryArr: ', searchHistoryArr);
+
     if (!searchHistoryArr) return [ { name: 'Englebert Humperdink', id: '' } ];
 
     return searchHistoryArr;

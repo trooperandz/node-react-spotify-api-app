@@ -34,12 +34,6 @@ class DetailContainer extends Component {
 
     if (!playlistHistoryArr.length) return [ { name: 'No history...', id: '' } ];
 
-    // return [
-    //   { name: 'Dirt', id: '' },
-    //   { name: 'Jazz for relaxing', id: '' },
-    //   { name: 'Pink Moon', id: '' },
-    //   { name: 'The Rising Tide', id: '' },
-    // ];
     return playlistHistoryArr;
   }
 
@@ -80,7 +74,7 @@ class DetailContainer extends Component {
   // Process side nav click action; determine relevant action by type
   handlePlayHistorySelect(itemId, itemType) {
     const { playlistActions: { fetchAlbum, fetchPlaylist } } = this.props;
-    console.log('processing side nav click... itemId = ', itemId, ' itemType = ', itemType);
+
     if (itemType === 'playlist') {
       fetchPlaylist('spotify', itemId); // current version returns only Spotify-procured playlists
     } else if (itemType === 'album') {

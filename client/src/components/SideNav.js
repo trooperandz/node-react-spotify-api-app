@@ -40,15 +40,44 @@ function renderList(selectionArr, selectedId, navType, handleSelect) {
   return listItems;
 };
 
-const SideNav = (props) => {
-  // navType used to flag current view for dictating click action param
-  const { handleSelect, selectedId, selectionArr, title, navType } = props;
+// Change side nav title icon depending on view type
+function renderTitleIcon(navType) {
+  let iconName;
 
+  switch(navType) {
+    case 'new-release-market':
+      iconName = 'fa-map';
+      break;
+    case 'album-search':
+      iconName = 'fa-search';
+      break;
+    case 'playlist':
+      iconName = 'fa-list-ul';
+      break;
+    case 'detail-container':
+      iconName = 'fa-play-circle';
+      break;
+    default:
+      iconName = 'fa-map';
+      break;
+  }
+
+  return (
+    <i className={`fas ${iconName}`}></i>
+  );
+}
+
+const SideNav = (props) => {
+  // navType used to flag current view for dictating click action param, & title icon
+  const { handleSelect, selectedId, selectionArr, title, navType } = props;
+  console.log('navType: ', navType);
   return (
     <div className="side-nav">
       <div className="side-nav__img"></div>
       <div className="side-nav__title">tuneIn</div>
-      <div className="side-nav__header">{title} <i className="fas fa-map"></i></div>
+      <div className="side-nav__header">{title}
+        {renderTitleIcon(navType)}
+      </div>
       <ul className="side-nav__list">
         {renderList(selectionArr, selectedId, navType, handleSelect)}
       </ul>

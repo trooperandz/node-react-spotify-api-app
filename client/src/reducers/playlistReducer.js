@@ -19,17 +19,14 @@ export default function playlistReducer(state = initialState, action) {
 
   switch (action.type) {
     case FETCH_PLAYLIST:
-      console.log('FETCH_PLAYLIST Action')
       return action;
     case RECEIVE_PLAYLIST:
-      console.log('RECEIVE_PLAYLIST Action')
       newState = {
         ...state,
         playlistObj,
       };
       return newState;
     case FETCH_ALBUM:
-      console.log('FETCH_ALBUM action fired')
       return action;
     case RECEIVE_ALBUM:
       newState = {

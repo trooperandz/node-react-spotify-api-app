@@ -17,17 +17,14 @@ export default function categoriesReducer(state = initialState, action) {
 
   switch (action.type) {
     case FETCH_CATEGORIES:
-      console.log('FETCH_CATEGORIES Action')
       return action;
     case RECEIVE_CATEGORIES:
-      console.log('RECEIVE_CATEGORIES Action')
       newState = {
         ...state,
         categoriesArr,
       };
       return newState;
     case SET_CATEGORY_ID:
-      console.log('SET_CATEGORY_ID Action')
       newState = {
         ...state,
         selectedCategoryId,

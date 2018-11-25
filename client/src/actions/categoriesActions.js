@@ -32,7 +32,6 @@ function setCategoryId(selectedCategoryId) {
 
 // TODO: add a loader here...
 function requestCategories() {
-  console.log('hit requestCategories...');
   return {
     type: REQUEST_CATEGORIES,
   };

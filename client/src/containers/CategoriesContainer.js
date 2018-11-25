@@ -48,7 +48,7 @@ class CategoriesContainer extends Component {
 
   handleCategorySelect(selectedCategoryId) {
     const { categoriesActions: { fetchCategories, setCategoryId } } = this.props;
-    console.log('selected category: ', selectedCategoryId);
+
     setCategoryId(selectedCategoryId);
     fetchCategories(selectedCategoryId);
 
@@ -56,7 +56,7 @@ class CategoriesContainer extends Component {
 
   render() {
     const { categoriesArr, selectedCategoryId } = this.props;
-    console.log('props in CategoriesContainer: ', this.props);
+
     return (
       <Fragment>
         <SideNav

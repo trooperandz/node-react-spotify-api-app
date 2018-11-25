@@ -13,7 +13,6 @@ import {
 } from './actionTypes';
 
 function fetchPlaylist(ownerId = 'spotify', playlistId = '37i9dQZF1DX7YCknf2jT6s') {
-  console.log('ownerId in fetchPlaylist action: ', ownerId, ' playlistId: ', playlistId);
   return (dispatch) => {
     dispatch(requestPlaylist());
 
@@ -44,13 +43,11 @@ function receivePlaylist(playlistObj) {
 
 // Get album data for display in the detail container if an album is clicked
 function fetchAlbum(albumId) {
-  console.log('fetchAlbum running...')
   return (dispatch) => {
     dispatch(requestAlbumDetail());
 
     axios.get(`/album?albumId=${albumId}`)
       .then((response) => {
-        console.log('\n\n\nfetchAlbum response: ', response, '\n\n\n');
         dispatch(receiveAlbum(response.data.playlistObj));
       })
       .catch((error) =>  {
@@ -89,7 +86,7 @@ function fetchPlaylistHistory() {
     dispatch(requestPlaylistHistory());
 
     axios.get('/playlist/history')
-      .then((response) => { console.log('playlist history response: ', response);
+      .then((response) => {
         dispatch(receivePlaylistHistory(response.data.playlistHistoryArr));
       })
       .catch((error) => {

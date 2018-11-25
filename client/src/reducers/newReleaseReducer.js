@@ -17,14 +17,12 @@ export default function newReleaseReducer(state = initialState, action) {
 
   switch (action.type) {
     case FETCH_NEW_RELEASES:
-      console.log('FETCH_NEW_RELEASES Action firing...')
       return action;
     case RECEIVE_NEW_RELEASES:
       newState = {
         ...state,
         albumArr,
       };
-      console.log('RECEIVE_NEW_RELEASES Action firing...')
       return newState;
     case SET_COUNTRY_ID:
       newState = {

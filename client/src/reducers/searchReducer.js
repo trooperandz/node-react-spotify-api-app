@@ -25,25 +25,20 @@ export default function searchReducer(state = initialState, action) {
 
   switch (action.type) {
     case FETCH_SEARCH_HISTORY:
-      console.log('FETCH_SEARCH_HISTORY Action firing...')
       return action;
     case RECEIVE_SEARCH_HISTORY:
-      console.log('RECEIVE_SEARCH_HISTORY Action firing...')
       newState = {
         ...state,
         searchHistoryArr,
       };
       return newState;
     case FETCH_SEARCH_RESULTS:
-      console.log('FETCH_SEARCH_RESULTS Action firing...')
       return action;
     case RECEIVE_SEARCH_RESULTS:
-      console.log('searchResultsArr in searchReducer: ', searchResultsArr);
       newState = {
         ...state,
         searchResultsArr,
       };
-      console.log('RECEIVE_SEARCH_RESULTS Action firing...')
       return newState;
     case SET_SEARCH_TERM:
       newState = {

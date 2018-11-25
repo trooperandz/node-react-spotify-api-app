@@ -82,7 +82,6 @@ NewReleaseContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log('state in NewReleaseContainer mapStateToProps: ', state);
   return {
     albumArr: state.newReleases.albumArr,
     selectedCountryId: state.newReleases.selectedCountryId,
