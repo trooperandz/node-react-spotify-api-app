@@ -70,7 +70,7 @@ function renderTitleIcon(navType) {
 const SideNav = (props) => {
   // navType used to flag current view for dictating click action param, & title icon
   const { handleSelect, selectedId, selectionArr, title, navType } = props;
-  console.log('navType: ', navType);
+
   return (
     <div className="side-nav">
       <div className="side-nav__img"></div>

@@ -28,7 +28,6 @@ function fetchSearchHistory() {
 
     axios.get('/search/history')
       .then((response) => {
-        // const parsedResponse = JSON.parse(response);
         dispatch(receiveSearchHistory(response.data.searchArr));
       })
       .catch((error) => {

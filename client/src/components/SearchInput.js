@@ -6,7 +6,6 @@ const SearchInput = (props) => {
   const { searchTerm, debounceSearch, setSearchTerm } = props;
 
   const onInputChange = (value) => {
-    console.log('onInputChange ran..., value = ', value);
     setSearchTerm(value);
     debounceSearch(value);
   }

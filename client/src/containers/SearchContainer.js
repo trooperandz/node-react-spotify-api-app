@@ -22,7 +22,6 @@ class SearchContainer extends Component {
     this.handleSearchHistorySelect = this.handleSearchHistorySelect.bind(this);
   }
 
-  // TODO: kick off the db search history call here
   componentDidMount() {
     const { searchActions: { fetchSearchHistory } } = this.props;
 
@@ -48,7 +47,7 @@ class SearchContainer extends Component {
   getSearchHistoryArr() {
     const { searchHistoryArr } = this.props;
 
-    if (!searchHistoryArr) return [ { name: 'Englebert Humperdink', id: '' } ];
+    if (!searchHistoryArr) return [ { name: 'No search history...', id: '' } ];
 
     return searchHistoryArr;
   }

@@ -14,7 +14,6 @@ function fetchCategories(categoryId) {
 
     axios.get(`/categories?categoryId=${categoryId}`)
       .then((response) => {
-        console.log('response: ', response);
         dispatch(receiveCategories(response.data.categoriesArr));
       })
       .catch((error) =>  {

@@ -18,7 +18,6 @@ function fetchPlaylist(ownerId = 'spotify', playlistId = '37i9dQZF1DX7YCknf2jT6s
 
     axios.get(`/playlist?userId=${ownerId}&playlistId=${playlistId}`)
       .then((response) => {
-        console.log('fetchPlaylist response: ', response);
         dispatch(receivePlaylist(response.data.playlist));
       })
       .catch((error) =>  {
