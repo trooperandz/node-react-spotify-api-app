@@ -1,0 +1,19 @@
+// Main content area heading
+
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 35px 35px 0;
+  padding: 0 12px;
+  background-color: #fff;
+
+  &__heading {
+    font-weight: 400;
+    color: $color-tangerine;
+  }
+
+  &__pagination {
+
+  }
+}

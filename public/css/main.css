@@ -152,6 +152,17 @@ html, body {
         background-color: #e7eaf0;
         bottom: 3px; }
 
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 35px 35px 0;
+  padding: 0 12px;
+  background-color: #fff; }
+  .header-main__heading {
+    font-weight: 400;
+    color: #e59400; }
+
 .card {
   position: relative;
   overflow: hidden;

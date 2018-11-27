@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import newReleaseActions from '../actions/newReleaseActions';
 import CardContainer from './CardContainer';
 import SideNav from '../components/SideNav';
+import HeaderMain from '../components/HeaderMain';
 
 class NewReleaseContainer extends Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class NewReleaseContainer extends Component {
             selectionArr = {this.getCountrySelectArr()}
           />
           <div className="content">
+            <HeaderMain />
             <CardContainer newReleaseArr={albumArr} />
           </div>
         </Fragment>
