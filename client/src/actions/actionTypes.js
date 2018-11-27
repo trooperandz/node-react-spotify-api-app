@@ -26,3 +26,7 @@ export const FETCH_SEARCH_TERM = 'FETCH_SEARCH_TERM';
 export const REQUEST_SEARCH_RESULTS = 'REQUEST_SEARCH_RESULTS';
 export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
+
+// Keep the Spotify access token updated for the Spotify playback SDK access
+export const FETCH_ACCESS_TOKEN = 'FETCH_ACCESS_TOKEN';
+export const RECEIVE_ACCESS_TOKEN = 'RECEIVE_ACCESS_TOKEN';

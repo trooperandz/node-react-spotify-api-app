@@ -90,7 +90,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    categoriesActions: bindActionCreators(categoriesActions, dispatch)
+    categoriesActions: bindActionCreators(categoriesActions, dispatch),
   };
 }
 

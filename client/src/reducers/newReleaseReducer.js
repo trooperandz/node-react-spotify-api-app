@@ -28,7 +28,7 @@ export default function newReleaseReducer(state = initialState, action) {
       newState = {
         ...state,
         selectedCountryId,
-      }
+      };
       return newState;
     default:
       return state;

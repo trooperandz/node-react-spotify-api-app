@@ -22,7 +22,7 @@ router.get('/', (req, res) => { console.log('entered /login route')
       redirect_uri,
       response_type: 'code',
       client_id: SPOTIFY_CLIENT_ID,
-      scope: 'user-read-private user-read-email',
+      scope: 'user-read-private user-read-email user-read-playback-state',
     }),
   );
 });

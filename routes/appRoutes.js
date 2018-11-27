@@ -5,8 +5,10 @@
 const express = require('express');
 
 const { savePlaylistSelection } = require('../controllers/util');
+const { refreshExpiredToken } = require('../middleware');
 const router = express.Router();
 
+// Saves any category/album card click history for viewing in DetailView side nav
 router.post(`/save/playlist-selection`, async (req, res) => {
   const { itemType, itemId, itemName } = req.query;
 
@@ -21,7 +23,19 @@ router.post(`/save/playlist-selection`, async (req, res) => {
   }
 
   // Even a query error doesn't warrant sending a bad response; just catch in logging
-  res.sendStatus(200);
+  return res.sendStatus(200);
+});
+
+// Provide the access token to the app (client-side), for the Spotify player SDK connection
+router.get('/access-token', refreshExpiredToken, (req, res) => {
+  const { accessToken } = req.session;
+  console.log('/app/access-token route executed...');
+
+  if (!accessToken) {
+    return res.json({ success: false, error: 'There is no active accessToken session var' });
+  } else {
+    return res.json({ sucess: true, accessToken });
+  }
 });
 
 module.exports = router;

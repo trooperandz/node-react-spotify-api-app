@@ -7,14 +7,14 @@
     <link rel='stylesheet' href='/css/main.css' />
   </head>
   <body>
-    {{{ body }}}
-
-    <!-- Load the Spotify playback SDK and then assign the global var -->
+    <!-- Load the Spotify playback SDK and then assign the global var for use in React -->
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
-      window.onSpotifyWebPlaybackSDKReady = function() {
+      window.onSpotifyWebPlaybackSDKReady = () => {
         window.Spotify = Spotify;
       }
     </script>
+
+    {{{ body }}}
   </body>
 </html>

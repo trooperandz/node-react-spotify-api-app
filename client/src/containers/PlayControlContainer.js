@@ -1,3 +1,7 @@
+/**
+ * Render play and pause icons in the track listing table
+ */
+
 import React, { Component } from 'react';
 
 import PlayIcon from '../components/PlayIcon';
