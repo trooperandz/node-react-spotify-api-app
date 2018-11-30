@@ -9,7 +9,7 @@
   display: flex;
   flex: 2;
   flex-direction: column;
-  background-color: #fff;
+  background-color: $color-white;
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
 
   // Just a nice texture img for flare
@@ -63,12 +63,12 @@
     font-size: 16px;
     color: #495259;
     letter-spacing: 1px;
-    background-color: #fff;
+    background-color: $color-white;
     transition: background-color .3s ease;
     font-weight: 300;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: $color-wild-sand;
     }
 
     &.active {

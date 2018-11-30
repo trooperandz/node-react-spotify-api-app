@@ -5,15 +5,15 @@
   align-items: center;
   justify-content: space-between;
   margin: 35px 35px 0;
-  padding: 0 12px;
-  background-color: #fff;
+  padding: 0 20px;
+  background-color: $color-white;
 
   &__heading {
     font-weight: 400;
-    color: $color-tangerine;
+    color: $color-orange;
   }
 
   &__pagination {
-
+    font-weight: 300;
   }
 }

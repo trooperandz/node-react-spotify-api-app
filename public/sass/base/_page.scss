@@ -34,6 +34,7 @@ html, body {
 
 .content {
   grid-area: content;
+  background-color: #EAEDF1;
 }
 
 .footer {
@@ -47,8 +48,9 @@ html, body {
   grid-auto-rows: 210px;
   grid-gap: 18px;
   max-width: 1340px;
-  margin: 0 auto;
-  padding: 35px;
+  margin: 20px 35px 35px;
+  padding: 20px;
+  background-color: $color-white;
 }
 
 /* Flex util class */

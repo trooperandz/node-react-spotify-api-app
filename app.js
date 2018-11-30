@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs  = require('express-handlebars');
 const uuidv4 = require('uuid/v4');
@@ -15,12 +14,13 @@ const routes = require('./routes');
 const app = express();
 
 redisClient.on('error', (err) => {
-  console.log('Error: ', err);
+  console.log('Redis error: ', err);
 });
 
 // Start a session; we use Redis for the store
 app.use(session({
-  secret: 'TeslaRocks',
+  secret: 'TheTimeHasComeNowLater',
+  name: '_tunein',
   resave: false,
   saveUninitialized: true,
   store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
@@ -33,7 +33,6 @@ app.set('view engine', 'handlebars');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client')));
 

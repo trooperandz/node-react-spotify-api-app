@@ -13,7 +13,10 @@
   &__text-wrapper {
     display: flex;
     flex-direction: column;
+    flex: 1;
     padding: 20px;
+    margin-left: 20px;
+    background-color: $color-white;
   }
 
   &__img {
@@ -26,7 +29,7 @@
 
   &__title {
     font-size: 33px;
-    color: gray;
+    color: $color-orange;
   }
 
   &__description {

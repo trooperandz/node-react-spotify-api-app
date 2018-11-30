@@ -21,7 +21,7 @@ class SpotifyPlayer extends Component {
     this.trollForAccessToken = setInterval(() => {
       fetchAccessToken();
       this.checkSpotifyPlayer();
-    }, 5000);
+    }, 60 * 1000);
   }
 
   // Initialize all listeners on Spotify player instantiation

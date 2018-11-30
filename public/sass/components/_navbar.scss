@@ -3,7 +3,7 @@
 .navbar {
   display: flex;
   box-shadow: 0px 2px 3px -1px #ccc;
-  background-color: #fff;
+  background-color: $color-white;
 
   &__link {
     position: relative;
@@ -34,7 +34,7 @@
       height: 2px;
       background: rgba(119, 125, 131, 0.3);
       transition: width .3s;
-      transform: translateX(50%);
+      transform: translateX(53%);
       bottom: 14px;
       border-radius: 2px;
     }
@@ -48,6 +48,7 @@
 
       &:after {
         width: 50%;
+        background: #96C0CE;
       }
     }
   }

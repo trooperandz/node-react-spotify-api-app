@@ -25,7 +25,8 @@ html, body {
   grid-area: sidenav; }
 
 .content {
-  grid-area: content; }
+  grid-area: content;
+  background-color: #EAEDF1; }
 
 .footer {
   grid-area: footer; }
@@ -37,8 +38,9 @@ html, body {
   grid-auto-rows: 210px;
   grid-gap: 18px;
   max-width: 1340px;
-  margin: 0 auto;
-  padding: 35px; }
+  margin: 20px 35px 35px;
+  padding: 20px;
+  background-color: #fff; }
 
 /* Flex util class */
 .flex-container {
@@ -72,7 +74,7 @@ html, body {
       height: 2px;
       background: rgba(119, 125, 131, 0.3);
       transition: width .3s;
-      transform: translateX(50%);
+      transform: translateX(53%);
       bottom: 14px;
       border-radius: 2px; }
     .navbar__link:hover:after {
@@ -80,7 +82,8 @@ html, body {
     .navbar__link.active {
       color: #495259; }
       .navbar__link.active:after {
-        width: 50%; }
+        width: 50%;
+        background: #96C0CE; }
 
 /**
  * Main application nav menu, sits left of all content.
@@ -157,11 +160,13 @@ html, body {
   align-items: center;
   justify-content: space-between;
   margin: 35px 35px 0;
-  padding: 0 12px;
+  padding: 0 20px;
   background-color: #fff; }
   .header-main__heading {
     font-weight: 400;
-    color: #e59400; }
+    color: #FFA500; }
+  .header-main__pagination {
+    font-weight: 300; }
 
 .card {
   position: relative;
@@ -202,7 +207,10 @@ html, body {
   .playlist__text-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 20px; }
+    flex: 1;
+    padding: 20px;
+    margin-left: 20px;
+    background-color: #fff; }
   .playlist__img {
     width: 230px;
     height: 230px;
@@ -211,7 +219,7 @@ html, body {
     border-radius: 3px; }
   .playlist__title {
     font-size: 33px;
-    color: gray; }
+    color: #FFA500; }
   .playlist__description {
     font-size: 18px; }
 
@@ -227,7 +235,6 @@ html, body {
 
 .track-table {
   width: 100%;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.37);
   outline: none;
   color: #3e454c;
   border-collapse: collapse;
@@ -279,9 +286,8 @@ html, body {
     outline: none;
     border: 1px solid transparent;
     transition: border 0.1s ease-out;
-    color: #505050;
+    color: #FFA500;
     font-size: 1.2rem;
-    box-shadow: 0px 0 1px 1px rgba(0, 0, 0, 0.08);
     padding: 1rem;
     padding-left: 58px;
     font-weight: 300; }
@@ -295,6 +301,10 @@ html, body {
 .footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  background-color: #96C0CE;
-  color: #fff; }
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #96C0CE; }
+  .footer__brand {
+    color: #fff; }
+  .footer__signature {
+    color: #fff; }

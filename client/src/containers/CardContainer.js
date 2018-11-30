@@ -26,6 +26,8 @@ class CardContainer extends Component {
       // Set the card type so we can dictate specific card click actions (like saving search term)
       return <ArtistCard cardArr={searchResultsArr} cardType='search' />;
     }
+
+    return null;
   }
 
   render() {
