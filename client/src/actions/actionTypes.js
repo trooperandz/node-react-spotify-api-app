@@ -30,3 +30,12 @@ export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 // Keep the Spotify access token updated for the Spotify playback SDK access
 export const FETCH_ACCESS_TOKEN = 'FETCH_ACCESS_TOKEN';
 export const RECEIVE_ACCESS_TOKEN = 'RECEIVE_ACCESS_TOKEN';
+
+// Save Spotify player device id to global store after SpotifyPlayer connection initialization
+export const RECEIVE_DEVICE_ID = 'RECEIVE_DEVICE_ID';
+
+// Save playback state for future play actions (i.e. resume play after pause action)
+export const RECEIVE_PLAYBACK_STATE = 'RECEIVE_PLAYBACK_STATE';
+
+// Save the Spotify SDK player state (not to be confused with playback state)
+export const RECEIVE_PLAYER_STATE = 'RECEIVE_PLAYER_STATE';

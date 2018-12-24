@@ -1,0 +1,57 @@
+// Play control bar at bottom of screen for current track play
+
+.playcontrol {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  height: 90px;
+  width: 100%;
+  background-color: #fff;
+  z-index: 2;
+  box-shadow: 0 0 8px rgba(0,0,0,.4);
+
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    img {
+      height: 90px;
+      width: auto;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 90px;
+  }
+
+  &__info {
+    margin: 0 20px;
+  }
+
+  &__play-icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__play-icon {
+    fill: $color-cornflower-blue;
+
+    &:hover {
+      cursor: pointer;
+      fill: darken($color-cornflower-blue, 12%);
+    }
+  }
+
+  &__more-actions {
+    margin: 0 20px;
+  }
+}

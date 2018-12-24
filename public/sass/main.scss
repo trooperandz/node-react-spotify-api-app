@@ -1,4 +1,5 @@
 @import 'base/variables';
+@import 'base/mixins';
 @import 'base/page';
 @import 'components/navbar';
 @import 'components/side-nav';
@@ -8,3 +9,4 @@
 @import 'components/track-table';
 @import 'components/search';
 @import 'components/footer';
+@import 'components/playcontrol';

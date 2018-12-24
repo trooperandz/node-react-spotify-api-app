@@ -1,6 +1,8 @@
 // Shared utility functions
 
 const catchify = require('catchify');
+const safeParse = require('safe-json-parse/callback');
+
 const { SearchHistory, PlayHistory } = require('../models');
 
 /**
@@ -170,6 +172,24 @@ async function getPlaylistHistory() {
   }
 }
 
+/**
+ * Util for safely parsing JSON
+ */
+function safeParseJSON(body) {
+  let parsedResponse;
+
+  safeParse(body, (err, json) => {
+    if (err) {
+      console.log('JSON parse error...');
+      parsedResponse = {};
+    }
+
+    parsedResponse = json;
+  });
+
+  return parsedResponse;
+}
+
 module.exports = {
   formatAlbumCards,
   formatCategoryCards,
@@ -178,4 +198,5 @@ module.exports = {
   saveSearchTerm,
   savePlaylistSelection,
   getPlaylistHistory,
+  safeParseJSON,
 };

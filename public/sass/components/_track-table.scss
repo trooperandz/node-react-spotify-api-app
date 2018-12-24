@@ -12,7 +12,7 @@
 
   &__th {
     padding: 15px;
-    color: slategray;
+    color: $color-havelock-blue;
     text-align: left;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
@@ -35,11 +35,11 @@
   &__control-icon {
     display: flex;
     margin-left: 6px;
-    fill: #599bf1;
+    fill: $color-cornflower-blue;
 
     &:hover {
       cursor: pointer;
-      fill: darken(#599bf1, 12%);
+      fill: darken($color-cornflower-blue, 12%);
     }
   }
 }

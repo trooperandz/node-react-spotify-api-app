@@ -24,7 +24,7 @@ async function refreshExpiredToken(req, res, next) {
 
   const secondsElapsed = (currentTime - originalAuthTimestamp) / 1000;
 
-  if (secondsElapsed > expiresIn) {
+  if ((!expiresIn || !originalAuthTimestamp) || (secondsElapsed > expiresIn)) {
     await requestRefreshToken(req);
     return next();
   }

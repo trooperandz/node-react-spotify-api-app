@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+import appActions from '../actions/appActions';
 import TrackTableRow from './TrackTableRow';
 
 class TrackTable extends Component {
@@ -8,14 +11,14 @@ class TrackTable extends Component {
   }
 
   renderTrackRows() {
-    const { trackArr } = this.props;
+    const { trackArr, playerState } = this.props;
 
     return trackArr.map((track) => {
-      // console.log('track in renderTrackRows: ', track);
       return (
         <TrackTableRow
           key={track.trackHref}
           track={track}
+          playerState={playerState}
         />
       );
     });
@@ -41,4 +44,20 @@ class TrackTable extends Component {
   }
 }
 
-export default TrackTable;
+function mapStateToProps(state) {
+  return {
+    playbackState: state.app.playbackState,
+    playerState: state.app.playerState,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    appActions: bindActionCreators(appActions, dispatch),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TrackTable);

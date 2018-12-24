@@ -10,7 +10,6 @@ class SpotifyPlayer extends Component {
 
     this.state = {
       originalAccessToken: '',
-      deviceId: '',
     };
   }
 
@@ -21,24 +20,41 @@ class SpotifyPlayer extends Component {
     this.trollForAccessToken = setInterval(() => {
       fetchAccessToken();
       this.checkSpotifyPlayer();
-    }, 60 * 1000);
+    }, 15 * 1000);
   }
 
   // Initialize all listeners on Spotify player instantiation
   createEventHandlers() {
+    const { appActions: { receiveDeviceId, savePlayerState } } = this.props;
+
     // Error handling
-    this.player.on('initialization_error', ({ message }) => { console.error(message); });
-    this.player.on('authentication_error', ({ message }) => { console.error(message); });
-    this.player.on('account_error', ({ message }) => { console.error(message); });
-    this.player.on('playback_error', ({ message }) => { console.error(message); });
+    this.player.on('initialization_error', ({ message }) => {
+      console.error('Player had an initialization error: ', message);
+    });
+
+    this.player.on('authentication_error', ({ message }) => {
+      console.error('Player had an authentication error: ', message);
+    });
+
+    this.player.on('account_error', ({ message }) => {
+      console.error('Player had an account error: ', message);
+    });
+
+    this.player.on('playback_error', ({ message }) => {
+      console.error('Player had playback error: ', message);
+    });
+
 
     // Playback status updates
-    this.player.on('player_state_changed', state => { console.log(state); });
+    this.player.on('player_state_changed', (state) => {
+      console.log('Player state changed: ', state);
+      savePlayerState(state);
+    });
 
     // Ready
     this.player.on('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
-      this.setState({ deviceId: device_id });
+      receiveDeviceId(device_id); // Save the device id to the global store
     });
 
     // Not Ready
@@ -50,13 +66,12 @@ class SpotifyPlayer extends Component {
   // Instantiate the Spotify player if accessToken is updated
   checkSpotifyPlayer() {
     const { originalAccessToken } = this.state;
-    const { accessToken: updatedAccessToken } = this.props;
-    console.log('checkSpotifyPlayer ran, updatedAccessToken: ', updatedAccessToken);
+    const { accessToken: updatedAccessToken, deviceId } = this.props;
+
     if (updatedAccessToken && updatedAccessToken !== originalAccessToken) {
-      console.log('access token updated, about to run the new Spotify.Player code...');
       this.setState({ originalAccessToken: updatedAccessToken });
 
-      if (window.Spotify !== null) {
+      if (window.Spotify !== null && !deviceId) {
         this.player = new window.Spotify.Player({
           name: "Matt's Spotify Player",
           getOAuthToken: cb => { cb(updatedAccessToken); },
@@ -78,6 +93,7 @@ class SpotifyPlayer extends Component {
 function mapStateToProps(state) {
   return {
     accessToken: state.app.accessToken,
+    deviceId: state.app.deviceId,
   };
 }
 

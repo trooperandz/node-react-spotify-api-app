@@ -2,7 +2,8 @@
 
 .navbar {
   display: flex;
-  box-shadow: 0px 2px 3px -1px #ccc;
+  // box-shadow: 0px 2px 3px -1px #ccc;
+  @include box-shadow;
   background-color: $color-white;
 
   &__link {
@@ -14,7 +15,7 @@
     justify-content: center;
     padding: 1.4rem;
     cursor: pointer;
-    color: #98a6ad;
+    color: $color-fiord;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1.2px;
@@ -31,24 +32,28 @@
       display: block;
       right: 50%;
       width: 0;
-      height: 2px;
-      background: rgba(119, 125, 131, 0.3);
+      height: 3px;
+      background: $color-havelock-blue;
       transition: width .3s;
       transform: translateX(53%);
-      bottom: 14px;
+      bottom: 0;
       border-radius: 2px;
     }
 
-    &:hover:after {
-      width: 50%; // TODO: for small screens, do width: 115%
+    &:hover{
+      // background-color: $color-white-smoke;
+
+      &:after {
+        width: 75%; // TODO: for small screens, do width: 115%
+      }
     }
 
     &.active {
       color: $color-trout;
+      // background: $color-white-smoke;
 
       &:after {
-        width: 50%;
-        background: #96C0CE;
+        width: 75%;
       }
     }
   }

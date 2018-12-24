@@ -16,13 +16,13 @@ const router = express.Router();
 const redirect_uri = REDIRECT_URI;
 
 // On /login request, kick off Spotify authorization flow
-router.get('/', (req, res) => { console.log('entered /login route')
+router.get('/', (req, res) => {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       redirect_uri,
       response_type: 'code',
       client_id: SPOTIFY_CLIENT_ID,
-      scope: 'user-read-private user-read-email user-read-playback-state',
+      scope: 'user-read-private user-read-email user-read-playback-state user-modify-playback-state streaming',
     }),
   );
 });
@@ -52,14 +52,22 @@ router.get('/callback', (req, res) => { console.log('entered /login/callback rou
       res.render('error', { err });
     }
 
-    const { access_token: accessToken, refresh_token: refreshToken, expires_in: expiresIn } = body;
-    console.log('accessToken set in /callback: ', accessToken);
-    console.log('refreshToken: ', refreshToken, 'expiresIn: ', expiresIn);
-    req.session.accessToken = accessToken;
-    req.session.refreshToken = refreshToken;
-    req.session.expiresIn = expiresIn;
-    req.session.originalAuthTimestamp = Date.now();
-    console.log('req.session: ', req.session);
+    // Set session vars on successful Oauth callback
+    if (body && body.hasOwnProperty('access_token')) {
+      const {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        expires_in: expiresIn
+      } = body;
+
+      req.session.accessToken = accessToken;
+      req.session.refreshToken = refreshToken;
+      req.session.expiresIn = expiresIn;
+      req.session.originalAuthTimestamp = Date.now();
+    } else {
+      console.log('Oauth callback tokens not registered...');
+    }
+
     res.render('app');
   });
 });

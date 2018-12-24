@@ -8,8 +8,12 @@ const HeaderMain = (props) => {
 
   return (
     <div className="header-main">
-      <h2 className="header-main__heading">New Releases - Japan</h2>
-      <div className="header-main__pagination">Showing 20 of 20 results</div>
+      <div className="header-main__wrapper">
+        <h2 className="header-main__heading">New Releases - Japan</h2>
+      </div>
+      <div className="header-main__wrapper">
+        <p className="header-main__pagination">Showing 20 of 20 results</p>
+      </div>
     </div>
   );
 }

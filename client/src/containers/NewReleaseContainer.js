@@ -92,7 +92,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    newReleaseActions: bindActionCreators(newReleaseActions, dispatch)
+    newReleaseActions: bindActionCreators(newReleaseActions, dispatch),
   };
 }
 

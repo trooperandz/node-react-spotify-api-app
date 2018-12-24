@@ -1,34 +1,32 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import PlayControlContainer from './PlayControlContainer';
+import appActions from '../actions/appActions';
+import PlayIconContainer from './PlayIconContainer';
 
 class TrackTableRow extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      shouldShowPlayIcon: true,
-    }
-
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
   }
 
-  handlePlayClick() {
-    const { shouldShowPlayIcon } = this.state;
+  handlePlayClick(trackUri) {
+    const { deviceId, appActions: { playSpotifyTrack } } = this.props;
 
-    this.setState({ shouldShowPlayIcon: !shouldShowPlayIcon });
+    playSpotifyTrack(deviceId, trackUri);
   }
 
   handlePauseClick() {
-    const { shouldShowPlayIcon } = this.state;
+    const { appActions: { pauseSpotifyTrack } } = this.props;
 
-    this.setState({ shouldShowPlayIcon: !shouldShowPlayIcon });
+    pauseSpotifyTrack();
   }
 
   render() {
-    const { track, handlePlayControlClick, shouldForcePlayIcons } = this.props;
-    const { shouldShowPlayIcon } = this.state;
+    const { track, playerState } = this.props;
 
     const {
       trackId,
@@ -36,20 +34,37 @@ class TrackTableRow extends Component {
       trackNumber,
       trackDuration,
       trackHref,
+      trackUri,
       albumName,
       albumHref,
       artistName,
       artistHref,
     } = track;
 
+    // TODO: put this check in PlayIconContainer
+    let shouldShowPauseIcon = false;
+
+    if (playerState.hasOwnProperty('track_window')) {
+      const {
+        paused,
+        position,
+        track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
+      } = playerState;
+
+      if (!paused && trackUri === currentTrackUri) {
+        shouldShowPauseIcon = true;
+      }
+    }
+
     return (
       <tr key={trackId} className="track-table__row">
         <td className="track-table__td">
           <div className="track-table__control-icon">
-            <PlayControlContainer
-              shouldShowPlayIcon={shouldShowPlayIcon}
+            <PlayIconContainer
+              shouldShowPauseIcon={shouldShowPauseIcon}
               handlePlayClick={this.handlePlayClick}
               handlePauseClick={this.handlePauseClick}
+              trackUri={trackUri}
             />
           </div>
         </td>
@@ -62,4 +77,19 @@ class TrackTableRow extends Component {
   }
 }
 
-export default TrackTableRow;
+function mapStateToProps(state) {
+  return {
+    deviceId: state.app.deviceId,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    appActions: bindActionCreators(appActions, dispatch),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TrackTableRow);

@@ -1,26 +1,94 @@
-/**
- * Render play and pause icons in the track listing table
- */
-
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import PlayIcon from '../components/PlayIcon';
-import PauseIcon from '../components/PauseIcon';
+import appActions from '../actions/appActions';
+import PlayIconContainer from './PlayIconContainer';
 
 class PlayControlContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.handlePlayClick = this.handlePlayClick.bind(this);
+    this.handlePauseClick = this.handlePauseClick.bind(this);
+  }
+
+  handlePlayClick(trackUri) {
+    const { deviceId, appActions: { playSpotifyTrack } } = this.props;
+
+    playSpotifyTrack(deviceId, trackUri);
+  }
+
+  handlePauseClick() {
+    const { appActions: { pauseSpotifyTrack } } = this.props;
+
+    pauseSpotifyTrack();
   }
 
   render() {
-    const { handlePlayClick, handlePauseClick, shouldShowPlayIcon } = this.props;
+    const { playerState } = this.props;
 
-    if (shouldShowPlayIcon) {
-      return <PlayIcon onClickPlay={handlePlayClick} />;
-    } else {
-      return <PauseIcon onClickPause={handlePauseClick} />;
+    // TODO: put this check in PlayIconContainer
+    let shouldShowPauseIcon = false;
+    let trackUri;
+
+    if (playerState.hasOwnProperty('track_window')) {
+      const {
+        paused,
+        position,
+        track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
+      } = playerState;
+
+      trackUri = currentTrackUri;
+
+      if (!paused) {
+        shouldShowPauseIcon = true;
+      }
     }
+
+    return (
+      <div className="playcontrol">
+        <div className="playcontrol__image">
+          <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/DMB_Crash.png" />
+        </div>
+        <div className="playcontrol__content">
+          <div className="playcontrol__info">
+            <h3 className="playcontrol__track-title">Tripping Billies</h3>
+            <p className="playcontrol__track-description">The best song you've ever heard...</p>
+          </div>
+          <div className="playcontrol__play-icons">
+            <div className="playcontrol__play-icon">
+              <PlayIconContainer
+                shouldShowPauseIcon={shouldShowPauseIcon}
+                handlePlayClick={this.handlePlayClick}
+                handlePauseClick={this.handlePauseClick}
+                trackUri={trackUri}
+              />
+            </div>
+          </div>
+          <div className="playcontrol__more-actions">
+            <p className="playcontrol__more-stuff">More stuff</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
-export default PlayControlContainer;
+function mapStateToProps(state) {
+  return {
+    playerState: state.app.playerState,
+    deviceId: state.app.deviceId,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    appActions: bindActionCreators(appActions, dispatch),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PlayControlContainer);
