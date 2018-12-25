@@ -41,27 +41,12 @@ class TrackTableRow extends Component {
       artistHref,
     } = track;
 
-    // TODO: put this check in PlayIconContainer
-    let shouldShowPauseIcon = false;
-
-    if (playerState.hasOwnProperty('track_window')) {
-      const {
-        paused,
-        position,
-        track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
-      } = playerState;
-
-      if (!paused && trackUri === currentTrackUri) {
-        shouldShowPauseIcon = true;
-      }
-    }
-
     return (
       <tr key={trackId} className="track-table__row">
         <td className="track-table__td">
           <div className="track-table__control-icon">
             <PlayIconContainer
-              shouldShowPauseIcon={shouldShowPauseIcon}
+              playerState={playerState}
               handlePlayClick={this.handlePlayClick}
               handlePauseClick={this.handlePauseClick}
               trackUri={trackUri}

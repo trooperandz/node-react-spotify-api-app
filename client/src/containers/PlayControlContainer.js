@@ -28,22 +28,15 @@ class PlayControlContainer extends Component {
   render() {
     const { playerState } = this.props;
 
-    // TODO: put this check in PlayIconContainer
-    let shouldShowPauseIcon = false;
     let trackUri;
 
+    // PlayControlContainer only renders when a play occurs; we should always have playerState
     if (playerState.hasOwnProperty('track_window')) {
       const {
-        paused,
-        position,
         track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
       } = playerState;
 
       trackUri = currentTrackUri;
-
-      if (!paused) {
-        shouldShowPauseIcon = true;
-      }
     }
 
     return (
@@ -59,7 +52,7 @@ class PlayControlContainer extends Component {
           <div className="playcontrol__play-icons">
             <div className="playcontrol__play-icon">
               <PlayIconContainer
-                shouldShowPauseIcon={shouldShowPauseIcon}
+                playerState={playerState}
                 handlePlayClick={this.handlePlayClick}
                 handlePauseClick={this.handlePauseClick}
                 trackUri={trackUri}

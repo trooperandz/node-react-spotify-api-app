@@ -25,10 +25,24 @@ class PlayIconContainer extends Component {
   }
 
   render() {
-    const {
-      shouldShowPauseIcon,
-      trackUri
-    } = this.props;
+    const { playerState, trackUri } = this.props;
+
+    let shouldShowPauseIcon = false;
+
+    // Show pause icon anytime play has status of !paused and requirements are met
+    if (playerState && playerState.hasOwnProperty('track_window')) {
+      const {
+        paused,
+        position,
+        track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
+      } = playerState;
+
+      if (!paused) {
+        if (trackUri && trackUri === currentTrackUri) {
+          shouldShowPauseIcon = true;
+        }
+      }
+    }
 
     if (shouldShowPauseIcon) {
       return <PauseIcon onClickPause={() => this.handlePauseClick(trackUri)} />;
