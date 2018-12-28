@@ -1,5 +1,10 @@
+/**
+ * Actual progress bar that shows track length status
+ */
+
 import React, { Component } from 'react';
 
+// Progress per tick; determines setInterval amount & total ticks available for % width
 const PROGRESS_INTERVAL_MS = 100;
 
 class PlayStatusBar extends Component {
@@ -8,7 +13,6 @@ class PlayStatusBar extends Component {
 
     this.state = {
       progressBarWidth: 0,
-      isTrackPausedPreviousState: true,
     };
   }
 
@@ -21,8 +25,8 @@ class PlayStatusBar extends Component {
   }
 
   updateProgressBarWidth() {
-    const { trackDurationMs, trackPositionMs, isTrackPaused } = this.props;
-    const { progressBarWidth, isTrackPausedPreviousState } = this.state;
+    const { trackDurationMs, trackPositionMs, isTrackPaused, playerState } = this.props;
+    const { progressBarWidth } = this.state;
 
     // Calculate total numerical value of all possible ticks
     const totalProgressIntervals = parseFloat(trackDurationMs / PROGRESS_INTERVAL_MS);

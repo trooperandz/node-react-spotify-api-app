@@ -19,7 +19,7 @@ class PlayControlContainer extends Component {
 
     let resumePositionMs;
 
-    // If we have a previously saved player state, extract uri & determine if we "resume" play
+    // If we have a previously paused player state, extract uri & determine if we "resume" play
     if (pausedPlayerState && pausedPlayerState.hasOwnProperty('track_window')) {
       const {
         track_window: { current_track: { id: pausedTrackId, uri: pausedTrackUri } }

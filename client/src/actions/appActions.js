@@ -193,6 +193,17 @@ function savePlayerState(playerState) {
 }
 
 /**
+ * Executed on every play click, to save previously played track.
+ * For determining if we need to reset the progress bar width to zero when switching songs
+ */
+// function savePlayedPlayerState(playedPlayerState) {
+//   return {
+//     type: RECEIVE_PLAYED_PLAYER_STATE,
+//     playedPlayerState,
+//   }
+// }
+
+/**
  * For saving player state on every pause action; used to resume playback for same track
  */
 function savePausedPlayerState(pausedPlayerState) {
