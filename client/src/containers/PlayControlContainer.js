@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import appActions from '../actions/appActions';
 import PlayIconContainer from './PlayIconContainer';
+import PlayStatusBar from './PlayStatusBar';
 
 class PlayControlContainer extends Component {
   constructor(props) {
@@ -14,33 +15,62 @@ class PlayControlContainer extends Component {
   }
 
   handlePlayClick(trackUri) {
-    const { deviceId, appActions: { playSpotifyTrack } } = this.props;
+    const { deviceId, playerState, pausedPlayerState, appActions: { playSpotifyTrack } } = this.props;
 
-    playSpotifyTrack(deviceId, trackUri);
+    let resumePositionMs;
+
+    // If we have a previously saved player state, extract uri & determine if we "resume" play
+    if (pausedPlayerState && pausedPlayerState.hasOwnProperty('track_window')) {
+      const {
+        track_window: { current_track: { id: pausedTrackId, uri: pausedTrackUri } }
+      } = pausedPlayerState;
+
+      if (trackUri === pausedTrackUri) {
+        const { position: pausedPosition } = playerState;
+        resumePositionMs = pausedPosition;
+      }
+    }
+
+    playSpotifyTrack(deviceId, trackUri, resumePositionMs);
   }
 
   handlePauseClick() {
-    const { appActions: { pauseSpotifyTrack } } = this.props;
+    const { playerState, appActions: { pauseSpotifyTrack } } = this.props;
 
-    pauseSpotifyTrack();
+    pauseSpotifyTrack(playerState);
   }
 
   render() {
     const { playerState } = this.props;
 
     let trackUri;
+    let trackDurationMs;
+    let trackPositionMs;
+    let isTrackPaused;
 
     // PlayControlContainer only renders when a play occurs; we should always have playerState
     if (playerState.hasOwnProperty('track_window')) {
       const {
+        paused,
+        duration,
+        position,
         track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
       } = playerState;
 
       trackUri = currentTrackUri;
+      isTrackPaused = paused;
+      trackDurationMs = duration;
+      trackPositionMs = position;
     }
 
     return (
       <div className="playcontrol">
+        <PlayStatusBar
+          playerState={playerState}
+          trackDurationMs={trackDurationMs}
+          trackPositionMs={trackPositionMs}
+          isTrackPaused={isTrackPaused}
+        />
         <div className="playcontrol__image">
           <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/DMB_Crash.png" />
         </div>
@@ -71,6 +101,7 @@ class PlayControlContainer extends Component {
 function mapStateToProps(state) {
   return {
     playerState: state.app.playerState,
+    pausedPlayerState: state.app.playerState,
     deviceId: state.app.deviceId,
   };
 }

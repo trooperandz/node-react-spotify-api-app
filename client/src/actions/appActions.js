@@ -10,6 +10,7 @@ import {
   RECEIVE_DEVICE_ID,
   RECEIVE_PLAYBACK_STATE,
   RECEIVE_PLAYER_STATE,
+  RECEIVE_PAUSED_PLAYER_STATE,
 } from './actionTypes';
 
 /**
@@ -79,18 +80,23 @@ function handlePlayClick(deviceId, trackUri) {
 }
 
 /**
- * All pause icon clicks, also triggers an update to the playerState object
+ * All pause icon clicks, also triggers an update to the playerState object.
+ * We save a separate paused player state object for resuming playback.
  */
-function handlePauseClick() {
+function handlePauseClick(playerState) {
   console.log('handlePauseClick in appActions executed...');
-  pauseSpotifyTrack();
+  pauseSpotifyTrack(playerState);
 }
 
 /**
  * Execute the Spotify SDK track play instruction
  */
-function playSpotifyTrack(deviceId, trackUri) {
+function playSpotifyTrack(deviceId, trackUri, resumePositionMs) {
   let didParamsPass = true;
+
+  // Clear any possible "paused" player state on every play action; already read by now
+  savePausedPlayerState({});
+
   console.log('playSpotifyTrack run instruction executing...,  deviceId: ', deviceId, ' trackUri: ', trackUri);
 
   if (!deviceId) {
@@ -108,8 +114,13 @@ function playSpotifyTrack(deviceId, trackUri) {
     return;
   }
 
+  let params = `?deviceId=${deviceId}&trackUri=${trackUri}`;
+
+  if (resumePositionMs) params += `&positionMs=${resumePositionMs}`;
+  console.log('playSpotifyTrack params: ', params);
   return (dispatch) => {
-    axios.post(`/app/play?deviceId=${deviceId}&trackUri=${trackUri}`)
+    // axios.post(`/app/play?deviceId=${deviceId}&trackUri=${trackUri}&positionMs=${resumePositionMs}`)
+    axios.post(`/app/play${params}`)
       .then((response) => {
         console.log(response);
         fetchPlaybackState(); // Now get playback status for health check
@@ -123,7 +134,9 @@ function playSpotifyTrack(deviceId, trackUri) {
 /**
  * Execute the Spotify SDK track pause instruction
  */
-function pauseSpotifyTrack() {
+function pauseSpotifyTrack(playerState) {
+  savePausedPlayerState(playerState);
+
   return (dispatch) => {
     axios.post('/app/pause')
       .then((response) => {
@@ -169,12 +182,23 @@ function receivePlaybackState(playbackState) { console.log('receivePlaybackState
 /**
  * Save the Spotify SDK player state on every 'player_state_changed' event.
  * Used for resuming paused play etc.
- * Not to be confused with playback state, which has its own call to the Spotify api.
+ * Not to be confused with playback state, which has its own call to the Spotify api, nor the
+ * pausedPlayerState, which saves the status on a pause action for future resume etc.
  */
 function savePlayerState(playerState) {
   return {
     type: RECEIVE_PLAYER_STATE,
     playerState,
+  };
+}
+
+/**
+ * For saving player state on every pause action; used to resume playback for same track
+ */
+function savePausedPlayerState(pausedPlayerState) {
+  return {
+    type: RECEIVE_PAUSED_PLAYER_STATE,
+    pausedPlayerState,
   };
 }
 
@@ -220,6 +244,7 @@ export default {
   fetchPlaybackState,
   receivePlaybackState,
   savePlayerState,
+  savePausedPlayerState,
   fetchDeviceList,
   testAccess,
 };

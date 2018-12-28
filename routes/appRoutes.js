@@ -43,8 +43,8 @@ router.get('/access-token', refreshExpiredToken, (req, res) => {
 // Execute a play instruction for the active device
 router.post('/play', refreshExpiredToken, (req, res) => {
   const { accessToken } = req.session;
-  const { deviceId, trackUri } = req.query;
-  console.log('deviceId: ', deviceId, ' trackUri: ', trackUri);
+  const { deviceId, trackUri, positionMs } = req.query;
+  console.log('deviceId: ', deviceId, ' trackUri: ', trackUri, ' positionMs: ' , positionMs);
   if (!deviceId) {
     console.log('deviceId in /play undefined...');
   }
@@ -53,10 +53,16 @@ router.post('/play', refreshExpiredToken, (req, res) => {
     console.log('trackUri in /play undefined...');
   }
 
+  let requestBody = {
+    uris: [trackUri],
+  };
+
+  if (positionMs) requestBody.position_ms = positionMs;
+
   request({
     method: 'PUT',
     url: `${SPOTIFY_BASE_URL}/me/player/play?device_id=${deviceId}`,
-    body: JSON.stringify({ uris: [trackUri] }),
+    body: JSON.stringify(requestBody),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`,

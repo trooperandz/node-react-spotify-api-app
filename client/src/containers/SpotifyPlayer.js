@@ -44,7 +44,6 @@ class SpotifyPlayer extends Component {
       console.error('Player had playback error: ', message);
     });
 
-
     // Playback status updates
     this.player.on('player_state_changed', (state) => {
       console.log('Player state changed: ', state);

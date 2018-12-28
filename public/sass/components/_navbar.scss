@@ -4,7 +4,9 @@
   display: flex;
   // box-shadow: 0px 2px 3px -1px #ccc;
   @include box-shadow;
+  box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   background-color: $color-white;
+  z-index: 1; // make sure the box-shadow shows over the main content background
 
   &__link {
     position: relative;

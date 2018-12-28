@@ -7,6 +7,7 @@ import {
   RECEIVE_DEVICE_ID,
   RECEIVE_PLAYBACK_STATE,
   RECEIVE_PLAYER_STATE,
+  RECEIVE_PAUSED_PLAYER_STATE,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -14,10 +15,18 @@ const initialState = {
   deviceId: '',
   playbackState: {},
   playerState: {},
+  pausedPlayerState: {},
 };
 
 export default function appReducer(state = initialState, action) {
-  const { accessToken, deviceId, playbackState, playerState } = action;
+  const {
+    accessToken,
+    deviceId,
+    playbackState,
+    playerState,
+    pausedPlayerState,
+  } = action;
+
   let newState;
 
   switch(action.type) {
@@ -38,12 +47,17 @@ export default function appReducer(state = initialState, action) {
         ...state,
         playbackState,
       };
-      console.log('RECEIVE_PLAYBACK_STATE reducer fired, newState = ', newState);
       return newState;
     case RECEIVE_PLAYER_STATE:
       newState = {
         ...state,
         playerState,
+      };
+      return newState;
+    case RECEIVE_PAUSED_PLAYER_STATE:
+      newState = {
+        ...state,
+        pausedPlayerState,
       };
       return newState;
     default:

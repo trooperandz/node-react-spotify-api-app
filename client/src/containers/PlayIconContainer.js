@@ -18,10 +18,10 @@ class PlayIconContainer extends Component {
     handlePlayClick(trackUri);
   }
 
-  handlePauseClick(trackUri) {
+  handlePauseClick() {
     const { handlePauseClick } = this.props;
 
-    handlePauseClick(trackUri);
+    handlePauseClick();
   }
 
   render() {

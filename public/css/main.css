@@ -49,7 +49,9 @@ html, body {
 .navbar {
   display: flex;
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
-  background-color: #fff; }
+  box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  z-index: 1; }
   .navbar__link {
     position: relative;
     display: flex;
@@ -223,6 +225,7 @@ html, body {
     border-radius: 3px; }
   .playlist__title {
     font-size: 33px;
+    font-weight: 300;
     color: #FFA500; }
   .playlist__description {
     font-size: 18px; }
@@ -311,6 +314,26 @@ html, body {
     background-color-color: #fff; }
   .footer__signature {
     color: #fff; }
+
+.playStatusBar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-left: 90px; }
+  .playStatusBar__progress {
+    position: relative;
+    background-color: orange;
+    width: 30%;
+    height: 4px; }
+  .playStatusBar__marker {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: orange;
+    z-index: 2; }
 
 .playcontrol {
   display: flex;

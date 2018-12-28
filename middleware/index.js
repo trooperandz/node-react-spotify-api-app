@@ -60,6 +60,10 @@ function requestRefreshToken(req) {
         if (err) {
           console.log('Error requesting refresh token: ', err);
           return reject(err);
+        } else if (!body) {
+          const errMsg = 'No body response in requestRefreshToken...';
+          console.log(errMsg);
+          return reject(errMsg);
         }
 
         const { access_token: accessToken, expires_in: expiresIn } = body;

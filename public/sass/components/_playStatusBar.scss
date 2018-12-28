@@ -1,0 +1,26 @@
+//  Progress indicator
+
+.playStatusBar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-left: 90px;
+
+  &__progress {
+    position: relative;
+    background-color: orange;
+    width: 30%;
+    height: 4px;
+  }
+
+  &__marker {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: orange;
+    z-index: 2;
+  }
+}
