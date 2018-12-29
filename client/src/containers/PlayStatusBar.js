@@ -17,16 +17,20 @@ class PlayStatusBar extends Component {
   }
 
   componentDidMount() {
-    const { progressBarWidth } = this.state;
+    this.initializeProgressBar();
+  }
 
+  initializeProgressBar() {
     this.progressInterval = setInterval(() => {
-      this.updateProgressBarWidth()
+      this.updateProgressBar();
     }, PROGRESS_INTERVAL_MS);
   }
 
-  updateProgressBarWidth() {
-    const { trackDurationMs, trackPositionMs, isTrackPaused, playerState } = this.props;
-    const { progressBarWidth } = this.state;
+  updateProgressBar() {
+    const { trackDurationMs, trackPositionMs, isTrackPaused, playerState, trackUri } = this.props;
+    const { progressBarWidth, previousTrackDurationMs } = this.state;
+
+    if (!this.currentTrackUri) this.currentTrackUri = trackUri;
 
     // Calculate total numerical value of all possible ticks
     const totalProgressIntervals = parseFloat(trackDurationMs / PROGRESS_INTERVAL_MS);
@@ -40,26 +44,40 @@ class PlayStatusBar extends Component {
 
     if (isTrackPaused) {
       this.setState({
-        // progressBarWidth:  parseFloat(100 / (trackPositionMs / totalProgressIntervals))
         progressBarWidth: startingPercentageWidth * 100,
       });
+
+      // clearInterval(this.progressInterval);
     } else if (trackDurationMs) {
-      this.setState({
-        progressBarWidth: parseFloat(progressBarWidth + intervalPercentageWidth)
-      });
+      if (this.currentTrackUri === trackUri) {
+
+        this.setState({
+          progressBarWidth: parseFloat(progressBarWidth + intervalPercentageWidth),
+        });
+      } else {
+        clearInterval(this.progressInterval);
+
+        this.setState({
+          progressBarWidth: 0,
+        });
+
+        this.currentTrackUri = null;
+
+        this.initializeProgressBar();
+      }
     }
   }
 
   render() {
     const { progressBarWidth } = this.state;
 
-    const style = {
+    const progressStyle = {
       width: `${progressBarWidth}%`,
     };
 
     return (
       <div className="playStatusBar">
-        <div className="playStatusBar__progress" style={style}>
+        <div className="playStatusBar__progress" style={progressStyle}>
           <div className="playStatusBar__marker"></div>
         </div>
       </div>
