@@ -70,6 +70,7 @@ class PlayControlContainer extends Component {
           trackDurationMs={trackDurationMs}
           trackPositionMs={trackPositionMs}
           isTrackPaused={isTrackPaused}
+          trackUri={trackUri}
         />
         <div className="playcontrol__image">
           <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/DMB_Crash.png" />
