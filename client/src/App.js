@@ -8,6 +8,7 @@ import CategoriesContainer from './containers/CategoriesContainer';
 import DetailContainer from './containers/DetailContainer';
 import SearchContainer from './containers/SearchContainer';
 import PlayControlContainer from './containers/PlayControlContainer';
+import PlayControlContainerTest from './containers/PlayControlContainerTest';
 import Footer from './components/Footer';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
             <Route path="/search" component={SearchContainer}></Route>
           </Switch>
           <Footer />
+          {/*<PlayControlContainerTest />*/}
           <PlayControlContainer />
         </div>
       </Fragment>

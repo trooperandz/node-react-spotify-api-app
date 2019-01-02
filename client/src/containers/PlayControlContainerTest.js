@@ -5,16 +5,13 @@ import { connect } from 'react-redux';
 import appActions from '../actions/appActions';
 import PlayIconContainer from './PlayIconContainer';
 import PlayStatusBar from './PlayStatusBar';
-import TrackForwardIcon from '../components/TrackForwardIcon';
-import TrackBackwardIcon from '../components/TrackBackwardIcon';
 
-class PlayControlContainer extends Component {
+class PlayControlContainerTest extends Component {
   constructor(props) {
     super(props);
 
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
-    this.handleStepClick = this.handleStepClick.bind(this);
   }
 
   handlePlayClick(trackUri) {
@@ -43,10 +40,6 @@ class PlayControlContainer extends Component {
     pauseSpotifyTrack(playerState);
   }
 
-  handleStepClick() {
-    console.log('clicked step control...')
-  }
-
   render() {
     const { playerState } = this.props;
 
@@ -55,7 +48,7 @@ class PlayControlContainer extends Component {
     let trackPositionMs;
     let isTrackPaused;
 
-    // PlayControlContainer only renders when a play occurs; we should always have playerState
+    // PlayControlContainerTest only renders when a play occurs; we should always have playerState
     if (playerState.hasOwnProperty('track_window')) {
       const {
         paused,
@@ -71,34 +64,21 @@ class PlayControlContainer extends Component {
     }
 
     return (
-      <div className="playcontrol">
-        <PlayStatusBar
-          playerState={playerState}
-          trackDurationMs={trackDurationMs}
-          trackPositionMs={trackPositionMs}
-          isTrackPaused={isTrackPaused}
-          trackUri={trackUri}
-        />
-        <div className="playcontrol__image">
-          <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/DMB_Crash.png" />
+      <div className="test">
+        <div className="test__img"></div>
+        <div className="test__description">Description of the song....</div>
+        <div className="test__play-icon">
+          <div className="test__play-icon--switch">
+            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z"/></svg>
+          </div>
+          <div className="test__play-icon--play">
+            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z"/></svg>
+          </div>
+          <div className="test__play-icon--switch">
+            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z"/></svg>
+          </div>
         </div>
-        <div className="playcontrol__info">
-          <h3 className="playcontrol__track-title">Tripping Billies</h3>
-          <p className="playcontrol__track-description">The best song you've ever heard...</p>
-        </div>
-        <div className="playcontrol__play-icons">
-          <TrackBackwardIcon handleStepClick={this.handleStepClick} />
-          <PlayIconContainer
-            playerState={playerState}
-            handlePlayClick={this.handlePlayClick}
-            handlePauseClick={this.handlePauseClick}
-            trackUri={trackUri}
-          />
-          <TrackForwardIcon handleStepClick={this.handleStepClick} />
-        </div>
-        <div className="playcontrol__more-actions">
-          <p className="playcontrol__more-stuff">More stuff</p>
-        </div>
+        <div className="test__info">More Stuff</div>
       </div>
     );
   }
@@ -121,4 +101,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(PlayControlContainer);
+)(PlayControlContainerTest);

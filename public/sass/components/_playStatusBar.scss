@@ -24,3 +24,62 @@
     z-index: 2;
   }
 }
+
+.test {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 70px;
+  background: #fff;
+  align-items: center;
+  box-shadow: 0 0 8px rgba(0,0,0,.4);
+
+  &__img {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-color: gray;
+  }
+
+  &__description {
+    flex: 1;
+    display: flex;
+    padding: 0 20px;
+    transform: translateX(70px);
+  }
+
+  &__play-icon {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--switch {
+      display: flex;
+      margin: 0 20px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    &--play {
+      display: flex;
+      margin: 0 20px;
+
+      svg {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px;
+  }
+}

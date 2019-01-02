@@ -335,17 +335,56 @@ html, body {
     background-color: orange;
     z-index: 2; }
 
+.test {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 70px;
+  background: #fff;
+  align-items: center;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); }
+  .test__img {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-color: gray; }
+  .test__description {
+    flex: 1;
+    display: flex;
+    padding: 0 20px;
+    transform: translateX(70px); }
+  .test__play-icon {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .test__play-icon--switch {
+      display: flex;
+      margin: 0 20px; }
+      .test__play-icon--switch svg {
+        width: 30px;
+        height: 30px; }
+    .test__play-icon--play {
+      display: flex;
+      margin: 0 20px; }
+      .test__play-icon--play svg {
+        width: 40px;
+        height: 40px; }
+  .test__info {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px; }
+
 .playcontrol {
   display: flex;
-  flex: 1;
   align-items: center;
-  justify-content: space-between;
   position: fixed;
   bottom: 0;
   height: 90px;
   width: 100%;
   background-color: #fff;
-  z-index: 2;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); }
   .playcontrol__image {
     position: absolute;
@@ -354,22 +393,41 @@ html, body {
     .playcontrol__image img {
       height: 90px;
       width: auto; }
-  .playcontrol__content {
+  .playcontrol__info {
     display: flex;
     flex: 1;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 90px; }
-  .playcontrol__info {
-    margin: 0 20px; }
+    flex-direction: column;
+    margin: 0 20px;
+    transform: translateX(90px); }
+  .playcontrol__track-title {
+    margin: 5px 0; }
+  .playcontrol__track-description {
+    margin: 0; }
   .playcontrol__play-icons {
     display: flex;
+    flex: 1;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between; }
-  .playcontrol__play-icon {
     fill: #599bf1; }
-    .playcontrol__play-icon:hover {
-      cursor: pointer;
-      fill: #2179ec; }
+    .playcontrol__play-icons .icon-play, .playcontrol__play-icons .icon-pause {
+      margin: 15px;
+      width: 40px;
+      height: 40px; }
+      .playcontrol__play-icons .icon-play:hover, .playcontrol__play-icons .icon-pause:hover {
+        cursor: pointer;
+        fill: #2179ec; }
+    .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
+      margin: 15px;
+      font-size: 20px;
+      color: gray; }
+      .playcontrol__play-icons .fa-step-backward:hover, .playcontrol__play-icons .fa-step-forward:hover {
+        cursor: pointer;
+        color: #616161; }
   .playcontrol__more-actions {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
     margin: 0 20px; }
+
+.text {
+  display: flex; }

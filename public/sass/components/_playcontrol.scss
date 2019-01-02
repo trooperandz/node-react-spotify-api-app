@@ -2,15 +2,13 @@
 
 .playcontrol {
   display: flex;
-  flex: 1;
   align-items: center;
-  justify-content: space-between;
   position: fixed;
   bottom: 0;
   height: 90px;
   width: 100%;
   background-color: #fff;
-  z-index: 2;
+  // z-index: 2;
   box-shadow: 0 0 8px rgba(0,0,0,.4);
 
   &__image {
@@ -24,34 +22,60 @@
     }
   }
 
-  &__content {
+  &__info {
     display: flex;
     flex: 1;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 90px;
-  }
-
-  &__info {
+    flex-direction: column;
     margin: 0 20px;
+    transform: translateX(90px);
   }
 
-  &__play-icons{
+  &__track-title {
+    margin: 5px 0;
+  }
+
+  &__track-description {
+    margin: 0;
+  }
+
+  &__play-icons {
     display: flex;
+    flex: 1;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-  }
-
-  &__play-icon {
     fill: $color-cornflower-blue;
 
-    &:hover {
-      cursor: pointer;
-      fill: darken($color-cornflower-blue, 12%);
+    .icon-play, .icon-pause {
+      margin: 15px;
+      width: 40px;
+      height: 40px;
+
+      &:hover {
+        cursor: pointer;
+        fill: darken($color-cornflower-blue, 12%);
+      }
+    }
+
+    .fa-step-backward, .fa-step-forward {
+      margin: 15px;
+      font-size: 20px;
+      color: $color-gray;
+
+      &:hover {
+        cursor: pointer;
+        color: darken($color-gray, 12%);
+      }
     }
   }
 
   &__more-actions {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
     margin: 0 20px;
   }
+}
+
+.text {
+  display: flex;
 }
