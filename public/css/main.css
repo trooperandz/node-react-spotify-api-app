@@ -224,9 +224,19 @@ html, body {
     background-size: contain;
     border-radius: 3px; }
   .playlist__title {
+    display: flex;
+    align-items: center;
     font-size: 33px;
     font-weight: 300;
     color: #FFA500; }
+    .playlist__title .icon-play, .playlist__title .icon-pause {
+      margin: 0 12px;
+      width: 35px;
+      height: 35px;
+      fill: #599bf1; }
+      .playlist__title .icon-play:hover, .playlist__title .icon-pause:hover {
+        cursor: pointer;
+        fill: #2179ec; }
   .playlist__description {
     font-size: 18px; }
 

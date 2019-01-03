@@ -25,7 +25,7 @@ class PlayIconContainer extends Component {
   }
 
   render() {
-    const { playerState, trackUri, trackUriArr } = this.props;
+    const { playerState, trackUri, trackUriArr, playType } = this.props;
 
     let shouldShowPauseIcon = false;
     let context; // Type of play to provide the play instruction (we use a track uri array)
@@ -45,8 +45,10 @@ class PlayIconContainer extends Component {
         track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
       } = playerState;
 
+      // Currently playing track must meet playerState track for pause icon to show unless it is the
+      // play all icon in DetailContainer
       if (!paused) {
-        if (trackUri && trackUri === currentTrackUri) {
+        if ((trackUri && trackUri === currentTrackUri) || playType === 'play-all') {
           shouldShowPauseIcon = true;
         }
       }

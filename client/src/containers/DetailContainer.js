@@ -82,6 +82,7 @@ class DetailContainer extends Component {
                   handlePlayClick={this.handlePlayClick}
                   handlePauseClick={this.handlePauseClick}
                   trackUriArr={trackUriArr}
+                  playType='play-all'
                 />
               </div>
               <div className="playlist_description">{playlistDescription}</div>

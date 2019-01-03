@@ -28,9 +28,23 @@
   }
 
   &__title {
+    display: flex;
+    align-items: center;
     font-size: 33px;
     font-weight: 300;
     color: $color-orange;
+
+    .icon-play, .icon-pause {
+      margin: 0 12px;
+      width: 35px;
+      height: 35px;
+      fill: $color-cornflower-blue; // svg's
+
+      &:hover {
+        cursor: pointer;
+        fill: darken($color-cornflower-blue, 12%);;
+      }
+    }
   }
 
   &__description {
