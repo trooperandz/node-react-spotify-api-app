@@ -12,10 +12,10 @@ class PlayIconContainer extends Component {
     super(props);
   }
 
-  handlePlayClick(trackUri) {
+  handlePlayClick(context) {
     const { handlePlayClick } = this.props;
 
-    handlePlayClick(trackUri);
+    handlePlayClick(context);
   }
 
   handlePauseClick() {
@@ -25,9 +25,17 @@ class PlayIconContainer extends Component {
   }
 
   render() {
-    const { playerState, trackUri } = this.props;
+    const { playerState, trackUri, trackUriArr } = this.props;
 
     let shouldShowPauseIcon = false;
+    let context; // Type of play to provide the play instruction (we use a track uri array)
+
+    // Sometimes we play single tracks; other times we play an entire album or playlist
+    if (trackUri) {
+      context = trackUri;
+    } else if (trackUriArr) {
+      context = trackUriArr;
+    }
 
     // Show pause icon anytime play has status of !paused and requirements are met
     if (playerState && playerState.hasOwnProperty('track_window')) {
@@ -45,9 +53,9 @@ class PlayIconContainer extends Component {
     }
 
     if (shouldShowPauseIcon) {
-      return <PauseIcon onClickPause={() => this.handlePauseClick(trackUri)} />;
+      return <PauseIcon onClickPause={() => this.handlePauseClick()} />;
     } else {
-      return <PlayIcon onClickPlay={() => this.handlePlayClick(trackUri)} />;
+      return <PlayIcon onClickPlay={() => this.handlePlayClick(context)} />;
     }
   }
 }

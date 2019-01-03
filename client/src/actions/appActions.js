@@ -3,6 +3,7 @@
  */
 
 import axios from 'axios';
+import queryString from 'query-string';
 
 import {
   FETCH_ACCESS_TOKEN,
@@ -10,7 +11,7 @@ import {
   RECEIVE_DEVICE_ID,
   RECEIVE_PLAYBACK_STATE,
   RECEIVE_PLAYER_STATE,
-  RECEIVE_PAUSED_PLAYER_STATE,
+  RECEIVE_PLAYED_PLAYER_STATE,
 } from './actionTypes';
 
 /**
@@ -73,6 +74,8 @@ function receiveDeviceId(deviceId) {
 
 /**
  * All play icon clicks, also triggers an update to the playerState object
+ * TODO: is this being used?  If so, standardize so that it's used everywhere instead of being
+ * created in multiple components.
  */
 function handlePlayClick(deviceId, trackUri) {
   console.log('handlePlayClick in appActions executed, deviceId = ', deviceId, ' trackUri = ', trackUri);
@@ -82,6 +85,8 @@ function handlePlayClick(deviceId, trackUri) {
 /**
  * All pause icon clicks, also triggers an update to the playerState object.
  * We save a separate paused player state object for resuming playback.
+ * TODO: is this being used?  If so, standardize so that it's used everywhere instead of being
+ * created in multiple components.
  */
 function handlePauseClick(playerState) {
   console.log('handlePauseClick in appActions executed...');
@@ -91,21 +96,16 @@ function handlePauseClick(playerState) {
 /**
  * Execute the Spotify SDK track play instruction
  */
-function playSpotifyTrack(deviceId, trackUri, resumePositionMs) {
+function playSpotifyTrack(deviceId, context, resumePositionMs, trackOffset) {
   let didParamsPass = true;
-
-  // Clear any possible "paused" player state on every play action; already read by now
-  savePausedPlayerState({});
-
-  console.log('playSpotifyTrack run instruction executing...,  deviceId: ', deviceId, ' trackUri: ', trackUri);
 
   if (!deviceId) {
     console.log('deviceId in playSpotifyTrack not set...');
     didParamsPass = false;
   }
 
-  if (!trackUri) {
-    console.log('trackUri in playSpotifyTrack not set...');
+  if (!context) {
+    console.log('context in playSpotifyTrack not set...');
     didParamsPass = false;
   }
 
@@ -114,16 +114,24 @@ function playSpotifyTrack(deviceId, trackUri, resumePositionMs) {
     return;
   }
 
-  let params = `?deviceId=${deviceId}&trackUri=${trackUri}`;
+  let params = `?deviceId=${deviceId}`;
 
+  // Present after a pause event
   if (resumePositionMs) params += `&positionMs=${resumePositionMs}`;
-  console.log('playSpotifyTrack params: ', params);
+
+  // Present for TrackTableRow play click; we trackUriArr is provided for every track play
+  if (trackOffset) params += `&trackOffset=${trackOffset}`;
+
   return (dispatch) => {
-    // axios.post(`/app/play?deviceId=${deviceId}&trackUri=${trackUri}&positionMs=${resumePositionMs}`)
-    axios.post(`/app/play${params}`)
+    axios.post(`/app/play${params}`, { context })
       .then((response) => {
         console.log(response);
-        fetchPlaybackState(); // Now get playback status for health check
+
+        // Save For resuming PlayControlContainer play; we use trackUriArr and offset for plays
+        dispatch(savePlayedPlayerState({ context, trackOffset }));
+
+        // Now fetch playback status for health check
+        fetchPlaybackState();
       })
       .catch((error) => {
         console.log(error);
@@ -135,8 +143,6 @@ function playSpotifyTrack(deviceId, trackUri, resumePositionMs) {
  * Execute the Spotify SDK track pause instruction
  */
 function pauseSpotifyTrack(playerState) {
-  savePausedPlayerState(playerState);
-
   return (dispatch) => {
     axios.post('/app/pause')
       .then((response) => {
@@ -153,7 +159,7 @@ function pauseSpotifyTrack(playerState) {
  * Get playback state information for the currently active device.
  * Executes immediately after play instruction.
  */
-function fetchPlaybackState() { console.log('fetchPlaybackState fired...');
+function fetchPlaybackState() {
   return (dispatch) => {
     axios.get('/app/playback-state')
       .then((response) => {
@@ -170,8 +176,9 @@ function fetchPlaybackState() { console.log('fetchPlaybackState fired...');
  * Save playback state object for future play actions; fires every time a play action occurs.
  * This info takes a bit of time to come back, so we use the SKD player state below for most resume
  * actions for track progress etc.
+ * This is advised by the Spotify docs to be used as a status "health check".
  */
-function receivePlaybackState(playbackState) { console.log('receivePlaybackState action fired...');
+function receivePlaybackState(playbackState) {
   return {
     type: RECEIVE_PLAYBACK_STATE,
     playbackState,
@@ -194,23 +201,14 @@ function savePlayerState(playerState) {
 
 /**
  * Executed on every play click, to save previously played track.
- * For determining if we need to reset the progress bar width to zero when switching songs
+ * Used for passing data to PlayControlContainer, which is at the App root level.
+ * PlayControlContainer needs the entire previous trackUriArr and the array offset for resuming play.
  */
-// function savePlayedPlayerState(playedPlayerState) {
-//   return {
-//     type: RECEIVE_PLAYED_PLAYER_STATE,
-//     playedPlayerState,
-//   }
-// }
-
-/**
- * For saving player state on every pause action; used to resume playback for same track
- */
-function savePausedPlayerState(pausedPlayerState) {
+function savePlayedPlayerState(playedPlayerState) {
   return {
-    type: RECEIVE_PAUSED_PLAYER_STATE,
-    pausedPlayerState,
-  };
+    type: RECEIVE_PLAYED_PLAYER_STATE,
+    playedPlayerState,
+  }
 }
 
 /**
@@ -228,22 +226,6 @@ function fetchDeviceList() {
   }
 }
 
-function testAccess(accessToken) {
-  return (dispatch) => {
-    axios.post(`https://api.spotify.com/v1/me/browse/categories/37i9dQZF1DX21bRPJuEN7r/playlists`, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-        },
-      })
-      .then((response) => {
-        console.log('test response: ', response);
-      })
-      .catch((error) => {
-        console.log('test error: ', error);
-      })
-  };
-}
-
 export default {
   savePlaylistSelection,
   fetchAccessToken,
@@ -255,7 +237,5 @@ export default {
   fetchPlaybackState,
   receivePlaybackState,
   savePlayerState,
-  savePausedPlayerState,
   fetchDeviceList,
-  testAccess,
 };

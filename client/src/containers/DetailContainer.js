@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import numeral from 'numeral';
 
+import appActions from '../actions/appActions';
 import playlistActions from '../actions/playlistActions';
 import SideNav from '../components/SideNav';
 import TrackTable from './TrackTable';
+import PlayIconContainer from './PlayIconContainer';
 
 class DetailContainer extends Component {
   constructor(props) {
@@ -20,6 +22,8 @@ class DetailContainer extends Component {
     }
 
     this.handlePlayHistorySelect = this.handlePlayHistorySelect.bind(this);
+    this.handlePlayClick = this.handlePlayClick.bind(this);
+    this.handlePauseClick = this.handlePauseClick.bind(this);
   }
 
   componentDidMount() {
@@ -37,9 +41,21 @@ class DetailContainer extends Component {
     return playlistHistoryArr;
   }
 
+  handlePlayClick(trackUriArr) {
+    const { deviceId, appActions: { playSpotifyTrack } } = this.props;
+
+    playSpotifyTrack(deviceId, trackUriArr);
+  }
+
+  handlePauseClick() {
+    const { playerState, appActions: { pauseSpotifyTrack } } = this.props;
+
+    pauseSpotifyTrack(playerState);
+  }
+
   // Render image and tracks if playlistObj available; otherwise return default message
   renderPlaylistDetail() {
-    const { playlistObj } = this.props;
+    const { playlistObj, playerState } = this.props;
 
     if ('trackArr' in playlistObj) {
       const {
@@ -49,6 +65,8 @@ class DetailContainer extends Component {
         playlistImgUrl,
         artistLink,
         trackArr,
+        trackUriArr,
+        contextUri,
       } = playlistObj;
 
       const imgStyle = { backgroundImage: `url(${playlistImgUrl})`};
@@ -58,12 +76,22 @@ class DetailContainer extends Component {
           <div className="playlist__info-wrapper">
             <div className="playlist__img" style={imgStyle}></div>
             <div className="playlist__text-wrapper">
-              <div className="playlist__title">{playlistName}</div>
+              <div className="playlist__title">{playlistName}
+                <PlayIconContainer
+                  playerState={playerState}
+                  handlePlayClick={this.handlePlayClick}
+                  handlePauseClick={this.handlePauseClick}
+                  trackUriArr={trackUriArr}
+                />
+              </div>
               <div className="playlist_description">{playlistDescription}</div>
-              <div className="playlist__followers">{playlistFollowers}</div>
+              <div className="playlist__followers">{playlistFollowers} followers</div>
             </div>
           </div>
-          <TrackTable trackArr={trackArr} />
+          <TrackTable
+            trackArr={trackArr}
+            trackUriArr={trackUriArr}
+          />
         </div>
       );
     }
@@ -103,12 +131,15 @@ function mapStateToProps(state) {
   return {
     playlistObj: state.playlist.playlistObj,
     playlistHistoryArr: state.playlist.playlistHistoryArr,
+    playerState: state.app.playerState,
+    deviceId: state.app.deviceId,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    playlistActions: bindActionCreators(playlistActions, dispatch)
+    playlistActions: bindActionCreators(playlistActions, dispatch),
+    appActions: bindActionCreators(appActions, dispatch),
   };
 }
 

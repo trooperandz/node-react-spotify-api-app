@@ -18,23 +18,41 @@ class PlayControlContainer extends Component {
   }
 
   handlePlayClick(trackUri) {
-    const { deviceId, playerState, pausedPlayerState, appActions: { playSpotifyTrack } } = this.props;
+    const {
+      deviceId,
+      playerState,
+      playedPlayerState,
+      appActions: { playSpotifyTrack }
+    } = this.props;
 
+    let currentTrackUriArr;
+    let currentTrackOffset;
     let resumePositionMs;
 
-    // If we have a previously paused player state, extract uri & determine if we "resume" play
-    if (pausedPlayerState && pausedPlayerState.hasOwnProperty('track_window')) {
+    // This should always exist for PlayControlContainer, since it only appears after a play event
+    if (playedPlayerState && playedPlayerState.hasOwnProperty('context')) {
       const {
-        track_window: { current_track: { id: pausedTrackId, uri: pausedTrackUri } }
-      } = pausedPlayerState;
+        context,
+        trackOffset,
+      } = playedPlayerState;
+
+      currentTrackUriArr = context;
+      currentTrackOffset = trackOffset;
+    }
+
+    // If we have a previously paused player state, determine & save our resume position
+    if (playerState && playerState.hasOwnProperty('track_window')) {
+      const {
+        position,
+        track_window: { current_track: { uri: pausedTrackUri } }
+      } = playerState;
 
       if (trackUri === pausedTrackUri) {
-        const { position: pausedPosition } = playerState;
-        resumePositionMs = pausedPosition;
+        resumePositionMs = position;
       }
     }
 
-    playSpotifyTrack(deviceId, trackUri, resumePositionMs);
+    playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset);
   }
 
   handlePauseClick() {
@@ -107,7 +125,7 @@ class PlayControlContainer extends Component {
 function mapStateToProps(state) {
   return {
     playerState: state.app.playerState,
-    pausedPlayerState: state.app.playerState,
+    playedPlayerState: state.app.playedPlayerState,
     deviceId: state.app.deviceId,
   };
 }

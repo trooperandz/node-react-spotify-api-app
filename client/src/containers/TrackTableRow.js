@@ -14,27 +14,33 @@ class TrackTableRow extends Component {
   }
 
   handlePlayClick(trackUri) {
-    const { deviceId, playerState, pausedPlayerState, appActions: { playSpotifyTrack } } = this.props;
+    const {
+      deviceId,
+      playerState,
+      trackUriArr,
+      trackOffset,
+      appActions: { playSpotifyTrack }
+    } = this.props;
 
     let resumePositionMs;
 
     // If we have a previously saved player state, extract uri & determine if we "resume" play
-    if (pausedPlayerState && pausedPlayerState.hasOwnProperty('track_window')) {
+    if (playerState && playerState.hasOwnProperty('track_window')) {
       const {
-        track_window: { current_track: { id: pausedTrackId, uri: pausedTrackUri } }
-      } = pausedPlayerState;
+        position,
+        track_window: { current_track: { uri: pausedTrackUri } }
+      } = playerState;
 
       if (trackUri === pausedTrackUri) {
-        const { position: pausedPosition } = playerState;
-        resumePositionMs = pausedPosition;
+        resumePositionMs = position;
       }
     }
 
-    playSpotifyTrack(deviceId, trackUri, resumePositionMs);
+    playSpotifyTrack(deviceId, trackUriArr, resumePositionMs, trackOffset);
   }
 
   handlePauseClick() {
-    const { playerState, appActions: { pauseSpotifyTrack, savePausedPlayerState } } = this.props;
+    const { playerState, appActions: { pauseSpotifyTrack } } = this.props;
 
     pauseSpotifyTrack(playerState);
   }
@@ -79,7 +85,6 @@ class TrackTableRow extends Component {
 function mapStateToProps(state) {
   return {
     deviceId: state.app.deviceId,
-    pausedPlayerState: state.app.playerState,
   };
 }
 

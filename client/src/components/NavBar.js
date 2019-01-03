@@ -7,7 +7,7 @@ class NavBar extends Component {
     return (
       <div className="navbar">
         <NavLink exact className="navbar__link" to="/"><i className="fas fa-chart-bar"></i> New Releases</NavLink>
-        <NavLink className="navbar__link" to="/categories"><i className="fas fa-book-open"></i> Categories</NavLink>
+        <NavLink className="navbar__link" to="/categories"><i className="fas fa-book-open"></i> Playlists</NavLink>
         <NavLink className="navbar__link" to="/detail"><i className="fas fa-headphones-alt"></i> Now Playing</NavLink>
         <NavLink className="navbar__link" to="/search"><i className="fas fa-search"></i> Search</NavLink>
       </div>

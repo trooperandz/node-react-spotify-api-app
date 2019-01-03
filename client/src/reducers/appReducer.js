@@ -7,7 +7,7 @@ import {
   RECEIVE_DEVICE_ID,
   RECEIVE_PLAYBACK_STATE,
   RECEIVE_PLAYER_STATE,
-  RECEIVE_PAUSED_PLAYER_STATE,
+  RECEIVE_PLAYED_PLAYER_STATE,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
   deviceId: '',
   playbackState: {},
   playerState: {},
-  pausedPlayerState: {},
+  playedPlayerState: {},
 };
 
 export default function appReducer(state = initialState, action) {
@@ -24,7 +24,7 @@ export default function appReducer(state = initialState, action) {
     deviceId,
     playbackState,
     playerState,
-    pausedPlayerState,
+    playedPlayerState,
   } = action;
 
   let newState;
@@ -54,10 +54,10 @@ export default function appReducer(state = initialState, action) {
         playerState,
       };
       return newState;
-    case RECEIVE_PAUSED_PLAYER_STATE:
+    case RECEIVE_PLAYED_PLAYER_STATE:
       newState = {
         ...state,
-        pausedPlayerState,
+        playedPlayerState,
       };
       return newState;
     default:

@@ -1,9 +1,11 @@
 /**
- * App-wide routes, container-agnostic (root /app)
+ * App-wide routes, container-agnostic (root /app).
+ * Contains mostly player-related routes.
  */
 
 const express = require('express');
 const request = require('request');
+const queryString = require('query-string');
 
 const { savePlaylistSelection } = require('../controllers/util');
 const { refreshExpiredToken } = require('../middleware');
@@ -43,21 +45,24 @@ router.get('/access-token', refreshExpiredToken, (req, res) => {
 // Execute a play instruction for the active device
 router.post('/play', refreshExpiredToken, (req, res) => {
   const { accessToken } = req.session;
-  const { deviceId, trackUri, positionMs } = req.query;
-  console.log('deviceId: ', deviceId, ' trackUri: ', trackUri, ' positionMs: ' , positionMs);
+  const { deviceId, positionMs, trackOffset } = req.query;
+  const { context } = req.body; // We pass context as a body request bc it's an array
+  // console.log('deviceId: ', deviceId, ' context: ', context, ' positionMs: ' , positionMs);
+
   if (!deviceId) {
     console.log('deviceId in /play undefined...');
   }
 
-  if (!trackUri) {
-    console.log('trackUri in /play undefined...');
+  if (!context) {
+    console.log('context in /play undefined...');
   }
 
   let requestBody = {
-    uris: [trackUri],
+    uris: context,
   };
 
   if (positionMs) requestBody.position_ms = positionMs;
+  if (trackOffset) requestBody.offset = { position: trackOffset};
 
   request({
     method: 'PUT',
@@ -73,7 +78,7 @@ router.post('/play', refreshExpiredToken, (req, res) => {
       return res.json({ success: false, error: err });
     }
 
-    console.log('response: ', response);
+    // console.log('response: ', response);
     return res.json({ success: true, response });
   });
 });

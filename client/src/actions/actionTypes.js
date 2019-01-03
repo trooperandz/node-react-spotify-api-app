@@ -40,5 +40,5 @@ export const RECEIVE_PLAYBACK_STATE = 'RECEIVE_PLAYBACK_STATE';
 // Save the Spotify SDK player state (not to be confused with playback state)
 export const RECEIVE_PLAYER_STATE = 'RECEIVE_PLAYER_STATE';
 
-// Save current player state on pause actions; used to resume playback for same track
-export const RECEIVE_PAUSED_PLAYER_STATE = 'RECEIVE_PAUSED_PLAYER_STATE';
+// Save last played item data for PlayControlContainer context
+export const RECEIVE_PLAYED_PLAYER_STATE = 'RECEIVE_PLAYED_PLAYER_STATE';

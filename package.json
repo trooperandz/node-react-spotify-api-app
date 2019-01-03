@@ -20,6 +20,7 @@
     "morgan": "~1.9.0",
     "mysql2": "^1.6.1",
     "numeral": "^2.0.6",
+    "query-string": "^6.2.0",
     "safe-json-parse": "^4.0.0",
     "sequelize": "^4.38.1",
     "sequelize-cli": "^4.1.1",
