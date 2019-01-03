@@ -161,4 +161,66 @@ router.get('/device-list', refreshExpiredToken, (req, res) => { console.log('/pl
   });
 });
 
+router.post('/player/next', refreshExpiredToken, (req, res) => {
+  console.log('fetching next');
+  const { accessToken } = req.session;
+  const { deviceId } = req.query;
+
+  if (!accessToken) {
+    console.log('accessToken invalid in /player/next request...');
+  }
+
+  if (!deviceId) {
+    console.log('deviceId in /player/next is null...');
+  }
+
+  const options = {
+    url: `${SPOTIFY_BASE_URL}/me/player/next?device_id=${deviceId}`,
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  };
+
+  request.post(options, (err, response, body) => {
+    if (err) {
+      console.log('error: ', err);
+      return res.json({ success: false, error: err });
+    }
+
+    console.log('response for /player/next: ', response);
+    return res.json({ success: true });
+  });
+});
+
+router.post('/player/previous', refreshExpiredToken, (req, res) => {
+  console.log('fetching previous');
+  const { accessToken } = req.session;
+  const { deviceId } = req.query;
+
+  if (!accessToken) {
+    console.log('accessToken invalid in /player/previous request...');
+  }
+
+  if (!deviceId) {
+    console.log('deviceId in /player/previous is null...');
+  }
+
+  const options = {
+    url: `${SPOTIFY_BASE_URL}/me/player/previous?device_id=${deviceId}`,
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  };
+
+  request.post(options, (err, response, body) => {
+    if (err) {
+      console.log('error: ', err);
+      return res.json({ success: false, error: err });
+    }
+
+    console.log('response for /player/previous: ', response);
+    return res.json({ success: true });
+  });
+});
+
 module.exports = router;

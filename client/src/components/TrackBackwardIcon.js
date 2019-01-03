@@ -1,10 +1,10 @@
 import React from 'react';
 
 const TrackBackwardIcon = (props) => {
-  const { handleStepClick } = props;
+  const { handlePreviousClick } = props;
 
   return (
-    <i onClick={handleStepClick} className="fas fa-step-backward"></i>
+    <i onClick={handlePreviousClick} className="fas fa-step-backward"></i>
   );
 }
 

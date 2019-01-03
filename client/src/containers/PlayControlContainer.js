@@ -14,7 +14,8 @@ class PlayControlContainer extends Component {
 
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
-    this.handleStepClick = this.handleStepClick.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
+    this.handlePreviousClick = this.handlePreviousClick.bind(this);
   }
 
   handlePlayClick(trackUri) {
@@ -61,8 +62,16 @@ class PlayControlContainer extends Component {
     pauseSpotifyTrack(playerState);
   }
 
-  handleStepClick() {
-    console.log('clicked step control...')
+  // Proceed to the next track of the album or playlist
+  handleNextClick() {
+    const { deviceId, appActions: { fetchNextTrack } } = this.props;
+    fetchNextTrack(deviceId);
+  }
+
+  // Go back to the previous track of the album or playlist
+  handlePreviousClick() {
+    const { deviceId, appActions: { fetchPreviousTrack } } = this.props;
+    fetchPreviousTrack(deviceId);
   }
 
   render() {
@@ -105,14 +114,14 @@ class PlayControlContainer extends Component {
           <p className="playcontrol__track-description">The best song you've ever heard...</p>
         </div>
         <div className="playcontrol__play-icons">
-          <TrackBackwardIcon handleStepClick={this.handleStepClick} />
+          <TrackBackwardIcon  handlePreviousClick={() => this.handlePreviousClick()}/>
           <PlayIconContainer
             playerState={playerState}
             handlePlayClick={this.handlePlayClick}
             handlePauseClick={this.handlePauseClick}
             trackUri={trackUri}
           />
-          <TrackForwardIcon handleStepClick={this.handleStepClick} />
+          <TrackForwardIcon handleNextClick={() => this.handleNextClick()} />
         </div>
         <div className="playcontrol__more-actions">
           <p className="playcontrol__more-stuff">More stuff</p>

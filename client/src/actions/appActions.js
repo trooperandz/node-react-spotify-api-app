@@ -226,6 +226,38 @@ function fetchDeviceList() {
   }
 }
 
+/**
+ * Proceed to the next album or playlist track.
+ * Causes an update in the connected playerState; no action necessary.
+ */
+function fetchNextTrack(deviceId) {
+  return () => {
+    axios.post(`/app/player/next?deviceId=${deviceId}`)
+      .then((response) => {
+        /* no-op */
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+/**
+ * Skip to the previous album or playlist track.
+ * Causes an update in the connected playerState; no action necessary.
+ */
+function fetchPreviousTrack(deviceId) {
+  return () => {
+    axios.post(`/app/player/previous?deviceId=${deviceId}`)
+      .then((response) => {
+        /* no-op */
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
 export default {
   savePlaylistSelection,
   fetchAccessToken,
@@ -238,4 +270,6 @@ export default {
   receivePlaybackState,
   savePlayerState,
   fetchDeviceList,
+  fetchNextTrack,
+  fetchPreviousTrack,
 };
