@@ -1,3 +1,10 @@
+/**
+ * The "currently playing" container fixed to the bottom of the app.
+ * Displays current album or playlist information, and contains live progress bar and
+ * any additional track controls like previous track & next track.
+ * Allows play control while navigating throughout the app, regardless of current view.
+ */
+
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -18,6 +25,7 @@ class PlayControlContainer extends Component {
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
   }
 
+  // Handle play icon clicks and determine resume position if previous play occurred
   handlePlayClick(trackUri) {
     const {
       deviceId,
@@ -56,6 +64,7 @@ class PlayControlContainer extends Component {
     playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset);
   }
 
+  // Handle pause icon clicks and save current player state
   handlePauseClick() {
     const { playerState, appActions: { pauseSpotifyTrack } } = this.props;
 
@@ -88,7 +97,7 @@ class PlayControlContainer extends Component {
         paused,
         duration,
         position,
-        track_window: { current_track: { id: currentTrackId, uri: currentTrackUri } }
+        track_window: { current_track: { uri: currentTrackUri } = {} }
       } = playerState;
 
       trackUri = currentTrackUri;
