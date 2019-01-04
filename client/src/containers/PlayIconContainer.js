@@ -38,18 +38,56 @@ class PlayIconContainer extends PureComponent {
   }
 
   render() {
-    const { playerState, trackUri, trackUriArr, playType } = this.props;
+    const {
+      playerState,
+      // playedPlayerState,
+      playlistObj,
+      trackUri,
+      trackUriArr,
+      playType,
+    } = this.props;
 
     let shouldShowPauseIcon = false;
+    let playedAlbumUri;
+    let viewedAlbumUri;
 
     // Show pause icon anytime play has status of !paused and requirements are met
+    // This destructuring is a bit absurd...
     if (playerState && playerState.hasOwnProperty('track_window')) {
       const {
         paused,
-        track_window: { current_track: { uri: currentTrackUri } = {} },
+        track_window: {
+          current_track: {
+            uri: currentTrackUri,
+            album: { uri: albumUri } = {},
+          } = {},
+        },
       } = playerState;
+      console.log('albumUri: ', albumUri);
+      playedAlbumUri = albumUri;
 
-      if (!paused && ((trackUri === currentTrackUri) || playType === 'play-all')) {
+      // if (playedPlayerState && playedPlayerState.hasOwnProperty('playlistObj')) {
+      //   const {
+      //     playlistObj: { contextUri } = {},
+      //   } = playedPlayerState;
+      //   console.log('contextUri: ', contextUri);
+      //   viewedAlbumUri = contextUri;
+      // }
+
+      // Grab most recently viewed playlist & compare to currently playing
+      if (playlistObj && playlistObj.hasOwnProperty('contextUri')) {
+        const { contextUri } = playlistObj;
+
+        viewedAlbumUri = contextUri;
+      }
+
+      console.log('viewedAlbumUri: ', viewedAlbumUri);
+
+      if (!paused
+        && (
+          (trackUri === currentTrackUri)
+          || (playType === 'play-all' && playedAlbumUri === viewedAlbumUri)
+        )) {
         shouldShowPauseIcon = true;
       }
     }

@@ -17,10 +17,6 @@ class DetailContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isTrackPlaying: false,
-    }
-
     this.handlePlayHistorySelect = this.handlePlayHistorySelect.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
@@ -93,7 +89,7 @@ class DetailContainer extends Component {
 
   // Render image and tracks if playlistObj available; otherwise return default message
   renderPlaylistDetail() {
-    const { playlistObj, playerState } = this.props;
+    const { playlistObj, playerState, /*playedPlayerState*/ } = this.props;
 
     if ('trackArr' in playlistObj) {
       const {
@@ -117,6 +113,7 @@ class DetailContainer extends Component {
               <div className="playlist__title">{playlistName}
                 <PlayIconContainer
                   playerState={playerState}
+                  playlistObj={playlistObj}
                   handlePlayClick={this.handlePlayClick}
                   handlePauseClick={this.handlePauseClick}
                   trackUriArr={trackUriArr}
