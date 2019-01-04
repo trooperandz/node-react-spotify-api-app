@@ -53,7 +53,6 @@ function fetchAccessToken() {
  * Save the Spotify access token on token refresh action
  */
 function receiveAccessToken(accessToken) {
-  console.log('receiveAccessToken ran, accessToken = ', accessToken);
   return {
     type: RECEIVE_ACCESS_TOKEN,
     accessToken,
@@ -78,7 +77,6 @@ function receiveDeviceId(deviceId) {
  * created in multiple components.
  */
 function handlePlayClick(deviceId, trackUri) {
-  console.log('handlePlayClick in appActions executed, deviceId = ', deviceId, ' trackUri = ', trackUri);
   playSpotifyTrack(deviceId, trackUri);
 }
 
@@ -89,14 +87,13 @@ function handlePlayClick(deviceId, trackUri) {
  * created in multiple components.
  */
 function handlePauseClick(playerState) {
-  console.log('handlePauseClick in appActions executed...');
   pauseSpotifyTrack(playerState);
 }
 
 /**
  * Execute the Spotify SDK track play instruction
  */
-function playSpotifyTrack(deviceId, context, resumePositionMs, trackOffset) {
+function playSpotifyTrack(deviceId, context, resumePositionMs, trackOffset, playlistObj) {
   let didParamsPass = true;
 
   if (!deviceId) {
@@ -125,10 +122,9 @@ function playSpotifyTrack(deviceId, context, resumePositionMs, trackOffset) {
   return (dispatch) => {
     axios.post(`/app/play${params}`, { context })
       .then((response) => {
-        console.log(response);
-
-        // Save For resuming PlayControlContainer play; we use trackUriArr and offset for plays
-        dispatch(savePlayedPlayerState({ context, trackOffset }));
+        // Save For resuming PlayControlContainer play; we use trackUriArr and offset for plays,
+        // and also use data from this saved playlistOb for the PlayControlContainer.
+        dispatch(savePlayedPlayerState({ context, trackOffset, playlistObj }));
 
         // Now fetch playback status for health check
         fetchPlaybackState();
@@ -229,6 +225,7 @@ function fetchDeviceList() {
 /**
  * Proceed to the next album or playlist track.
  * Causes an update in the connected playerState; no action necessary.
+ * TODO: save player state similar to how we do in playSpotifyTrack() so we can resume from this control
  */
 function fetchNextTrack(deviceId) {
   return () => {
@@ -245,6 +242,7 @@ function fetchNextTrack(deviceId) {
 /**
  * Skip to the previous album or playlist track.
  * Causes an update in the connected playerState; no action necessary.
+ * TODO: save player state similar to how we do in playSpotifyTrack() so we can resume from this control
  */
 function fetchPreviousTrack(deviceId) {
   return () => {

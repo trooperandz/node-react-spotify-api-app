@@ -46,7 +46,7 @@ class PlayIconContainer extends PureComponent {
     if (playerState && playerState.hasOwnProperty('track_window')) {
       const {
         paused,
-        track_window: { current_track: { uri: currentTrackUri } = {} }
+        track_window: { current_track: { uri: currentTrackUri } = {} },
       } = playerState;
 
       if (!paused && ((trackUri === currentTrackUri) || playType === 'play-all')) {

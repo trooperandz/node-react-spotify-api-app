@@ -31,6 +31,7 @@ class PlayControlContainer extends Component {
       deviceId,
       playerState,
       playedPlayerState,
+      playlistObj,
       appActions: { playSpotifyTrack }
     } = this.props;
 
@@ -39,6 +40,7 @@ class PlayControlContainer extends Component {
     let resumePositionMs;
 
     // This should always exist for PlayControlContainer, since it only appears after a play event
+    // TODO: consolidate; we also use this in DetailContainer as well
     if (playedPlayerState && playedPlayerState.hasOwnProperty('context')) {
       const {
         context,
@@ -61,7 +63,7 @@ class PlayControlContainer extends Component {
       }
     }
 
-    playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset);
+    playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset, playlistObj);
   }
 
   // Handle pause icon clicks and save current player state
@@ -84,15 +86,20 @@ class PlayControlContainer extends Component {
   }
 
   render() {
-    const { playerState } = this.props;
+    const { playerState, playedPlayerState } = this.props;
 
     let trackUri;
     let trackDurationMs;
     let trackPositionMs;
     let isTrackPaused;
 
+    // Album/playlist display info
+    let currentPlaylistName;
+    let currentPlaylistImgUrl;
+    let currentPlaylistDescription;
+
     // PlayControlContainer only renders when a play occurs; we should always have playerState
-    if (playerState.hasOwnProperty('track_window')) {
+    if (playerState && playerState.hasOwnProperty('track_window')) {
       const {
         paused,
         duration,
@@ -106,6 +113,27 @@ class PlayControlContainer extends Component {
       trackPositionMs = position;
     }
 
+    // We use the previously played playlistObj; not the current one, because we may have active
+    // play occurring while user is browsing playlists or albums.
+    if (playedPlayerState && playedPlayerState.hasOwnProperty('playlistObj')) {
+      const {
+        playlistObj: {
+          playlistName,
+          playlistDescription,
+          playlistFollowers,
+          playlistImgUrl,
+          artistLink,
+          trackArr,
+          trackUriArr,
+          contextUri,
+        } = {}
+      } = playedPlayerState;
+
+      currentPlaylistName = playlistName;
+      currentPlaylistImgUrl = playlistImgUrl;
+      currentPlaylistDescription = playlistDescription.split('-')[0].trim();
+    }
+
     return (
       <div className="playcontrol">
         <PlayStatusBar
@@ -116,11 +144,12 @@ class PlayControlContainer extends Component {
           trackUri={trackUri}
         />
         <div className="playcontrol__image">
-          <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/DMB_Crash.png" />
+          <img src={currentPlaylistImgUrl} alt="Album Title" />
         </div>
         <div className="playcontrol__info">
           <h3 className="playcontrol__track-title">Tripping Billies</h3>
-          <p className="playcontrol__track-description">The best song you've ever heard...</p>
+          <p className="playcontrol__track-description">{currentPlaylistName}</p>
+          <p className="playcontrol__track-description">{currentPlaylistDescription}</p>
         </div>
         <div className="playcontrol__play-icons">
           <TrackBackwardIcon  handlePreviousClick={() => this.handlePreviousClick()}/>
@@ -145,6 +174,7 @@ function mapStateToProps(state) {
     playerState: state.app.playerState,
     playedPlayerState: state.app.playedPlayerState,
     deviceId: state.app.deviceId,
+    playlistObj: state.playlist.playlistObj,
   };
 }
 

@@ -17,6 +17,7 @@ class TrackTableRow extends Component {
     const {
       deviceId,
       playerState,
+      playlistObj,
       trackUriArr,
       trackOffset,
       appActions: { playSpotifyTrack }
@@ -36,7 +37,7 @@ class TrackTableRow extends Component {
       }
     }
 
-    playSpotifyTrack(deviceId, trackUriArr, resumePositionMs, trackOffset);
+    playSpotifyTrack(deviceId, trackUriArr, resumePositionMs, trackOffset, playlistObj);
   }
 
   handlePauseClick() {
@@ -85,6 +86,7 @@ class TrackTableRow extends Component {
 function mapStateToProps(state) {
   return {
     deviceId: state.app.deviceId,
+    playlistObj: state.playlist.playlistObj,
   };
 }
 

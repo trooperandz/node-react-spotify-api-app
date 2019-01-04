@@ -42,9 +42,47 @@ class DetailContainer extends Component {
   }
 
   handlePlayClick(trackUriArr) {
-    const { deviceId, appActions: { playSpotifyTrack } } = this.props;
+    const {
+      deviceId,
+      playerState,
+      playedPlayerState,
+      playlistObj,
+      appActions: { playSpotifyTrack },
+    } = this.props;
 
-    playSpotifyTrack(deviceId, trackUriArr);
+    let currentTrackUriArr;
+    let currentTrackOffset;
+    let resumePositionMs;
+
+    // Represents the latest played item; grab the info for resuming play.
+    // If no item has been played yet, we use the provided album or playlist uri array
+    if (playedPlayerState && playedPlayerState.hasOwnProperty('context')) {
+      const {
+        context,
+        trackOffset,
+      } = playedPlayerState;
+
+      currentTrackUriArr = context;
+      currentTrackOffset = trackOffset;
+    } else {
+      currentTrackUriArr = trackUriArr;
+    }
+
+    // If we have a previously paused player state, determine & save our resume position
+    if (playerState && playerState.hasOwnProperty('track_window')) {
+      const {
+        paused,
+        position,
+        track_window: { current_track: { uri: pausedTrackUri } }
+      } = playerState;
+
+      if (paused) {
+        resumePositionMs = position;
+      }
+    }
+
+    // playSpotifyTrack(deviceId, trackUriArr);
+    playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset, playlistObj);
   }
 
   handlePauseClick() {
@@ -133,6 +171,7 @@ function mapStateToProps(state) {
     playlistObj: state.playlist.playlistObj,
     playlistHistoryArr: state.playlist.playlistHistoryArr,
     playerState: state.app.playerState,
+    playedPlayerState: state.app.playedPlayerState,
     deviceId: state.app.deviceId,
   };
 }
