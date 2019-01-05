@@ -97,6 +97,7 @@ class PlayControlContainer extends Component {
     let currentPlaylistName;
     let currentPlaylistImgUrl;
     let currentPlaylistDescription;
+    let currentTrackName = 'Unknown';
 
     // PlayControlContainer only renders when a play occurs; we should always have playerState
     if (playerState && playerState.hasOwnProperty('track_window')) {
@@ -104,13 +105,19 @@ class PlayControlContainer extends Component {
         paused,
         duration,
         position,
-        track_window: { current_track: { uri: currentTrackUri } = {} }
+        track_window: {
+          current_track: {
+            name,
+            uri: currentTrackUri,
+          } = {},
+        }
       } = playerState;
 
       trackUri = currentTrackUri;
       isTrackPaused = paused;
       trackDurationMs = duration;
       trackPositionMs = position;
+      currentTrackName = name;
     }
 
     // We use the previously played playlistObj; not the current one, because we may have active
@@ -147,7 +154,7 @@ class PlayControlContainer extends Component {
           <img src={currentPlaylistImgUrl} alt="Album Title" />
         </div>
         <div className="playcontrol__info">
-          <h3 className="playcontrol__track-title">Tripping Billies</h3>
+          <h3 className="playcontrol__track-title">{currentTrackName}</h3>
           <p className="playcontrol__track-description">{currentPlaylistName}</p>
           <p className="playcontrol__track-description">{currentPlaylistDescription}</p>
         </div>

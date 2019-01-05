@@ -60,7 +60,7 @@ class CategoriesContainer extends Component {
     return (
       <Fragment>
         <SideNav
-          title='Playlists'
+          title='Spotify Playlists'
           handleSelect={this.handleCategorySelect}
           selectedId={selectedCategoryId}
           selectionArr={this.getCategorySelectArr()}

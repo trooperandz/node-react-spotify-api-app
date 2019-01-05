@@ -40,7 +40,6 @@ class PlayIconContainer extends PureComponent {
   render() {
     const {
       playerState,
-      // playedPlayerState,
       playlistObj,
       trackUri,
       trackUriArr,
@@ -50,7 +49,7 @@ class PlayIconContainer extends PureComponent {
     let shouldShowPauseIcon = false;
     let playedAlbumUri;
     let viewedAlbumUri;
-
+    // console.log('playerState in PlayIconContainer: ', playerState, ' trackUri: ', trackUri);
     // Show pause icon anytime play has status of !paused and requirements are met
     // This destructuring is a bit absurd...
     if (playerState && playerState.hasOwnProperty('track_window')) {
@@ -58,21 +57,14 @@ class PlayIconContainer extends PureComponent {
         paused,
         track_window: {
           current_track: {
+            name: trackName,
             uri: currentTrackUri,
             album: { uri: albumUri } = {},
           } = {},
         },
       } = playerState;
-      console.log('albumUri: ', albumUri);
-      playedAlbumUri = albumUri;
 
-      // if (playedPlayerState && playedPlayerState.hasOwnProperty('playlistObj')) {
-      //   const {
-      //     playlistObj: { contextUri } = {},
-      //   } = playedPlayerState;
-      //   console.log('contextUri: ', contextUri);
-      //   viewedAlbumUri = contextUri;
-      // }
+      playedAlbumUri = albumUri;
 
       // Grab most recently viewed playlist & compare to currently playing
       if (playlistObj && playlistObj.hasOwnProperty('contextUri')) {
@@ -81,7 +73,8 @@ class PlayIconContainer extends PureComponent {
         viewedAlbumUri = contextUri;
       }
 
-      console.log('viewedAlbumUri: ', viewedAlbumUri);
+      // TODO: pause icon not showing correctly in table row or DetailContainer title area
+      console.log('trackUri === currentTrackUri: ', trackUri === currentTrackUri, ' track name = ', trackName);
 
       if (!paused
         && (

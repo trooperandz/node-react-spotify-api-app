@@ -37,6 +37,8 @@ class DetailContainer extends Component {
     return playlistHistoryArr;
   }
 
+  // Begin new play or resume previously played album or playlist
+  // TODO: clean up all these objects & consolidate some if you can...
   handlePlayClick(trackUriArr) {
     const {
       deviceId,
@@ -49,6 +51,8 @@ class DetailContainer extends Component {
     let currentTrackUriArr;
     let currentTrackOffset;
     let resumePositionMs;
+    let playedAlbumUri;
+    let viewedAlbumUri;
 
     // Represents the latest played item; grab the info for resuming play.
     // If no item has been played yet, we use the provided album or playlist uri array
@@ -60,27 +64,46 @@ class DetailContainer extends Component {
 
       currentTrackUriArr = context;
       currentTrackOffset = trackOffset;
-    } else {
-      currentTrackUriArr = trackUriArr;
     }
 
-    // If we have a previously paused player state, determine & save our resume position
+    // If we have an active player state, determine paused state & save our resume position
     if (playerState && playerState.hasOwnProperty('track_window')) {
       const {
         paused,
         position,
-        track_window: { current_track: { uri: pausedTrackUri } }
+        track_window: {
+          current_track: {
+            uri: currentTrackUri,
+            album: { uri: albumUri } = {},
+          } = {},
+        },
       } = playerState;
+
+      playedAlbumUri = albumUri;
 
       if (paused) {
         resumePositionMs = position;
       }
     }
 
-    // playSpotifyTrack(deviceId, trackUriArr);
+    // Represents the most recent album or playlist selection in DetailContainer; the play icon
+    // here needs to play the "newly" displayed album if it's different than the last played one
+    if (playlistObj && playlistObj.hasOwnProperty('contextUri')) {
+      const { contextUri } = playlistObj;
+
+      viewedAlbumUri = contextUri;
+    }
+
+    if (playedAlbumUri !== viewedAlbumUri) {
+      currentTrackUriArr = trackUriArr; // same as the one in playlistObj, it's just passed...
+      resumePositionMs = null;
+      currentTrackOffset = null;
+    }
+
     playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset, playlistObj);
   }
 
+  // Pause play and save the currently active player state
   handlePauseClick() {
     const { playerState, appActions: { pauseSpotifyTrack } } = this.props;
 
@@ -89,7 +112,7 @@ class DetailContainer extends Component {
 
   // Render image and tracks if playlistObj available; otherwise return default message
   renderPlaylistDetail() {
-    const { playlistObj, playerState, /*playedPlayerState*/ } = this.props;
+    const { playlistObj, playerState } = this.props;
 
     if ('trackArr' in playlistObj) {
       const {
