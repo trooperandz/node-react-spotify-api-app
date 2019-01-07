@@ -20,7 +20,7 @@ redisClient.on('error', (err) => {
 // Start a session; we use Redis for the store
 app.use(session({
   secret: 'TheTimeHasComeNowLater',
-  name: '_tunein',
+  name: '_redisPractice',
   resave: false,
   saveUninitialized: true,
   store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
