@@ -32,8 +32,24 @@ class CardContainer extends Component {
 
   render() {
     return (
-      <div className="card-grid-wrapper">
-        {this.getCardsByType()}
+      <div className="card-container">
+        <div className="card-header">
+          <h3 className="card-header__title">Pagination goes here</h3>
+          <ul className="pagination">
+            <li className="pagination__list-item">«</li>
+            <li className="pagination__list-item">1</li>
+            <li className="pagination__list-item">2</li>
+            <li className="pagination__list-item active">3</li>
+            <li className="pagination__list-item">4</li>
+            <li className="pagination__list-item">5</li>
+            <li className="pagination__list-item">6</li>
+            <li className="pagination__list-item">7</li>
+            <li className="pagination__list-item">»</li>
+          </ul>
+        </div>
+        <div className="card-grid-wrapper">
+          {this.getCardsByType()}
+        </div>
       </div>
     );
   }

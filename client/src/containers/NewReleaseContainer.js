@@ -67,7 +67,7 @@ class NewReleaseContainer extends Component {
             selectionArr = {this.getCountrySelectArr()}
           />
           <div className="content">
-            <HeaderMain />
+            {/*<HeaderMain />*/}
             <CardContainer newReleaseArr={albumArr} />
           </div>
         </Fragment>
