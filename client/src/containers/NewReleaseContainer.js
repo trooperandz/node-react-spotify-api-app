@@ -46,15 +46,22 @@ class NewReleaseContainer extends Component {
   }
 
   // Trigger new release fetch when sidenav country selection occurs
-  handleCountrySelect(countryId) {
-    const { newReleaseActions: { fetchNewReleases, setCountryId } } = this.props;
+  handleCountrySelect(countryId, selectedSidenavObj) {
+    const {
+      newReleaseActions: {
+        fetchNewReleases,
+        setCountryId,
+        setSelectedNewReleaseObj
+      } = {},
+    } = this.props;
 
     setCountryId(countryId);
+    setSelectedNewReleaseObj(selectedSidenavObj);
     fetchNewReleases(countryId);
   }
 
   render() {
-    const { albumArr, selectedCountryId } = this.props;
+    const { albumArr, selectedCountryId, selectedNewReleaseObj } = this.props;
 
     if (albumArr && albumArr.length) {
       return (
@@ -67,8 +74,11 @@ class NewReleaseContainer extends Component {
             selectionArr = {this.getCountrySelectArr()}
           />
           <div className="content">
-            {/*<HeaderMain />*/}
-            <CardContainer newReleaseArr={albumArr} />
+            <CardContainer
+              containerType='new-releases'
+              resultsArr={albumArr}
+              selectedSidenavObj={selectedNewReleaseObj}
+            />
           </div>
         </Fragment>
       );
@@ -87,6 +97,7 @@ function mapStateToProps(state) {
   return {
     albumArr: state.newReleases.albumArr,
     selectedCountryId: state.newReleases.selectedCountryId,
+    selectedNewReleaseObj: state.newReleases.selectedNewReleaseObj,
   };
 }
 

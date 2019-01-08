@@ -1,0 +1,31 @@
+// Heading section for each card results container
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+
+  &__title {
+    position: relative;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 1px;
+      top: 34px;
+      left: 0;
+      background-color: gainsboro;
+    }
+  }
+
+  &__results {
+    color: $color-cornflower-blue;
+    font-size: 18px;
+    font-weight: 400;
+  }
+}

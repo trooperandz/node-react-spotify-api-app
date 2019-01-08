@@ -46,17 +46,23 @@ class CategoriesContainer extends Component {
     ];
   }
 
-  handleCategorySelect(selectedCategoryId) {
-    const { categoriesActions: { fetchCategories, setCategoryId } } = this.props;
+  handleCategorySelect(selectedCategoryId, selectedSidenavObj) {
+    const {
+      categoriesActions: {
+        fetchCategories,
+        setCategoryId,
+        setSelectedCategoriesObj,
+      } = {},
+    } = this.props;
 
     setCategoryId(selectedCategoryId);
+    setSelectedCategoriesObj(selectedSidenavObj);
     fetchCategories(selectedCategoryId);
-
   }
 
   render() {
-    const { categoriesArr, selectedCategoryId } = this.props;
-
+    const { categoriesArr, selectedCategoryId, selectedCategoriesObj } = this.props;
+    console.log('selectedCategoriesObj in CategoriesContainer: ', selectedCategoriesObj);
     return (
       <Fragment>
         <SideNav
@@ -68,7 +74,9 @@ class CategoriesContainer extends Component {
         />
         <div className="content">
           <CardContainer
-            categoriesArr={categoriesArr}
+            containerType='categories'
+            resultsArr={categoriesArr}
+            selectedSidenavObj={selectedCategoriesObj}
           />
         </div>
       </Fragment>
@@ -85,6 +93,7 @@ function mapStateToProps(state) {
   return {
     categoriesArr: state.categories.categoriesArr,
     selectedCategoryId: state.categories.selectedCategoryId,
+    selectedCategoriesObj: state.categories.selectedCategoriesObj,
   };
 }
 

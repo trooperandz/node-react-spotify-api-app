@@ -6,6 +6,7 @@ import {
   REQUEST_CATEGORIES,
   RECEIVE_CATEGORIES,
   SET_CATEGORY_ID,
+  SET_SELECTED_CATEGORIES_OBJ,
 } from './actionTypes';
 
 function fetchCategories(categoryId) {
@@ -43,9 +44,17 @@ function receiveCategories(categoriesArr) {
   };
 }
 
+function setSelectedCategoriesObj(selectedCategoriesObj) {
+  return {
+    type: SET_SELECTED_CATEGORIES_OBJ,
+    selectedCategoriesObj,
+  }
+}
+
 export default {
   requestCategories,
   fetchCategories,
   receiveCategories,
   setCategoryId,
+  setSelectedCategoriesObj,
 };

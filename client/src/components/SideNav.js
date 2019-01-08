@@ -6,12 +6,13 @@ import React from 'react';
 
 // Render the side nav list items
 function renderList(selectionArr, selectedId, navType, handleSelect) {
-  const listItems = selectionArr.map(({ name, id, type }) => {
+  const listItems = selectionArr.map((selectedObj) => {
+    const { name, id, itemType } = selectedObj;
     const activeClassName = (selectedId === id ? 'active' : '');
     let clickParam;
 
     // Passed param will vary depending on what type of view our nav is residing in
-    // Note: type is used to determine relevant fetch action for DetailView side nav clicks (playlist/album)
+    // name is used for card container title display
     switch(navType) {
       case 'new-release-market':
         clickParam = id;
@@ -31,7 +32,7 @@ function renderList(selectionArr, selectedId, navType, handleSelect) {
       <li
         className={`side-nav__list-item ${activeClassName}`}
         key={id}
-        onClick={() => handleSelect(clickParam, type)}>
+        onClick={() => handleSelect(clickParam, selectedObj, itemType)}>
         {name}
       </li>
     );
@@ -69,7 +70,13 @@ function renderTitleIcon(navType) {
 
 const SideNav = (props) => {
   // navType used to flag current view for dictating click action param, & title icon
-  const { handleSelect, selectedId, selectionArr, title, navType } = props;
+  const {
+    handleSelect,
+    selectedId,
+    selectionArr,
+    title,
+    navType,
+  } = props;
 
   return (
     <div className="side-nav">

@@ -159,7 +159,8 @@ class DetailContainer extends Component {
   }
 
   // Process side nav click action; determine relevant action by type
-  handlePlayHistorySelect(itemId, itemType) {
+  // (we don't need selectedSidenavObj here btw)
+  handlePlayHistorySelect(itemId, selectedSidenavObj, itemType) {
     const { playlistActions: { fetchAlbum, fetchPlaylist } } = this.props;
 
     if (itemType === 'playlist') {

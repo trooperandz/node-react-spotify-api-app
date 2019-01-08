@@ -6,6 +6,7 @@ import {
   FETCH_NEW_RELEASES,
   RECEIVE_NEW_RELEASES,
   SET_COUNTRY_ID,
+  SET_SELECTED_NEW_RELEASE_OBJ,
 } from './actionTypes';
 
 // Get new releases by country code
@@ -47,9 +48,17 @@ function setCountryId(selectedCountryId) {
   };
 }
 
+function setSelectedNewReleaseObj(selectedNewReleaseObj) {
+  return {
+    type: SET_SELECTED_NEW_RELEASE_OBJ,
+    selectedNewReleaseObj,
+  }
+}
+
 export default {
   requestNewReleases,
   fetchNewReleases,
   receiveNewReleases,
   setCountryId,
+  setSelectedNewReleaseObj,
 };

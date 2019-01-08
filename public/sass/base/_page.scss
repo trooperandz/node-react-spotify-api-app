@@ -42,41 +42,10 @@ html, body {
 }
 
 .card-container {
-  padding: 40px;
+  padding: 28px 40px 40px;
   margin: 35px 35px 35px;
   max-width: 1340px;
   background-color: $color-white;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-
-  &__title {
-    margin: 0;
-    font-size: 20px;
-  }
-}
-
-.pagination {
-  padding: 0;
-  margin: 0;
-
-  &__list-item {
-    display: inline;
-    padding: 6px 12px;
-
-    &.active {
-      background-color: $color-cornflower-blue;
-      color: white;
-    }
-
-    &:hover:not(.active) {
-      background-color: #ddd;
-    }
-  }
 }
 
 /* Holds the album cards; make them fully responsive */

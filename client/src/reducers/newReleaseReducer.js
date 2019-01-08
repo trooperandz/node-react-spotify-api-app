@@ -4,15 +4,17 @@ import {
   FETCH_NEW_RELEASES,
   RECEIVE_NEW_RELEASES,
   SET_COUNTRY_ID,
+  SET_SELECTED_NEW_RELEASE_OBJ,
 } from '../actions/actionTypes';
 
 const initialState = {
   albumArr: [],
-  selectedCountryId: 'US',
+  selectedCountryId: 'US', // default the selection to U.S.
+  selectedNewReleaseObj: { name: 'U.S.', id: 'US' },
 };
 
 export default function newReleaseReducer(state = initialState, action) {
-  const { albumArr, selectedCountryId } = action;
+  const { albumArr, selectedCountryId, selectedNewReleaseObj } = action;
   let newState;
 
   switch (action.type) {
@@ -28,6 +30,12 @@ export default function newReleaseReducer(state = initialState, action) {
       newState = {
         ...state,
         selectedCountryId,
+      };
+      return newState;
+    case SET_SELECTED_NEW_RELEASE_OBJ:
+      newState = {
+        ...state,
+        selectedNewReleaseObj,
       };
       return newState;
     default:

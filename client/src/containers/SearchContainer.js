@@ -80,7 +80,10 @@ class SearchContainer extends Component {
             setSearchTerm={this.setSearchTerm}
             searchTerm={searchTerm}
           />
-          <CardContainer searchResultsArr={searchResultsArr} />
+          <CardContainer
+            containerType='search'
+            resultsArr={searchResultsArr}
+          />
         </div>
       </Fragment>
     );

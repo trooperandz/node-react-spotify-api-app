@@ -1,8 +1,12 @@
-// Refer to a list of all possible actions
+// Refer to a list of all possible app actions
+
 export const REQUEST_NEW_RELEASES = 'REQUEST_NEW_RELEASES';
 export const FETCH_NEW_RELEASES = 'FETCH_NEW_RELEASES';
 export const RECEIVE_NEW_RELEASES = 'RECEIVE_NEW_RELEASES';
 export const SET_COUNTRY_ID = 'SET_COUNTRY_ID';
+
+// Save most recent new release selection for heading display
+export const SET_SELECTED_NEW_RELEASE_OBJ = 'SET_SELECTED_NEW_RELEASE_OBJ';
 
 export const REQUEST_ALBUM_DETAIL = 'REQUEST_ALBUM_DETAIL';
 export const FETCH_ALBUM = 'FETCH_ALBUM';
@@ -12,6 +16,9 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES';
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const SET_CATEGORY_ID = 'SET_CATEGORY_ID';
+
+// Save most recent categories selection for heading display
+export const SET_SELECTED_CATEGORIES_OBJ = 'SET_SELECTED_CATEGORIES_OBJ';
 
 export const FETCH_PLAYLIST = 'FETCH_PLAYLIST';
 export const REQUEST_PLAYLIST = 'REQUEST_PLAYLIST';
