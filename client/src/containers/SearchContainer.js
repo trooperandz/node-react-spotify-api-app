@@ -17,8 +17,6 @@ class SearchContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.onSearchInputChange = this.onSearchInputChange.bind(this);
-    this.setSearchTerm = this.setSearchTerm.bind(this);
     this.handleSearchHistorySelect = this.handleSearchHistorySelect.bind(this);
   }
 
@@ -26,22 +24,6 @@ class SearchContainer extends Component {
     const { searchActions: { fetchSearchHistory } } = this.props;
 
     fetchSearchHistory();
-  }
-
-  onSearchInputChange(searchTerm) {
-    const { searchActions: { fetchSearchResults } } = this.props;
-
-    if (searchTerm) {
-      fetchSearchResults(searchTerm);
-    }
-
-    return null;
-  }
-
-  setSearchTerm(searchTerm) {
-    const { searchActions: { setSearchTerm } } = this.props;
-
-    setSearchTerm(searchTerm);
   }
 
   getSearchHistoryArr() {
@@ -61,10 +43,7 @@ class SearchContainer extends Component {
   }
 
   render() {
-    const { searchResultsArr, searchTerm } = this.props;
-
-    // TODO: this doesn't seem to work...
-    const debounceSearch = _.debounce((term) => { this.onSearchInputChange(term) }, 1500);
+    const { searchResultsArr } = this.props;
 
     return (
       <Fragment>
@@ -75,11 +54,6 @@ class SearchContainer extends Component {
           handleSelect={this.handleSearchHistorySelect}
         />
         <div className="content">
-          <SearchInput
-            debounceSearch={debounceSearch}
-            setSearchTerm={this.setSearchTerm}
-            searchTerm={searchTerm}
-          />
           <CardContainer
             containerType='search'
             resultsArr={searchResultsArr}
@@ -93,7 +67,6 @@ class SearchContainer extends Component {
 function mapStateToProps(state) {
   return {
     searchHistoryArr: state.search.searchHistoryArr,
-    searchTerm: state.search.searchTerm,
     searchResultsArr: state.search.searchResultsArr,
   };
 }

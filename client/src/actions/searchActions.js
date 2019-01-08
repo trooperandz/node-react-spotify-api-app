@@ -84,7 +84,8 @@ function receiveSearchResults(searchResultsArr) {
   };
 }
 
-function setSearchTerm(searchTerm) {
+// Save search value when user types into the search input
+function setSearchTerm(searchTerm) { console.log('setSearchTerm running... searchTerm = ', searchTerm)
   return {
     type: SET_SEARCH_TERM,
     searchTerm,

@@ -158,7 +158,7 @@ class DetailContainer extends Component {
     return <div className="playlist-default-msg">You aren't playing anything!  Go pick something...</div>;
   }
 
-  // Process side nav click action; determine relevant action by type
+  // Process side nav click action; determine relevant action by item type
   // (we don't need selectedSidenavObj here btw)
   handlePlayHistorySelect(itemId, selectedSidenavObj, itemType) {
     const { playlistActions: { fetchAlbum, fetchPlaylist } } = this.props;

@@ -162,7 +162,7 @@ async function getPlaylistHistory() {
       arr.push({
         id: item_id,
         name: item_name,
-        type: item_type, // dictates correct album/playlist fetch action for DetailView side nav click
+        itemType: item_type, // dictates correct album/playlist fetch action for DetailView side nav click
       });
 
       return arr;

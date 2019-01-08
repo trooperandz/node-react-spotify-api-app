@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import ArtistCard from '../components/ArtistCard';
 import CategoryCard from '../components/CategoryCard';
+import SearchInput from '../components/SearchInput';
 
 const SEARCH_TYPE = 'search';
 const NEW_RELEASES_TYPE = 'new-releases';
@@ -65,13 +66,34 @@ class CardContainer extends Component {
     return headingTitle;
   }
 
+  // Render the main card container header/title.
+  // If the active container is the SearchContainer, render the SearchInput instead.
+  renderCardHeader() {
+    const { containerType } = this.props;
+
+    if (containerType === SEARCH_TYPE) {
+      /*
+      <SearchInput
+        debounceSearch={debounceSearch}
+        setSearchTerm={this.setSearchTerm}
+        searchTerm={searchTerm}
+      />*/
+
+      return <SearchInput />;
+    }
+
+    return (
+      <h3 className="card-header__title">{this.getHeadingTitle()}</h3>
+    );
+  }
+
   render() {
     const { resultsArr } = this.props;
 
     return (
       <div className="card-container">
         <div className="card-header">
-          <h3 className="card-header__title">{this.getHeadingTitle()}</h3>
+          {this.renderCardHeader()}
           <div className="card-header__results">Showing {resultsArr.length} Results</div>
         </div>
         <div className="card-grid-wrapper">

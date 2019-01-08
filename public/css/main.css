@@ -166,7 +166,8 @@ html, body {
     position: relative;
     margin: 0;
     font-size: 20px;
-    font-weight: 400; }
+    font-weight: 400;
+    color: #3e454c; }
     .card-header__title:after {
       content: "";
       position: absolute;
@@ -288,17 +289,12 @@ html, body {
       fill: #2179ec; }
 
 .search {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 2.5rem; }
-  .search__input-wrapper {
-    position: relative;
-    display: flex;
-    width: 80%;
-    max-width: 650px; }
+  width: 350px; }
   .search__input {
-    height: 55px;
+    height: 32px;
     width: 100%;
     max-width: 750px;
     font-family: inherit;
@@ -309,17 +305,23 @@ html, body {
     outline: none;
     border: 1px solid transparent;
     transition: border 0.1s ease-out;
-    color: #FFA500;
+    color: #3e454c;
     font-size: 1.2rem;
     padding: 1rem;
-    padding-left: 58px;
+    padding-left: 28px;
     font-weight: 300; }
-    .search__input:focus {
-      border-bottom: 1px solid #e5e5e5; }
-  .search__icon {
+  .search:after {
+    content: "";
     position: absolute;
-    top: 12px;
-    left: 16px; }
+    height: 1px;
+    width: 100%;
+    background-color: #e5e5e5;
+    bottom: -6px;
+    left: 0; }
+  .search .fa-search {
+    position: absolute;
+    font-size: 22px;
+    color: gray; }
 
 .footer {
   display: flex;
