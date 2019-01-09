@@ -6,7 +6,7 @@ import React from 'react';
 
 // Render the side nav list items
 function renderList(selectionArr, selectedId, navType, handleSelect) {
-  const listItems = selectionArr.map((selectedObj) => {
+  const listItems = selectionArr.map((selectedObj, i) => {
     const { name, id, itemType } = selectedObj;
     const activeClassName = (selectedId === id ? 'active' : '');
     let clickParam;
@@ -31,7 +31,7 @@ function renderList(selectionArr, selectedId, navType, handleSelect) {
     return (
       <li
         className={`side-nav__list-item ${activeClassName}`}
-        key={id}
+        key={i}
         onClick={() => handleSelect(clickParam, selectedObj, itemType)}>
         {name}
       </li>
