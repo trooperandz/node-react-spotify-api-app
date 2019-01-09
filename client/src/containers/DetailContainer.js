@@ -125,7 +125,7 @@ class DetailContainer extends Component {
         trackUriArr,
         contextUri,
       } = playlistObj;
-      console.log('playerState in renderPlaylistDetail: ', playerState);
+
       const imgStyle = { backgroundImage: `url(${playlistImgUrl})`};
 
       return (
