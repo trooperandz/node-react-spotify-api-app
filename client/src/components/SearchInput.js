@@ -13,12 +13,13 @@ class SearchInput extends Component {
     this.onSearchInputChange = this.onSearchInputChange.bind(this);
   }
 
-  onSearchInputChange(e) { console.log('value in onInputChange: ', e.target.value)
+  onSearchInputChange(e) {
     const { searchActions: { setSearchTerm, fetchSearchResults } } = this.props;
     const { target: { value } = {} } = e;
 
     setSearchTerm(value);
-    // _.debounce(() => fetchSearchResults(value), 1000);
+
+    // TODO: figure out how to debounce this
     fetchSearchResults(value);
   }
 
@@ -28,7 +29,7 @@ class SearchInput extends Component {
     return (
       <div className="search">
         <input className="search__input" type="text" onChange={this.onSearchInputChange} value={searchTerm} placeholder="Search by artist or album..." />
-        <i class="fas fa-search"></i>
+        <i className="fas fa-search"></i>
       </div>
     );
   }
