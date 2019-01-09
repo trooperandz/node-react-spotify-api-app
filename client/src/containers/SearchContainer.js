@@ -21,7 +21,13 @@ class SearchContainer extends Component {
   }
 
   componentDidMount() {
-    const { searchActions: { fetchSearchHistory } } = this.props;
+    const {
+      searchResultsArr,
+      searchActions: { fetchSearchHistory } = {},
+    } = this.props;
+
+    // Kick off a default search on initial mount if none has been performed
+    if (searchResultsArr && !searchResultsArr.length) this.handleSearchHistorySelect('bill evans');
 
     fetchSearchHistory();
   }
