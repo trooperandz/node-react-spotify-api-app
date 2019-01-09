@@ -40,7 +40,6 @@ class PlayControlContainer extends Component {
     let resumePositionMs;
 
     // This should always exist for PlayControlContainer, since it only appears after a play event
-    // TODO: consolidate; we also use this in DetailContainer as well
     if (playedPlayerState && playedPlayerState.hasOwnProperty('context')) {
       const {
         context,
@@ -62,6 +61,9 @@ class PlayControlContainer extends Component {
         resumePositionMs = position;
       }
     }
+
+    // This will only occur if the VERY first play click occurs from PlayControlContainer
+    if (!currentTrackUriArr) currentTrackUriArr = trackUri;
 
     playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset, playlistObj);
   }
@@ -86,7 +88,7 @@ class PlayControlContainer extends Component {
   }
 
   render() {
-    const { playerState, playedPlayerState } = this.props;
+    const { playerState, playedPlayerState, playlistObj } = this.props;
 
     let trackUri;
     let trackDurationMs;
@@ -97,7 +99,7 @@ class PlayControlContainer extends Component {
     let currentPlaylistName;
     let currentPlaylistImgUrl;
     let currentPlaylistDescription;
-    let currentTrackName = 'Unknown';
+    let currentTrackName;
 
     // PlayControlContainer only renders when a play occurs; we should always have playerState
     if (playerState && playerState.hasOwnProperty('track_window')) {
@@ -122,6 +124,8 @@ class PlayControlContainer extends Component {
 
     // We use the previously played playlistObj; not the current one, because we may have active
     // play occurring while user is browsing playlists or albums.
+    // However, if none is available, grab the info from the default playlist object determined
+    // in DetailContainer.
     if (playedPlayerState && playedPlayerState.hasOwnProperty('playlistObj')) {
       const {
         playlistObj: {
@@ -133,12 +137,29 @@ class PlayControlContainer extends Component {
           trackArr,
           trackUriArr,
           contextUri,
-        } = {}
+        } = {},
       } = playedPlayerState;
 
       currentPlaylistName = playlistName;
       currentPlaylistImgUrl = playlistImgUrl;
       currentPlaylistDescription = playlistDescription.split('-')[0].trim();
+    } else if (playlistObj && playlistObj.hasOwnProperty('trackUriArr')) {
+      const {
+        playlistName,
+        playlistDescription,
+        playlistFollowers,
+        playlistImgUrl,
+        artistLink,
+        trackArr,
+        trackUriArr,
+        contextUri,
+      } = playlistObj;
+
+      currentPlaylistName = playlistName;
+      currentPlaylistImgUrl = playlistImgUrl;
+      currentPlaylistDescription = playlistDescription.split('-')[0].trim();
+      currentTrackName = trackArr[0].name;
+      trackUri = trackUriArr;
     }
 
     return (
