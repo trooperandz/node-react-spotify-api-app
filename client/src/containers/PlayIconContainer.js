@@ -43,44 +43,32 @@ class PlayIconContainer extends PureComponent {
       playlistObj,
       trackUri,
       trackUriArr,
-      playType,
+      playType, // used to differentiate the play icon next to the main playlist heading
     } = this.props;
 
-    let shouldShowPauseIcon = false;
-    let playedAlbumUri;
-    let viewedAlbumUri;
-    // console.log('playerState in PlayIconContainer: ', playerState, ' trackUri: ', trackUri);
-    // Show pause icon anytime play has status of !paused and requirements are met
-    // This destructuring is a bit absurd...
+    let shouldShowPauseIcon = false; // the icon next to each track or the actively
+    let shouldShowDetailContainerPauseIcon = false; // the icon next to the main playlist header
+
+    // Compare actively playing vs last played for determination of play/pause icon
+    // Note: albumUri for a "playlist" will be different for every single track in the track table
     if (playerState && playerState.hasOwnProperty('track_window')) {
       const {
         paused,
         track_window: {
-          current_track: {
-            name: trackName,
-            uri: currentTrackUri,
-            album: { uri: albumUri } = {},
-          } = {},
+          current_track: { uri: currentTrackUri } = {},
         },
       } = playerState;
 
-      playedAlbumUri = albumUri;
+      if (playlistObj && playlistObj.hasOwnProperty('trackUriArr')) {
+        const { trackUriArr } = playlistObj;
 
-      // Grab most recently viewed playlist & compare to currently playing
-      if (playlistObj && playlistObj.hasOwnProperty('contextUri')) {
-        const { contextUri } = playlistObj;
-
-        viewedAlbumUri = contextUri;
+        shouldShowDetailContainerPauseIcon = trackUriArr.some(trackUri => trackUri === currentTrackUri);
       }
 
-      // TODO: pause icon not showing correctly in table row or DetailContainer title area
-      console.log('trackUri === currentTrackUri: ', trackUri === currentTrackUri, ' track name = ', trackName);
-
-      if (!paused
-        && (
-          (trackUri === currentTrackUri)
-          || (playType === 'play-all' && playedAlbumUri === viewedAlbumUri)
-        )) {
+      if (!paused && (
+          trackUri === currentTrackUri
+          || playType === 'play-all' && shouldShowDetailContainerPauseIcon
+      )) {
         shouldShowPauseIcon = true;
       }
     }

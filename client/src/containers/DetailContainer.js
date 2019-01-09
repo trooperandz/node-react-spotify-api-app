@@ -155,7 +155,9 @@ class DetailContainer extends Component {
       );
     }
 
-    return <div className="playlist-default-msg">You aren't playing anything!  Go pick something...</div>;
+    return (
+      <div className="playlist-default-msg">You aren't playing anything!  Go pick something...</div>
+    );
   }
 
   // Process side nav click action; determine relevant action by item type

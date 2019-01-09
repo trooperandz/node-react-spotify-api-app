@@ -47,6 +47,7 @@ function formatPlaylistObj(body) {
       trackName,
       trackNumber,
       trackHref,
+      trackUri,
       albumName,
       albumHref,
       trackDuration: formattedDuration,
