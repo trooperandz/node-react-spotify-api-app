@@ -23,7 +23,18 @@ class DetailContainer extends Component {
   }
 
   componentDidMount() {
-    const { playlistActions: { fetchPlaylistHistory } } = this.props;
+    const {
+      playlistObj,
+      playlistActions: {
+        fetchPlaylistHistory,
+        fetchPlaylist
+      } = {},
+    } = this.props;
+
+    // Fetch a default playlist that's pretty if none has been selected yet ("Jazzy Romance"!)
+    if (playlistObj && !playlistObj.hasOwnProperty('trackArr')) {
+      fetchPlaylist('spotify', '37i9dQZF1DWTbzY5gOVvKd');
+    }
 
     fetchPlaylistHistory();
   }
@@ -110,6 +121,18 @@ class DetailContainer extends Component {
     pauseSpotifyTrack(playerState);
   }
 
+  // Process side nav click action; determine relevant action by item type
+  // (we don't need selectedSidenavObj here btw)
+  handlePlayHistorySelect(itemId, selectedSidenavObj, itemType) {
+    const { playlistActions: { fetchAlbum, fetchPlaylist } } = this.props;
+
+    if (itemType === 'playlist') {
+      fetchPlaylist('spotify', itemId); // current version returns only Spotify-procured playlists
+    } else if (itemType === 'album') {
+      fetchAlbum(itemId);
+    }
+  }
+
   // Render image and tracks if playlistObj available; otherwise return default message
   renderPlaylistDetail() {
     const { playlistObj, playerState } = this.props;
@@ -155,21 +178,7 @@ class DetailContainer extends Component {
       );
     }
 
-    return (
-      <div className="playlist-default-msg">You aren't playing anything!  Go pick something...</div>
-    );
-  }
-
-  // Process side nav click action; determine relevant action by item type
-  // (we don't need selectedSidenavObj here btw)
-  handlePlayHistorySelect(itemId, selectedSidenavObj, itemType) {
-    const { playlistActions: { fetchAlbum, fetchPlaylist } } = this.props;
-
-    if (itemType === 'playlist') {
-      fetchPlaylist('spotify', itemId); // current version returns only Spotify-procured playlists
-    } else if (itemType === 'album') {
-      fetchAlbum(itemId);
-    }
+    return null;
   }
 
   render() {
