@@ -47,7 +47,6 @@ router.post('/play', refreshExpiredToken, (req, res) => {
   const { accessToken } = req.session;
   const { deviceId, positionMs, trackOffset } = req.query;
   const { context } = req.body; // We pass context as a body request bc it's an array
-  // console.log('deviceId: ', deviceId, ' context: ', context, ' positionMs: ' , positionMs);
 
   if (!deviceId) {
     console.log('deviceId in /play undefined...');
