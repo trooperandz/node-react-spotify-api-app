@@ -18,8 +18,9 @@ class App extends Component {
         <div className="grid-main">
           <NavBar />
           <Switch>
-            <Route exact path="/" component={NewReleaseContainer}></Route>
-            <Route path="/categories" component={CategoriesContainer}></Route>
+            <Route path="/login" component={CategoriesContainer}></Route>
+            <Route path="/playlists" component={CategoriesContainer}></Route>
+            <Route path="/newreleases" component={NewReleaseContainer}></Route>
             <Route path="/detail" component={DetailContainer}></Route>
             <Route path="/search" component={SearchContainer}></Route>
           </Switch>

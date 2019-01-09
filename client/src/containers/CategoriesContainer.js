@@ -62,7 +62,7 @@ class CategoriesContainer extends Component {
 
   render() {
     const { categoriesArr, selectedCategoryId, selectedCategoriesObj } = this.props;
-    console.log('selectedCategoriesObj in CategoriesContainer: ', selectedCategoriesObj);
+
     return (
       <Fragment>
         <SideNav
