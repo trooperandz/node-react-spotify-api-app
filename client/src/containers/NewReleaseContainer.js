@@ -21,7 +21,11 @@ class NewReleaseContainer extends Component {
 
   // Fetch the new releases with the default country select state
   componentDidMount() {
-    const { newReleaseActions: { fetchNewReleases }, selectedCountryId, albumArr } = this.props;
+    const {
+      newReleaseActions: { fetchNewReleases } = {},
+      selectedCountryId,
+      albumArr
+    } = this.props;
 
     // Don't send another api call on mount if we already have previous results
     if (albumArr && albumArr.length) return null;
@@ -63,28 +67,24 @@ class NewReleaseContainer extends Component {
   render() {
     const { albumArr, selectedCountryId, selectedNewReleaseObj } = this.props;
 
-    if (albumArr && albumArr.length) {
-      return (
-        <Fragment>
-          <SideNav
-            title='Markets'
-            navType='new-release-market'
-            handleSelect={this.handleCountrySelect}
-            selectedId={selectedCountryId}
-            selectionArr = {this.getCountrySelectArr()}
+    return (
+      <Fragment>
+        <SideNav
+          title='Markets'
+          navType='new-release-market'
+          handleSelect={this.handleCountrySelect}
+          selectedId={selectedCountryId}
+          selectionArr = {this.getCountrySelectArr()}
+        />
+        <div className="content">
+          <CardContainer
+            containerType='new-releases'
+            resultsArr={albumArr}
+            selectedSidenavObj={selectedNewReleaseObj}
           />
-          <div className="content">
-            <CardContainer
-              containerType='new-releases'
-              resultsArr={albumArr}
-              selectedSidenavObj={selectedNewReleaseObj}
-            />
-          </div>
-        </Fragment>
-      );
-    }
-
-    return null;
+        </div>
+      </Fragment>
+    );
   }
 }
 

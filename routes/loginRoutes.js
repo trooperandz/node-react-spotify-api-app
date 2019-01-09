@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
 
 // Spotify Oauth login authorization response from redirect_uri ('/login/callback')
 // Note: this route must be registered with the Spotify api in order to work
-router.get('/callback', (req, res) => { console.log('entered /login/callback route')
+router.get('/callback', (req, res) => {
   const { code } = req.query;
 
   let authOptions = {

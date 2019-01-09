@@ -18,7 +18,7 @@ class CategoriesContainer extends Component {
     this.handleCategorySelect = this.handleCategorySelect.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount() { console.log('CategoriesContainer mounted');
     const { categoriesActions: { fetchCategories }, selectedCategoryId, categoriesArr } = this.props;
 
     // Don't send another api call on mount if we already have previous results
@@ -62,7 +62,7 @@ class CategoriesContainer extends Component {
 
   render() {
     const { categoriesArr, selectedCategoryId, selectedCategoriesObj } = this.props;
-    console.log('selectedCategoriesObj in CategoriesContainer: ', selectedCategoriesObj);
+
     return (
       <Fragment>
         <SideNav
