@@ -14,6 +14,8 @@ class TrackTableRow extends Component {
   }
 
   handlePlayClick(trackUri) {
+    console.log('trackUri in handlePlayClick: ', trackUri);
+
     const {
       deviceId,
       playerState,

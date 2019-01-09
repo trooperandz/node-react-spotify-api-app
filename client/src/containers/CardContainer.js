@@ -72,13 +72,6 @@ class CardContainer extends Component {
     const { containerType } = this.props;
 
     if (containerType === SEARCH_TYPE) {
-      /*
-      <SearchInput
-        debounceSearch={debounceSearch}
-        setSearchTerm={this.setSearchTerm}
-        searchTerm={searchTerm}
-      />*/
-
       return <SearchInput />;
     }
 
