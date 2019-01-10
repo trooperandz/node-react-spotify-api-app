@@ -27,7 +27,7 @@ class DetailContainer extends Component {
       playlistObj,
       playlistActions: {
         fetchPlaylistHistory,
-        fetchPlaylist
+        fetchPlaylist,
       } = {},
     } = this.props;
 

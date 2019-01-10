@@ -86,8 +86,8 @@ function formatTrackDuration(duration) {
  */
 async function getUserSearchHistory() {
   const [err, searchHistoryArr] = await catchify(SearchHistory.findAll({
-    order: [['createdAt', 'DESC']],
-    limit: 15,
+    order: [['updatedAt', 'DESC']],
+    limit: 25,
   }));
 
   if (err) {
@@ -112,17 +112,30 @@ async function getUserSearchHistory() {
  * @return
  */
 async function saveSearchTerm(searchTerm) {
-  const [err, saveResult] = await catchify(SearchHistory.findOrCreate({
+  const [err, [ searchHistory, created]] = await catchify(SearchHistory.findOrCreate({
     where: { search_term: searchTerm },
     defaults: { search_term: searchTerm, search_type: 'album' },
   }));
 
   if (err) {
     return { success: false, error: err };
+  } else if (!created) {
+    // Only way to JUST update the updatedAt field on instance save is to mark the field as "dirty"
+    // We order by updatedAt so that the most recently searched items show in the side nav
+    searchHistory.changed('updatedAt', true);
+
+    const [err, saveResult] = await catchify(searchHistory.save());
+
+    if (err) {
+      console.log('Error on SearchHistories update: ', err);
+      return { success: false, error: err };
+    }
+
+    return { success: true, result: saveResult };
   }
 
-  // We don't use the saveResult, but might need it in the future
-  return { success: true, result: saveResult };
+  // We don't use the searchHistory, but might need it in the future
+  return { success: true, result: searchHistory };
 }
 
 /**
@@ -132,17 +145,30 @@ async function saveSearchTerm(searchTerm) {
  * @param {string} itemName The album/playlist etc title
  */
 async function savePlaylistSelection(itemType, itemId, itemName) {
-  const [err, saveResult] = await catchify(PlayHistory.findOrCreate({
+  const [err, [ playHistory, created]] = await catchify(PlayHistory.findOrCreate({
     where: { item_id: itemId },
     defaults: { item_id: itemId, item_type: itemType, item_name: itemName },
   }));
 
   if (err) {
+    console.log('Error on PlayHistory save: ', err);
     return { success: false, error: err };
+  } else if (!created) {
+    // Only way to update updatedAt value when it's the only change is to mark it as "dirty".
+    // We populate the side nav by updatedAt order, so we have to update record for display
+    playHistory.changed('updatedAt', true);
+    const [err, saveResult] = await catchify(playHistory.save());
+
+    if (err) {
+      console.log('Error on playHistory save: ', err);
+      return { success: false, error: err };
+    }
+
+    return { success: true, result: saveResult };
   }
 
-  // We don't use the saveResult, but might need it in the future
-  return { success: true, result: saveResult };
+  // We don't use the playHistory, but might need it in the future
+  return { success: true, result: playHistory };
 }
 
 /**
@@ -151,8 +177,8 @@ async function savePlaylistSelection(itemType, itemId, itemName) {
  */
 async function getPlaylistHistory() {
   const [err, playlistArr] = await catchify(PlayHistory.findAll({
-    order: [['createdAt', 'DESC']],
-    limit: 15,
+    order: [['updatedAt', 'DESC']],
+    limit: 25,
   }));
 
   if (err) {
