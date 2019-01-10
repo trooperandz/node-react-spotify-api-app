@@ -18,7 +18,10 @@ class CategoryCard extends Component {
   }
 
   handleCardClick(ownerId, playlistId, playlistName) {
-    const { playlistActions: { fetchPlaylist }, appActions: { savePlaylistSelection } } = this.props;
+    const {
+      playlistActions: { fetchPlaylist },
+      appActions: { savePlaylistSelection },
+    } = this.props;
 
     fetchPlaylist(ownerId, playlistId);
     savePlaylistSelection('playlist', playlistId, playlistName);
