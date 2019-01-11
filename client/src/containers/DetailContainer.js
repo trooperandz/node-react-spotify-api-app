@@ -56,7 +56,8 @@ class DetailContainer extends Component {
       playerState,
       playedPlayerState,
       playlistObj,
-      appActions: { playSpotifyTrack, savePlaylistSelection },
+      appActions: { playSpotifyTrack },
+      playlistActions: { savePlaylistSelection },
     } = this.props;
 
     let currentTrackUriArr;

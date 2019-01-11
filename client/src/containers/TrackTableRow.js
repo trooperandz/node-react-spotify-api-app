@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import appActions from '../actions/appActions';
+import playlistActions from '../actions/playlistActions';
 import PlayIconContainer from './PlayIconContainer';
 
 class TrackTableRow extends Component {
@@ -20,7 +21,8 @@ class TrackTableRow extends Component {
       trackUriArr,
       trackOffset,
       playlistObj,
-      appActions: { playSpotifyTrack, savePlaylistSelection },
+      appActions: { playSpotifyTrack },
+      playlistActions: { fetchPlaylistHistory, savePlaylistSelection },
     } = this.props;
 
     let resumePositionMs;
@@ -55,6 +57,7 @@ class TrackTableRow extends Component {
 
     savePlaylistSelection(viewedPlaylistType, viewedPlaylistId, viewedPlaylistName);
     playSpotifyTrack(deviceId, trackUriArr, resumePositionMs, trackOffset, playlistObj);
+    fetchPlaylistHistory(); //
   }
 
   handlePauseClick() {
@@ -110,6 +113,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(appActions, dispatch),
+    playlistActions: bindActionCreators(playlistActions, dispatch),
   };
 }
 
