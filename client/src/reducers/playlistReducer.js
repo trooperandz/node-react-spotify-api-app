@@ -34,7 +34,7 @@ export default function playlistReducer(state = initialState, action) {
         playlistObj,
       };
       return newState;
-    case RECEIVE_PLAYLIST_HISTORY: console.log('RECEIVE_PLAYLIST_HISTORY reducer running...')
+    case RECEIVE_PLAYLIST_HISTORY:
       newState = {
         ...state,
         playlistHistoryArr,

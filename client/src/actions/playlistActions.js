@@ -97,7 +97,7 @@ function savePlaylistSelection(playlistType, id, name) {
  * Get user playlist selection history from the database
  * @return {Array} An array of { name, id } objects user previously selected for playing
  */
-function fetchPlaylistHistory() { console.log('fetchPlaylistHistory running...');
+function fetchPlaylistHistory() {
   return (dispatch) => {
     dispatch(requestPlaylistHistory());
 
