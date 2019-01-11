@@ -77,6 +77,23 @@ function requestPlaylistHistory() {
 }
 
 /**
+ * For saving any card clicks to playlist history, for population of DetailView side nav items.
+ * Includes album cards, category (playlist) cards etc.
+ * When a track is played, this also triggers an immediate update to the DetailContainer side nav
+ */
+function savePlaylistSelection(playlistType, id, name) {
+  return (dispatch) => {
+    axios.post(`/app/save/playlist-selection?itemType=${playlistType}&itemId=${id}&itemName=${name}`)
+      .then((response) => {
+        dispatch(fetchPlaylistHistory()); // repopulate the DetailContainer sidenav listing on play clicks
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+/**
  * Get user playlist selection history from the database
  * @return {Array} An array of { name, id } objects user previously selected for playing
  */
@@ -109,6 +126,7 @@ export default {
   fetchAlbum,
   receiveAlbum,
   requestPlaylistHistory,
+  savePlaylistSelection,
   fetchPlaylistHistory,
   receivePlaylistHistory,
 };

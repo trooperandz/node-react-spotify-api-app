@@ -17,14 +17,13 @@ class CategoryCard extends Component {
     this.handleCardClick = this.handleCardClick.bind(this);
   }
 
-  handleCardClick(ownerId, playlistId, playlistName) {
+  handleCardClick(ownerId, playlistId) {
     const {
       playlistActions: { fetchPlaylist },
-      appActions: { savePlaylistSelection },
     } = this.props;
 
     fetchPlaylist(ownerId, playlistId);
-    savePlaylistSelection('playlist', playlistId, playlistName);
+
     this.setState({ redirectToDetailView: true });
   }
 
@@ -32,10 +31,10 @@ class CategoryCard extends Component {
     const { cardArr } = this.props;
 
     const cards = cardArr.map((card, i) => {
-      const { playlistId, playlistName, ownerId, imgUrl, categoryHref } = card;
+      const { playlistId, ownerId, imgUrl, categoryHref } = card;
 
       return (
-        <div key={playlistId} className="card card--category" onClick={() => this.handleCardClick(ownerId, playlistId, playlistName)}>
+        <div key={playlistId} className="card card--category" onClick={() => this.handleCardClick(ownerId, playlistId)}>
           <img className="card__img" src={imgUrl} />
         </div>
       );
@@ -63,7 +62,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     playlistActions: bindActionCreators(playlistActions, dispatch),
-    appActions: bindActionCreators(appActions, dispatch),
   };
 }
 
