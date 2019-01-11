@@ -116,6 +116,8 @@ class DetailContainer extends Component {
       viewedAlbumUri = contextUri;
       viewedPlaylistType = playlistType;
       viewedPlaylistName = playlistName;
+
+      // Stored these under different names because a playlist can have multiple album ids in tracks
       viewedPlaylistId = playlistId || albumId;
     }
 
