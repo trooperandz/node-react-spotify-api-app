@@ -13,13 +13,13 @@ class TrackTable extends Component {
   renderTrackRows() {
     const { trackArr, trackUriArr, playerState } = this.props;
 
-    return trackArr.map((track, i) => {
-      const { trackHref } = track;
+    return trackArr.map((trackObj, i) => {
+      const { trackHref } = trackObj;
 
       return (
         <TrackTableRow
           key={trackHref}
-          track={track}
+          track={trackObj}
           playerState={playerState}
           trackUriArr={trackUriArr}
           trackOffset={i}

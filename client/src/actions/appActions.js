@@ -19,8 +19,9 @@ import {
  * Includes album cards, category (playlist) cards etc.
  * No action type necessary, as we don't need to update state for this action. The side nav
  * repopulates itself on every new component mount.
+ * TODO: update so that sidenave array state is updated (we are moving this save to play clicks, not ablum/playlist clicks)
  */
-function savePlaylistSelection(playlistType, id, name) {
+function savePlaylistSelection(playlistType, id, name) { console.log('savePlaylistSelection running... playlistType = ', playlistType, ' id = ', id, ' name = ', name);
   return (dispatch) => {
     axios.post(`/app/save/playlist-selection?itemType=${playlistType}&itemId=${id}&itemName=${name}`)
       .then((response) => {

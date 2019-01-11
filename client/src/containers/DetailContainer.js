@@ -49,14 +49,14 @@ class DetailContainer extends Component {
   }
 
   // Begin new play or resume previously played album or playlist
-  // TODO: clean up all these objects & consolidate some if you can...
+  // TODO: clean up all these objects & consolidate some if you can...and use immutable so it's cleaner?
   handlePlayClick(trackUriArr) {
     const {
       deviceId,
       playerState,
       playedPlayerState,
       playlistObj,
-      appActions: { playSpotifyTrack },
+      appActions: { playSpotifyTrack, savePlaylistSelection },
     } = this.props;
 
     let currentTrackUriArr;
@@ -64,6 +64,11 @@ class DetailContainer extends Component {
     let resumePositionMs;
     let playedAlbumUri;
     let viewedAlbumUri;
+
+    let viewedPlaylistType;
+    let viewedPlaylistName;
+    let viewedPlaylistId;
+    let viewedAlbumId;
 
     // Represents the latest played item; grab the info for resuming play.
     // If no item has been played yet, we use the provided album or playlist uri array
@@ -100,9 +105,18 @@ class DetailContainer extends Component {
     // Represents the most recent album or playlist selection in DetailContainer; the play icon
     // here needs to play the "newly" displayed album if it's different than the last played one
     if (playlistObj && playlistObj.hasOwnProperty('contextUri')) {
-      const { contextUri } = playlistObj;
+      const {
+        contextUri,
+        playlistType,
+        playlistName,
+        playlistId,
+        albumId,
+      } = playlistObj;
 
       viewedAlbumUri = contextUri;
+      viewedPlaylistType = playlistType;
+      viewedPlaylistName = playlistName;
+      viewedPlaylistId = playlistId || albumId;
     }
 
     if (playedAlbumUri !== viewedAlbumUri) {
@@ -111,6 +125,7 @@ class DetailContainer extends Component {
       currentTrackOffset = null;
     }
 
+    savePlaylistSelection(viewedPlaylistType, viewedPlaylistId, viewedPlaylistName);
     playSpotifyTrack(deviceId, currentTrackUriArr, resumePositionMs, currentTrackOffset, playlistObj);
   }
 

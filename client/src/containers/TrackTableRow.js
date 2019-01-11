@@ -17,13 +17,16 @@ class TrackTableRow extends Component {
     const {
       deviceId,
       playerState,
-      playlistObj,
       trackUriArr,
       trackOffset,
-      appActions: { playSpotifyTrack }
+      playlistObj,
+      appActions: { playSpotifyTrack, savePlaylistSelection },
     } = this.props;
 
     let resumePositionMs;
+    let viewedPlaylistType;
+    let viewedPlaylistName;
+    let viewedPlaylistId;
 
     // If we have a previously saved player state, extract uri & determine if we "resume" play
     if (playerState && playerState.hasOwnProperty('track_window')) {
@@ -37,6 +40,20 @@ class TrackTableRow extends Component {
       }
     }
 
+    if (playlistObj && playlistObj.hasOwnProperty('playlistType')) {
+      const {
+        playlistId,
+        albumId,
+        playlistName,
+        playlistType,
+      } = playlistObj;
+
+      viewedPlaylistId = playlistId || albumId;
+      viewedPlaylistName = playlistName;
+      viewedPlaylistType = playlistType;
+    }
+
+    savePlaylistSelection(viewedPlaylistType, viewedPlaylistId, viewedPlaylistName);
     playSpotifyTrack(deviceId, trackUriArr, resumePositionMs, trackOffset, playlistObj);
   }
 

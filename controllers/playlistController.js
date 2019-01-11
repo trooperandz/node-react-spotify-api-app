@@ -18,6 +18,7 @@ function formatPlaylistObj(body) {
 
   const {
     images,
+    id: playlistId,
     description: playlistDescription,
     followers: { total: playlistFollowers },
     name: playlistName,
@@ -25,6 +26,8 @@ function formatPlaylistObj(body) {
     uri: contextUri,
   } = parsedResponse;
 
+  // Used for recording play click history
+  const playlistType = 'playlist';
   let trackUriArr = [];
 
   // Put array objects in usable form
@@ -43,6 +46,9 @@ function formatPlaylistObj(body) {
     const formattedDuration = formatTrackDuration(duration);
 
     const trackObj = {
+      playlistId,
+      playlistType,
+      playlistName,
       trackId,
       trackName,
       trackNumber,
@@ -62,6 +68,8 @@ function formatPlaylistObj(body) {
   }, []);
 
   const playlistObj = {
+    playlistId,
+    playlistType,
     playlistName,
     playlistDescription,
     playlistFollowers,

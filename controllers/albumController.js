@@ -26,6 +26,8 @@ function formatPlaylistObj(body) {
     uri: contextUri, // uri context for player SDK i.e. "spotify:album", "spotify:user:spotify:playlist" etc
   } = parsedResponse;
 
+  // Used for recording play click history
+  const playlistType = 'album';
   let trackUriArr = [];
 
   const trackArr = tracks.reduce((returnArr, track) => {
@@ -41,6 +43,9 @@ function formatPlaylistObj(body) {
     const formattedDuration = formatTrackDuration(duration);
 
     const trackObj = {
+      albumId,
+      playlistType,
+      playlistName,
       trackId,
       trackName,
       trackNumber,
@@ -59,6 +64,8 @@ function formatPlaylistObj(body) {
   }, []);
 
   const playlistObj = {
+    albumId,
+    playlistType,
     playlistName,
     trackArr,
     trackUriArr,
