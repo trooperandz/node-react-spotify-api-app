@@ -80,6 +80,21 @@ class CardContainer extends Component {
     );
   }
 
+  // Show album/playlist card results; if search container and no results, show feedback heading
+  renderCardContent() {
+    const { containerType, resultsArr } = this.props;
+
+    if (containerType === SEARCH_TYPE && !resultsArr.length) {
+      return <h3>Sorry, no results were found!</h3>;
+    } else {
+      return (
+        <div className="card-grid-wrapper">
+          {this.getCardsByType()}
+        </div>
+      );
+    }
+  }
+
   render() {
     const { resultsArr } = this.props;
 
@@ -89,9 +104,7 @@ class CardContainer extends Component {
           {this.renderCardHeader()}
           <div className="card-header__results">Showing {resultsArr.length} Results</div>
         </div>
-        <div className="card-grid-wrapper">
-          {this.getCardsByType()}
-        </div>
+        {this.renderCardContent()}
       </div>
     );
   }
