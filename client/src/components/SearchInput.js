@@ -13,14 +13,20 @@ class SearchInput extends Component {
     this.onSearchInputChange = this.onSearchInputChange.bind(this);
   }
 
+  componentDidMount() {
+    const { searchActions: { fetchSearchResults } } = this.props;
+
+    this.debounceSearch = _.debounce(fetchSearchResults, 1000);
+  }
+
   onSearchInputChange(e) {
-    const { searchActions: { setSearchTerm, fetchSearchResults } } = this.props;
-    const { target: { value } = {} } = e;
+    const { searchActions: { setSearchTerm } } = this.props;
+    const { target: { value } } = e;
 
     setSearchTerm(value);
 
-    // TODO: figure out how to debounce this
-    fetchSearchResults(value);
+    // Debounce the fetchSearchResults action
+    this.debounceSearch(value);
   }
 
   render() {

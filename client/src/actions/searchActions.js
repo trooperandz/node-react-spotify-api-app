@@ -65,7 +65,7 @@ function requestSearchResults() {
 function fetchSearchResults(searchTerm) {
   return (dispatch) => {
     dispatch(requestSearchResults());
-
+    if (!searchTerm) return;
     // Note: returns both albums and tracks with “searchTerm” included in their name
     axios.get(`/search?q=${searchTerm}&type=album`)
       .then((response) => {
