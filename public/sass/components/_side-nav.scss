@@ -21,10 +21,10 @@
       position: absolute;
       top: 47px;
       left: 130px;
-      height: 70px;
+      height: 58px;
       width: 98px;
       background: -moz-radial-gradient(white 15%, transparent 16%), -moz-radial-gradient(white 15%, transparent 16%), black;
-      background: -webkit-radial-gradient(gray 15%, transparent 16%), -webkit-radial-gradient(gray 15%, transparent 16%), transparent;
+      background: -webkit-radial-gradient(rgba(255,255,255,.2) 5%, transparent 16%), -webkit-radial-gradient(rgba(255,255,255,.2) 15%, transparent 16%), transparent;
       background-position: 0 0, 10px 0px;
       -webkit-background-size: 20px 20px;
       -moz-background-size: 20px 20px;
@@ -35,7 +35,6 @@
   // Sits evenly with main nav
   &__title {
     background-color: $color-half-baked;
-    // background-color: $color-persian-green;
     font-weight: bold;
     font-size: 38px;
     display: flex;
@@ -49,7 +48,7 @@
 
   // Currently active menu category
   &__header {
-    margin: 3rem 20px 0;
+    margin: 26px 20px 0;
     padding: 25px 14px .8rem;
     color: #98a6ad;
     font-size: 18px;
