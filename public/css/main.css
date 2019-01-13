@@ -100,14 +100,19 @@ html, body {
   flex-direction: column;
   background-color: #394263;
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2); }
-  .side-nav__img {
+  .side-nav__img:after {
+    content: "";
     position: absolute;
-    z-index: 5;
-    top: 46px;
-    left: 140px;
+    top: 47px;
+    left: 130px;
     height: 70px;
-    width: 75px;
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Yml0LXNtYWxsPC90aXRsZT48cGF0aCBkPSJNNCA0aDF2MUg0eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+"); }
+    width: 98px;
+    background: -moz-radial-gradient(white 15%, transparent 16%), -moz-radial-gradient(white 15%, transparent 16%), black;
+    background: -webkit-radial-gradient(gray 15%, transparent 16%), -webkit-radial-gradient(gray 15%, transparent 16%), transparent;
+    background-position: 0 0, 10px 0px;
+    -webkit-background-size: 20px 20px;
+    -moz-background-size: 20px 20px;
+    background-size: 10px 10px; }
   .side-nav__title {
     background-color: #96C0CE;
     font-weight: bold;
