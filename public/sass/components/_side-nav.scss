@@ -5,14 +5,24 @@
  */
 
 .side-nav {
-  position: relative;
-  display: flex;
-  flex: 2;
-  flex-direction: column;
-  // background-color: $color-white;
+  position: fixed;
+  max-width: $sidenav-width;
+  transform: translateX(-$sidenav-width);
+  transition: all .5s ease-in-out;
+  z-index: 3;  // must be above play control container on mobile
   background-color: $color-fiord;
-  // box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
   @include box-shadow;
+
+  // Internal side nav close icon
+  .fa-times-circle {
+    position: absolute;
+    visibility: visible;
+    right: 12px;
+    top: 8px;
+    font-size: 20px;
+    color: $color-white;
+    cursor: pointer;
+  }
 
   // Just a nice texture img for flare
   &__img {
@@ -44,6 +54,22 @@
     color: rgba(255, 255, 255, 0.8);
     letter-spacing: 3.5px;
     font-weight: 200;
+
+    // External side nav open icon, hidden on larger screens
+    .fa-bars {
+      position: fixed;
+      visibility: visible;
+      top: 32px;
+      transform: translateY(-50%);
+      right: -45px; // Should show inside of the main navbar
+      color: gray;
+      font-size: 28px;
+      cursor: pointer;
+
+      &.hidden {
+        visibility: hidden;
+      }
+    }
   }
 
   // Currently active menu category
@@ -95,6 +121,27 @@
         background-color: #e7eaf0;
         bottom: 3px;
       }
+    }
+  }
+
+  &--active {
+    transform: translateX(0);
+  }
+}
+
+@media screen and (min-width: 46.875em) {
+  .side-nav {
+    position: relative;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 1;
+
+    .fa-ellipsis-v {
+      visibility: hidden;
+    }
+
+    .fa-times-circle {
+      visibility: hidden;
     }
   }
 }
