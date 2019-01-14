@@ -101,7 +101,8 @@ html, body {
  */
 .side-nav {
   position: fixed;
-  max-width: 240px;
+  width: 240px;
+  height: 100%;
   transform: translateX(-240px);
   transition: all .5s ease-in-out;
   z-index: 3;
@@ -188,15 +189,16 @@ html, body {
         background-color: #e7eaf0;
         bottom: 3px; }
   .side-nav--active {
-    transform: translateX(0); }
+    transform: translateX(0);
+    overflow-y: auto; }
 
 @media screen and (min-width: 46.875em) {
   .side-nav {
     position: relative;
-    visibility: visible;
     transform: translateX(0);
-    z-index: 1; }
-    .side-nav .fa-ellipsis-v {
+    z-index: 1;
+    overflow: unset; }
+    .side-nav__title .fa-bars {
       visibility: hidden; }
     .side-nav .fa-times-circle {
       visibility: hidden; } }

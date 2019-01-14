@@ -13,6 +13,7 @@ class SideNav extends Component {
     };
 
     this.handleSideNavClose = this.handleSideNavClose.bind(this);
+    this.handleSideNavSelect = this.handleSideNavSelect.bind(this);
   }
 
   // Render the side nav list items
@@ -20,7 +21,6 @@ class SideNav extends Component {
   renderListItems() {
     const {
       navType,
-      handleSelect,
       selectedId,
       selectionArr,
     } = this.props;
@@ -51,7 +51,7 @@ class SideNav extends Component {
         <li
           className={`side-nav__list-item ${activeClassName}`}
           key={i}
-          onClick={() => handleSelect(clickParam, selectedObj, itemType)}>
+          onClick={() => this.handleSideNavSelect(clickParam, selectedObj, itemType)}>
           {name}
         </li>
       );
@@ -94,6 +94,18 @@ class SideNav extends Component {
     this.setState({
       isSideNavActive: !isSideNavActive,
     });
+  }
+
+  // Execute the passed in handleSelect prop, and close the side nav on item click
+  // TODO: this is a good case for a spinner, to delay the close a bit
+  handleSideNavSelect(clickParam, selectedObj, itemType) { console.log('clicked...');
+    const { handleSelect } = this.props;
+
+    this.setState({
+      isSideNavActive: false,
+    });
+
+    handleSelect(clickParam, selectedObj, itemType);
   }
 
   render() {

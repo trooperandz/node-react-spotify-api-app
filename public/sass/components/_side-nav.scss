@@ -6,7 +6,8 @@
 
 .side-nav {
   position: fixed;
-  max-width: $sidenav-width;
+  width: $sidenav-width;
+  height: 100%;
   transform: translateX(-$sidenav-width);
   transition: all .5s ease-in-out;
   z-index: 3;  // must be above play control container on mobile
@@ -98,12 +99,10 @@
     font-size: 16px;
     color: $color-white;
     letter-spacing: 1px;
-    // background-color: $color-fiord;
     transition: background-color .3s ease;
     font-weight: 300;
 
     &:hover {
-      // background-color: $color-wild-sand;
       background-color: rgba(255,255,255, .2);
     }
 
@@ -126,18 +125,21 @@
 
   &--active {
     transform: translateX(0);
+    overflow-y: auto; // needs inner scroll on mobile
   }
 }
 
 @media screen and (min-width: 46.875em) {
   .side-nav {
     position: relative;
-    visibility: visible;
     transform: translateX(0);
     z-index: 1;
+    overflow: unset;
 
-    .fa-ellipsis-v {
-      visibility: hidden;
+    &__title {
+      .fa-bars {
+        visibility: hidden;
+      }
     }
 
     .fa-times-circle {
