@@ -12,10 +12,11 @@ html, body {
 /* Entire app layout uses new CSS grid */
 .grid-main {
   display: grid;
-  grid-template-columns: 240px repeat(11, 1fr);
+  grid-template-columns: 1fr;
   grid-template-rows: 65px auto 65px;
-  grid-template-areas: "sidenav navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar" "sidenav content content content content content content content content content content content" "sidenav footer footer footer footer footer footer footer footer footer footer footer";
-  height: 100%; }
+  grid-template-areas: "navbar" "content" "footer";
+  height: 100%;
+  overflow-x: hidden; }
 
 /* Define grid containers/areas */
 .navbar {
@@ -47,6 +48,11 @@ html, body {
 /* Flex util class */
 .flex-container {
   display: flex; }
+
+@media screen and (min-width: 46.875em) {
+  .grid-main {
+    grid-template-columns: 240px 1fr;
+    grid-template-areas: "sidenav navbar" "sidenav content" "sidenav footer"; } }
 
 .navbar {
   display: flex;
@@ -94,12 +100,22 @@ html, body {
  * Present in every view.
  */
 .side-nav {
-  position: relative;
-  display: flex;
-  flex: 2;
-  flex-direction: column;
+  position: fixed;
+  width: 240px;
+  height: 100%;
+  transform: translateX(-240px);
+  transition: all .5s ease-in-out;
+  z-index: 3;
   background-color: #394263;
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2); }
+  .side-nav .fa-times-circle {
+    position: absolute;
+    visibility: visible;
+    right: 12px;
+    top: 8px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer; }
   .side-nav__img:after {
     content: "";
     position: absolute;
@@ -125,6 +141,17 @@ html, body {
     color: rgba(255, 255, 255, 0.8);
     letter-spacing: 3.5px;
     font-weight: 200; }
+    .side-nav__title .fa-bars {
+      position: fixed;
+      visibility: visible;
+      top: 32px;
+      transform: translateY(-50%);
+      right: -45px;
+      color: gray;
+      font-size: 28px;
+      cursor: pointer; }
+      .side-nav__title .fa-bars.hidden {
+        visibility: hidden; }
   .side-nav__header {
     margin: 26px 20px 0;
     padding: 25px 14px .8rem;
@@ -161,6 +188,20 @@ html, body {
         width: 50%;
         background-color: #e7eaf0;
         bottom: 3px; }
+  .side-nav--active {
+    transform: translateX(0);
+    overflow-y: auto; }
+
+@media screen and (min-width: 46.875em) {
+  .side-nav {
+    position: relative;
+    transform: translateX(0);
+    z-index: 1;
+    overflow: unset; }
+    .side-nav__title .fa-bars {
+      visibility: hidden; }
+    .side-nav .fa-times-circle {
+      visibility: hidden; } }
 
 .card-header {
   display: flex;
@@ -357,48 +398,6 @@ html, body {
     border-radius: 50%;
     background-color: orange;
     z-index: 2; }
-
-.test {
-  display: flex;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  height: 70px;
-  background: #fff;
-  align-items: center;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); }
-  .test__img {
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    background-color: gray; }
-  .test__description {
-    flex: 1;
-    display: flex;
-    padding: 0 20px;
-    transform: translateX(70px); }
-  .test__play-icon {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-    .test__play-icon--switch {
-      display: flex;
-      margin: 0 20px; }
-      .test__play-icon--switch svg {
-        width: 30px;
-        height: 30px; }
-    .test__play-icon--play {
-      display: flex;
-      margin: 0 20px; }
-      .test__play-icon--play svg {
-        width: 40px;
-        height: 40px; }
-  .test__info {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    padding: 0 20px; }
 
 .playcontrol {
   display: flex;

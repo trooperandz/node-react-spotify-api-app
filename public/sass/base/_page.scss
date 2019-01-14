@@ -14,13 +14,14 @@ html, body {
 /* Entire app layout uses new CSS grid */
 .grid-main {
   display: grid;
-  grid-template-columns: 240px repeat(11, 1fr);
+  grid-template-columns: 1fr;
   grid-template-rows: 65px auto 65px;
   grid-template-areas:
-    "sidenav navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar navbar"
-    "sidenav content content content content content content content content content content content"
-    "sidenav footer footer footer footer footer footer footer footer footer footer footer";
+    "navbar"
+    "content"
+    "footer";
   height: 100%;
+  overflow-x: hidden; // for mobile-responsive side nav
 }
 
 /* Define grid containers/areas */
@@ -59,4 +60,14 @@ html, body {
 /* Flex util class */
 .flex-container {
   display: flex;
+}
+
+@media screen and (min-width: 46.875em) {
+  .grid-main {
+    grid-template-columns: $sidenav-width 1fr;
+    grid-template-areas:
+      "sidenav navbar"
+      "sidenav content"
+      "sidenav footer";
+  }
 }
