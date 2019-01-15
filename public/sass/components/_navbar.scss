@@ -7,15 +7,16 @@
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   background-color: $color-white;
   z-index: 1; // make sure the box-shadow shows over the main content background
+  font-size: 14px;
+  white-space: nowrap;
 
   &__link {
     position: relative;
     display: flex;
-    // flex-direction: column; // for link and underline pseudo element stacking
     flex: 1;
     align-items: center;
     justify-content: center;
-    padding: 1.4rem;
+    // padding: 1.4rem;
     cursor: pointer;
     color: $color-fiord;
     text-decoration: none;
@@ -23,9 +24,17 @@
     letter-spacing: 1.2px;
     font-weight: 300;
 
+    i {
+      display: none;
+    }
+
     // Link icons
     .fas {
       margin: 10px;
+    }
+
+    &:first-child {
+      margin-left: 40px;
     }
 
     &:after {
@@ -56,6 +65,22 @@
 
       &:after {
         width: 75%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 46.875em) {
+  .navbar {
+    font-size: 16px;
+
+    &__link {
+      i {
+        display: inline;
+      }
+
+      &:first-child {
+        margin: 0;
       }
     }
   }
