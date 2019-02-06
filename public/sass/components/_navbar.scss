@@ -2,7 +2,6 @@
 
 .navbar {
   display: flex;
-  // box-shadow: 0px 2px 3px -1px #ccc;
   @include box-shadow;
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   background-color: $color-white;
@@ -61,11 +60,38 @@
 
     &.active {
       color: $color-trout;
-      // background: $color-white-smoke;
 
       &:after {
         width: 75%;
       }
+    }
+  }
+
+  .avatar {
+    display: flex;
+    align-self: center;
+    background-image: url('../img/headshot.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    position: relative;
+    margin: 0 26px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+
+    &:after {
+      position: absolute;
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: none;
+      border-left: 2px solid $color-abbey;
+      border-bottom: 2px solid $color-abbey;
+      transform: rotate(-45deg) translateY(-50%);
+      top: 50%;
+      right: -18px;
     }
   }
 }

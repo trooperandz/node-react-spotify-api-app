@@ -98,6 +98,30 @@ html, body {
       color: #495259; }
       .navbar__link.active:after {
         width: 75%; }
+  .navbar .avatar {
+    display: flex;
+    align-self: center;
+    background-image: url("../img/headshot.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    margin: 0 26px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer; }
+    .navbar .avatar:after {
+      position: absolute;
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: none;
+      border-left: 2px solid #777;
+      border-bottom: 2px solid #777;
+      transform: rotate(-45deg) translateY(-50%);
+      top: 50%;
+      right: -18px; }
 
 @media screen and (min-width: 46.875em) {
   .navbar {
@@ -106,6 +130,51 @@ html, body {
       display: inline; }
     .navbar__link:first-child {
       margin: 0; } }
+
+.dropdown {
+  position: absolute;
+  top: 59px;
+  right: -16px;
+  width: 220px;
+  height: auto;
+  z-index: 1;
+  background-color: #fff;
+  border-radius: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all .3s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08); }
+  .dropdown__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; }
+  .dropdown__list-item {
+    padding: 12px 24px;
+    color: #777;
+    text-transform: capitalize; }
+    .dropdown__list-item:hover {
+      background-color: rgba(0, 0, 0, 0.1); }
+  .dropdown__icon {
+    color: #1BBAE1; }
+  .dropdown__title {
+    margin-left: 10px;
+    color: #777;
+    text-decoration: none; }
+  .dropdown:before {
+    position: absolute;
+    content: "";
+    top: -6px;
+    right: 30px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid #FFF; }
+  .dropdown--active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0); }
 
 /**
  * Main application nav menu, sits left of all content.
