@@ -45,10 +45,13 @@
     align-items: center;
     fill: $color-cornflower-blue;
 
+    position: absolute;
+    left: 45%;
+
     .icon-play, .icon-pause {
       margin: 15px;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
 
       &:hover {
         cursor: pointer;
@@ -57,8 +60,8 @@
     }
 
     .fa-step-backward, .fa-step-forward {
-      margin: 15px;
-      font-size: 20px;
+      margin: 0;
+      font-size: 16px;
       color: $color-gray;
 
       &:hover {
@@ -73,9 +76,33 @@
     flex: 1;
     justify-content: flex-end;
     margin: 0 20px;
+
+    .fa-heart {
+      color: #e74c3c;
+    }
   }
 }
 
 .text {
   display: flex;
+}
+
+/* Medium screens and up */
+@media screen and (min-width: 40em) {
+  .playcontrol {
+    &__play-icons {
+      position: relative;
+      left: 0;
+
+      .icon-play, .icon-pause {
+        width: 40px;
+        height: 40px;
+      }
+
+      .fa-step-backward, .fa-step-forward {
+        margin: 15px;
+        font-size: 20px;
+      }
+    }
+  }
 }

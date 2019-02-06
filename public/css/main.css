@@ -154,9 +154,9 @@ html, body {
     color: #777;
     text-transform: capitalize; }
     .dropdown__list-item:hover {
-      background-color: rgba(0, 0, 0, 0.1); }
+      background-color: #f5f5f5; }
   .dropdown__icon {
-    color: #1BBAE1; }
+    color: #599bf1; }
   .dropdown__title {
     margin-left: 10px;
     color: #777;
@@ -513,17 +513,19 @@ html, body {
     flex: 1;
     justify-content: center;
     align-items: center;
-    fill: #599bf1; }
+    fill: #599bf1;
+    position: absolute;
+    left: 45%; }
     .playcontrol__play-icons .icon-play, .playcontrol__play-icons .icon-pause {
       margin: 15px;
-      width: 40px;
-      height: 40px; }
+      width: 30px;
+      height: 30px; }
       .playcontrol__play-icons .icon-play:hover, .playcontrol__play-icons .icon-pause:hover {
         cursor: pointer;
         fill: #2179ec; }
     .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
-      margin: 15px;
-      font-size: 20px;
+      margin: 0;
+      font-size: 16px;
       color: gray; }
       .playcontrol__play-icons .fa-step-backward:hover, .playcontrol__play-icons .fa-step-forward:hover {
         cursor: pointer;
@@ -533,6 +535,20 @@ html, body {
     flex: 1;
     justify-content: flex-end;
     margin: 0 20px; }
+    .playcontrol__more-actions .fa-heart {
+      color: #e74c3c; }
 
 .text {
   display: flex; }
+
+/* Medium screens and up */
+@media screen and (min-width: 40em) {
+  .playcontrol__play-icons {
+    position: relative;
+    left: 0; }
+    .playcontrol__play-icons .icon-play, .playcontrol__play-icons .icon-pause {
+      width: 40px;
+      height: 40px; }
+    .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
+      margin: 15px;
+      font-size: 20px; } }

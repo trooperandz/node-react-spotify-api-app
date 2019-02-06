@@ -190,7 +190,7 @@ class PlayControlContainer extends Component {
           <TrackForwardIcon handleNextClick={() => this.handleNextClick()} />
         </div>
         <div className="playcontrol__more-actions">
-          <p className="playcontrol__more-stuff">More stuff</p>
+          <p>Crafted with <i class="fas fa-heart"></i></p>
         </div>
       </div>
     );
