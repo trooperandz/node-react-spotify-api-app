@@ -1,0 +1,61 @@
+// Main header profile avatar dropdown
+
+.dropdown {
+  position: absolute;
+  top: 59px;
+  right: -16px;
+  width: 220px;
+  height: auto;
+  z-index: 1;
+  background-color: #fff;
+  border-radius: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all .3s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__list-item {
+    padding: 12px 24px;
+    color: $color-abbey;
+    text-transform: capitalize;
+
+    &:hover {
+      background-color: rgba(0,0,0, .1);
+    }
+  }
+
+  &__icon {
+    color: $color-java;
+  }
+
+  &__title {
+    margin-left: 10px;
+    color: $color-abbey;
+    text-decoration: none;
+  }
+
+  &:before {
+    position: absolute;
+    content: "";
+    top: -6px;
+    right: 30px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid #FFF;
+  }
+
+  &--active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
