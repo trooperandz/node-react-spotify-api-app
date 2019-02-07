@@ -30,7 +30,7 @@ class ProfileAvatar extends Component {
     const dropdownActiveClass = isDropdownActive ? 'dropdown--active' : '';
 
     return (
-      <div onClick={this.onClickAvatar} class="avatar">
+      <div onClick={this.onClickAvatar} className="avatar">
         <div className={`dropdown ${dropdownActiveClass}`}>
           <ul className="dropdown__list">
             <li className="dropdown__list-item">

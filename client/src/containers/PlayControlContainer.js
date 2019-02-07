@@ -155,9 +155,9 @@ class PlayControlContainer extends Component {
         contextUri,
       } = playlistObj;
 
-      currentPlaylistName = playlistName;
+      currentPlaylistName = playlistName; // album or playlist name
       currentPlaylistImgUrl = playlistImgUrl;
-      currentPlaylistDescription = playlistDescription.split('-')[0].trim();
+      currentPlaylistDescription = playlistDescription.split('-')[0].trim(); // artist name OR playlist description
       currentTrackName = trackArr[0].name;
       trackUri = trackUriArr;
     }
@@ -176,8 +176,7 @@ class PlayControlContainer extends Component {
         </div>
         <div className="playcontrol__info">
           <h3 className="playcontrol__track-title">{currentTrackName}</h3>
-          <p className="playcontrol__track-description">{currentPlaylistName}</p>
-          <p className="playcontrol__track-description">{currentPlaylistDescription}</p>
+          <p className="playcontrol__track-description">{`${currentPlaylistDescription} - ${currentPlaylistName}`}</p>
         </div>
         <div className="playcontrol__play-icons">
           <TrackBackwardIcon  handlePreviousClick={() => this.handlePreviousClick()}/>

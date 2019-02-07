@@ -505,9 +505,19 @@ html, body {
     margin: 0 20px;
     transform: translateX(90px); }
   .playcontrol__track-title {
-    margin: 5px 0; }
+    margin: 5px 0;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px; }
   .playcontrol__track-description {
-    margin: 0; }
+    margin: 0;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px; }
   .playcontrol__play-icons {
     display: flex;
     flex: 1;
@@ -515,9 +525,9 @@ html, body {
     align-items: center;
     fill: #599bf1;
     position: absolute;
-    left: 45%; }
+    left: 47%; }
     .playcontrol__play-icons .icon-play, .playcontrol__play-icons .icon-pause {
-      margin: 15px;
+      margin: 10px;
       width: 30px;
       height: 30px; }
       .playcontrol__play-icons .icon-play:hover, .playcontrol__play-icons .icon-pause:hover {
@@ -541,14 +551,40 @@ html, body {
 .text {
   display: flex; }
 
-/* Medium screens and up */
+/* Medium and up */
 @media screen and (min-width: 40em) {
+  .playcontrol__track-title {
+    max-width: 200px;
+    font-size: 20px; }
+  .playcontrol__track-description {
+    max-width: 200px;
+    font-size: 14px; }
   .playcontrol__play-icons {
     position: relative;
-    left: 0; }
+    left: 5%; }
     .playcontrol__play-icons .icon-play, .playcontrol__play-icons .icon-pause {
+      margin: 15px;
       width: 40px;
       height: 40px; }
     .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
-      margin: 15px;
+      margin: 5px;
       font-size: 20px; } }
+
+/* Large and up */
+@media screen and (min-width: 64em) {
+  .playcontrol__track-title {
+    max-width: 400px; }
+  .playcontrol__track-description {
+    max-width: 400px;
+    font-size: 16px; }
+  .playcontrol__play-icons {
+    left: 0; }
+    .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
+      margin: 15px; } }
+
+/* X-large */
+@media screen and (min-width: 75em) {
+  .playcontrol__track-title {
+    max-width: none; }
+  .playcontrol__track-description {
+    max-width: none; } }

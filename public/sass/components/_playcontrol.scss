@@ -32,10 +32,20 @@
 
   &__track-title {
     margin: 5px 0;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
   }
 
   &__track-description {
     margin: 0;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
   }
 
   &__play-icons {
@@ -46,10 +56,10 @@
     fill: $color-cornflower-blue;
 
     position: absolute;
-    left: 45%;
+    left: 47%;
 
     .icon-play, .icon-pause {
-      margin: 15px;
+      margin: 10px;
       width: 30px;
       height: 30px;
 
@@ -87,22 +97,68 @@
   display: flex;
 }
 
-/* Medium screens and up */
+/* Medium and up */
 @media screen and (min-width: 40em) {
   .playcontrol {
+    &__track-title {
+      max-width: 200px;
+      font-size: 20px;
+    }
+
+    &__track-description {
+      max-width: 200px;
+      font-size: 14px;
+    }
+
     &__play-icons {
       position: relative;
-      left: 0;
+      left: 5%;
 
       .icon-play, .icon-pause {
+        margin: 15px;
         width: 40px;
         height: 40px;
       }
 
       .fa-step-backward, .fa-step-forward {
-        margin: 15px;
+        margin: 5px;
         font-size: 20px;
       }
+    }
+  }
+}
+
+/* Large and up */
+@media screen and (min-width: 64em) {
+  .playcontrol {
+    &__track-title {
+      max-width: 400px;
+    }
+
+    &__track-description {
+      max-width: 400px;
+      font-size: 16px;
+    }
+
+    &__play-icons {
+      left: 0;
+
+      .fa-step-backward, .fa-step-forward {
+        margin: 15px;
+      }
+    }
+  }
+}
+
+/* X-large */
+@media screen and (min-width: 75em) {
+  .playcontrol {
+    &__track-title {
+      max-width: none;
+    }
+
+    &__track-description {
+      max-width: none;
     }
   }
 }
