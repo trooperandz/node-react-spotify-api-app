@@ -6,7 +6,6 @@
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   background-color: $color-white;
   z-index: 1; // make sure the box-shadow shows over the main content background
-  font-size: 14px;
   white-space: nowrap;
 
   &__link {
@@ -15,13 +14,14 @@
     flex: 1;
     align-items: center;
     justify-content: center;
-    // padding: 1.4rem;
+    padding: 0 8px;
     cursor: pointer;
     color: $color-fiord;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1.2px;
     font-weight: 300;
+    font-size: 12px;
 
     i {
       display: none;
@@ -51,8 +51,6 @@
     }
 
     &:hover{
-      // background-color: $color-white-smoke;
-
       &:after {
         width: 75%; // TODO: for small screens, do width: 115%
       }
@@ -101,12 +99,28 @@
     font-size: 16px;
 
     &__link {
-      i {
-        display: inline;
-      }
-
       &:first-child {
         margin: 0;
+      }
+    }
+  }
+}
+
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .navbar {
+    &__link {
+      font-size: 14px;
+    }
+  }
+}
+
+/* Large and up */
+@media screen and (min-width: 64em) {
+  .navbar {
+    &__link {
+      i {
+        display: inline;
       }
     }
   }
