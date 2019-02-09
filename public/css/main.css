@@ -41,18 +41,22 @@ html, body {
 /* Holds the album cards; make them fully responsive */
 .card-grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-  grid-auto-rows: 195px;
+  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  grid-auto-rows: 125px;
   grid-gap: 20px; }
 
 /* Flex util class */
 .flex-container {
   display: flex; }
 
+/* Medium screens and up */
 @media screen and (min-width: 46.875em) {
   .grid-main {
     grid-template-columns: 240px 1fr;
-    grid-template-areas: "sidenav navbar" "sidenav content" "sidenav footer"; } }
+    grid-template-areas: "sidenav navbar" "sidenav content" "sidenav footer"; }
+  .card-grid-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+    grid-auto-rows: 195px; } }
 
 .navbar {
   display: flex;
@@ -60,7 +64,6 @@ html, body {
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   background-color: #fff;
   z-index: 1;
-  font-size: 14px;
   white-space: nowrap; }
   .navbar__link {
     position: relative;
@@ -68,12 +71,14 @@ html, body {
     flex: 1;
     align-items: center;
     justify-content: center;
+    padding: 0 8px;
     cursor: pointer;
     color: #394263;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    font-weight: 300; }
+    font-weight: 300;
+    font-size: 12px; }
     .navbar__link i {
       display: none; }
     .navbar__link .fas {
@@ -123,13 +128,21 @@ html, body {
       top: 50%;
       right: -18px; }
 
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .navbar__link {
+    font-size: 14px; } }
+
 @media screen and (min-width: 46.875em) {
   .navbar {
     font-size: 16px; }
-    .navbar__link i {
-      display: inline; }
     .navbar__link:first-child {
       margin: 0; } }
+
+/* Large and up */
+@media screen and (min-width: 64em) {
+  .navbar__link i {
+    display: inline; } }
 
 .dropdown {
   position: absolute;
@@ -154,9 +167,9 @@ html, body {
     color: #777;
     text-transform: capitalize; }
     .dropdown__list-item:hover {
-      background-color: rgba(0, 0, 0, 0.1); }
+      background-color: #f5f5f5; }
   .dropdown__icon {
-    color: #1BBAE1; }
+    color: #599bf1; }
   .dropdown__title {
     margin-left: 10px;
     color: #777;
@@ -230,7 +243,7 @@ html, body {
       transform: translateY(-50%);
       right: -40px;
       color: gray;
-      font-size: 28px;
+      font-size: 23px;
       cursor: pointer; }
       .side-nav__title .fa-bars.hidden {
         visibility: hidden; }
@@ -346,6 +359,7 @@ html, body {
     display: flex;
     margin-bottom: 20px; }
   .playlist__text-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -353,6 +367,8 @@ html, body {
     margin-left: 20px;
     background-color: #fff; }
   .playlist__img {
+    width: 180px;
+    height: 180px;
     width: 230px;
     height: 230px;
     background-repeat: no-repeat;
@@ -361,7 +377,7 @@ html, body {
   .playlist__title {
     display: flex;
     align-items: center;
-    font-size: 33px;
+    font-size: 22px;
     font-weight: 300;
     color: #FFA500; }
     .playlist__title .icon-play, .playlist__title .icon-pause {
@@ -373,7 +389,11 @@ html, body {
         cursor: pointer;
         fill: #2179ec; }
   .playlist__description {
+    margin: 10px 0;
     font-size: 18px; }
+  .playlist__followers {
+    position: absolute;
+    bottom: 20px; }
 
 .playlist-default-msg {
   display: flex;
@@ -384,6 +404,14 @@ html, body {
   padding: 20px;
   font-size: 25px;
   color: #98a6ad; }
+
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .playlist__img {
+    width: 230px;
+    height: 230px; }
+  .playlist__title {
+    font-size: 32px; } }
 
 .track-table {
   width: 100%;
@@ -505,25 +533,37 @@ html, body {
     margin: 0 20px;
     transform: translateX(90px); }
   .playcontrol__track-title {
-    margin: 5px 0; }
+    margin: 5px 0;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px; }
   .playcontrol__track-description {
-    margin: 0; }
+    margin: 0;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px; }
   .playcontrol__play-icons {
     display: flex;
     flex: 1;
     justify-content: center;
     align-items: center;
-    fill: #599bf1; }
+    fill: #599bf1;
+    position: absolute;
+    left: 47%; }
     .playcontrol__play-icons .icon-play, .playcontrol__play-icons .icon-pause {
-      margin: 15px;
-      width: 40px;
-      height: 40px; }
+      margin: 10px;
+      width: 30px;
+      height: 30px; }
       .playcontrol__play-icons .icon-play:hover, .playcontrol__play-icons .icon-pause:hover {
         cursor: pointer;
         fill: #2179ec; }
     .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
-      margin: 15px;
-      font-size: 20px;
+      margin: 0;
+      font-size: 16px;
       color: gray; }
       .playcontrol__play-icons .fa-step-backward:hover, .playcontrol__play-icons .fa-step-forward:hover {
         cursor: pointer;
@@ -533,6 +573,46 @@ html, body {
     flex: 1;
     justify-content: flex-end;
     margin: 0 20px; }
+    .playcontrol__more-actions .fa-heart {
+      color: #e74c3c; }
 
 .text {
   display: flex; }
+
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .playcontrol__track-title {
+    max-width: 200px;
+    font-size: 20px; }
+  .playcontrol__track-description {
+    max-width: 200px;
+    font-size: 14px; }
+  .playcontrol__play-icons {
+    position: relative;
+    left: 5%; }
+    .playcontrol__play-icons .icon-play, .playcontrol__play-icons .icon-pause {
+      margin: 15px;
+      width: 40px;
+      height: 40px; }
+    .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
+      margin: 5px;
+      font-size: 20px; } }
+
+/* Large and up */
+@media screen and (min-width: 64em) {
+  .playcontrol__track-title {
+    max-width: 400px; }
+  .playcontrol__track-description {
+    max-width: 400px;
+    font-size: 16px; }
+  .playcontrol__play-icons {
+    left: 0; }
+    .playcontrol__play-icons .fa-step-backward, .playcontrol__play-icons .fa-step-forward {
+      margin: 15px; } }
+
+/* X-large */
+@media screen and (min-width: 75em) {
+  .playcontrol__track-title {
+    max-width: none; }
+  .playcontrol__track-description {
+    max-width: none; } }

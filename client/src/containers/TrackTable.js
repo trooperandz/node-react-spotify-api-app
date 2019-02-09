@@ -37,7 +37,7 @@ class TrackTable extends Component {
             <th className="track-table__th">Name</th>
             <th className="track-table__th">Artist</th>
             <th className="track-table__th">Album</th>
-            <th className="track-table__th">Action</th>
+            <th className="track-table__th">Length</th>
           </tr>
         </thead>
         <tbody>

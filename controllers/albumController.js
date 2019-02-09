@@ -1,6 +1,9 @@
 /**
  * All controller functions for album routes
  */
+
+ const moment = require('moment');
+
  const { formatTrackDuration, safeParseJSON } = require('./util');
 
 /**
@@ -70,7 +73,7 @@ function formatPlaylistObj(body) {
     trackArr,
     trackUriArr,
     contextUri,
-    playlistDescription: `${artists[0].name} - Released in ${releaseDate}`,
+    playlistDescription: `${artists[0].name} - Released ${moment(releaseDate).format('LL')}`,
     playlistFollowers: `${tracks.length} songs`,
     playlistImgUrl: images[1].url,
     artistHref: artists[0].href,

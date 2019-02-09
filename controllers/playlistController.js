@@ -72,7 +72,7 @@ function formatPlaylistObj(body) {
     playlistType,
     playlistName,
     playlistDescription,
-    playlistFollowers,
+    playlistFollowers: `${playlistFollowers.toLocaleString()} followers`,
     trackArr,
     trackUriArr,
     contextUri,

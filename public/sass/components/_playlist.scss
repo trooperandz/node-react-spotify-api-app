@@ -11,6 +11,7 @@
   }
 
   &__text-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -20,6 +21,8 @@
   }
 
   &__img {
+    width: 180px;
+    height: 180px;
     width: 230px;
     height: 230px;
     background-repeat: no-repeat;
@@ -30,7 +33,7 @@
   &__title {
     display: flex;
     align-items: center;
-    font-size: 33px;
+    font-size: 22px;
     font-weight: 300;
     color: $color-orange;
 
@@ -48,7 +51,13 @@
   }
 
   &__description {
+    margin: 10px 0;
     font-size: 18px;
+  }
+
+  &__followers {
+    position: absolute;
+    bottom: 20px;
   }
 }
 
@@ -61,4 +70,18 @@
   padding: 20px;
   font-size: 25px;
   color: #98a6ad;
+}
+
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .playlist {
+    &__img {
+      width: 230px;
+      height: 230px;
+    }
+
+    &__title {
+      font-size: 32px;
+    }
+  }
 }

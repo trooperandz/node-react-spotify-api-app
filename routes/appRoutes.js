@@ -124,9 +124,8 @@ router.get('/playback-state', refreshExpiredToken, (req, res) => { console.log('
       return res.json({ success: false, error: err });
     }
 
-    // const parsedResponse = JSON.parse(body);
     const parsedResponse = (body ? JSON.parse(body) : response);
-    // console.log('response for /playback-state: ', response);
+
     return res.json({ success: true, playbackState: parsedResponse });
   });
 });
@@ -160,6 +159,7 @@ router.get('/device-list', refreshExpiredToken, (req, res) => { console.log('/pl
   });
 });
 
+// Skip to next track
 router.post('/player/next', refreshExpiredToken, (req, res) => {
   console.log('fetching next');
   const { accessToken } = req.session;
@@ -191,6 +191,7 @@ router.post('/player/next', refreshExpiredToken, (req, res) => {
   });
 });
 
+// Skip to previous track
 router.post('/player/previous', refreshExpiredToken, (req, res) => {
   console.log('fetching previous');
   const { accessToken } = req.session;

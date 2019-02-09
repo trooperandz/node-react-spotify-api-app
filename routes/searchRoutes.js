@@ -14,7 +14,7 @@ const router = express.Router();
 router.get('/', refreshExpiredToken, (req,res) => {
   const { q: query, type } = req.query;
   const { accessToken } = req.session;
-  // console.log('\n\n\n hit search endpoint; q = ', query, ' type = ', type, '\n\n\n');
+
   const options = {
     url: `${SPOTIFY_BASE_URL}/search?q=${query}&type=${type}`,
     headers: {
@@ -27,7 +27,7 @@ router.get('/', refreshExpiredToken, (req,res) => {
       console.log('error: ', err);
       return res.json({ success: false, error: err });
     }
-    // console.log('\n\n\nbody response for search fetch: ', body, '\n\n\n');
+
     const parsedResponse = JSON.parse(body);
     const { albums: { items } = {} } = parsedResponse;
     const formattedSearchResultsArr = formatAlbumCards(items);
