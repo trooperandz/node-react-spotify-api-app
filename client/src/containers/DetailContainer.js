@@ -184,8 +184,8 @@ class DetailContainer extends Component {
                   playType='play-all'
                 />
               </div>
-              <div className="playlist_description">{playlistDescription}</div>
-              <div className="playlist__followers">{playlistFollowers} followers</div>
+              <div className="playlist__description">{playlistDescription}</div>
+              <div className="playlist__followers">{playlistFollowers}</div>
             </div>
           </div>
           <TrackTable

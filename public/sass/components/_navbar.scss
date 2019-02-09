@@ -94,6 +94,15 @@
   }
 }
 
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .navbar {
+    &__link {
+      font-size: 14px;
+    }
+  }
+}
+
 @media screen and (min-width: 46.875em) {
   .navbar {
     font-size: 16px;
@@ -102,15 +111,6 @@
       &:first-child {
         margin: 0;
       }
-    }
-  }
-}
-
-/* Medium and up */
-@media screen and (min-width: 40em) {
-  .navbar {
-    &__link {
-      font-size: 14px;
     }
   }
 }
