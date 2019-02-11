@@ -117,10 +117,10 @@ class SideNav extends Component {
 
     return (
       <div className={`side-nav ${activeClassName}`}>
-        <i class="far fa-times-circle" onClick={this.handleSideNavClose}></i>
+        <i className="far fa-times-circle" onClick={this.handleSideNavClose}></i>
         <div className="side-nav__img"></div>
         <div className="side-nav__title">tuneIn
-          <i class={`fas fa-bars ${hiddenStyle}`} onClick={this.handleSideNavClose}></i>
+          <i className={`fas fa-bars ${hiddenStyle}`} onClick={this.handleSideNavClose}></i>
         </div>
         <div className="side-nav__header">{title}
           {this.renderTitleIcon()}
